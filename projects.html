@@ -1,68 +1,207 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Projects | Brandon Cartagena</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+            rel="stylesheet" />
+    </head>
 
-<head>
-  <title>Portfolio</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-  <script src="script.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
-    rel="stylesheet" />
-</head>
+    <body>
+        <div id="header-container">
+            <a href="index.html">
+                <h1 id="main-header">Brandon Cartagena</h1>
+            </a>
+            <div id="linkedin-box">
+                <a href="https://www.linkedin.com/in/brancartagena" target="_blank" rel="noreferrer">
+                    <img src="images/linkedin-logo.png" alt="LinkedIn" id="linkedin-logo" />
+                </a>
+            </div>
+        </div>
 
-<body>
+        <nav id="navbar" aria-label="Primary navigation">
+            <ul>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
 
-  <!-- This is the main header of the page -->
-  <div id="header-container">
-    <a href="index.html">
-      <h1 id="main-header">Brandon Cartagena</h1>
-    </a>
-    <div id="linkedin-box">
-      <a href="https://www.linkedin.com/in/brancartagena" target="_blank">
-        <img src="images/linkedin-logo.png" alt="LinkedIn" id="linkedin-logo">
-      </a>
-    </div>
-  </div>
+        <main class="projects-page">
+            <section class="projects-header">
+                <div>
+                    <p class="eyebrow">Project Portfolio</p>
+                    <h2>Organized project spaces for data, web, and everything else I build.</h2>
+                </div>
+                <div class="project-meta" aria-label="Suggested project categories">
+                    <span>Data Science</span>
+                    <span>Web Development</span>
+                    <span>Other Projects</span>
+                </div>
+            </section>
 
-  <!-- The navigation bar -->
-  <nav id="navbar">
-    <ul>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+            <section class="project-category" aria-labelledby="data-science-title">
+                <div class="category-heading">
+                    <p class="eyebrow">Category 01</p>
+                    <h3 id="data-science-title">Data Science</h3>
+                    <p>
+                        Projects for analytics, machine learning, dashboards, data cleaning, and
+                        insight-driven storytelling.
+                    </p>
+                </div>
 
-  <!-- Project gallery -->
-  <section class="projects">
-    <a href="project1.html" class="project-card">
-      <img src="../images/tickyaza.png" alt="TickYaza">
-      <div class="project-overlay">
-        <h3>TickYaza</h3>
-      </div>
-    </a>
+                <div class="project-grid" aria-label="Data science project placeholders">
+                    <article class="project-detail">
+                        <img src="images/gamerate.png" alt="Placeholder preview for a predictive modeling project" />
+                        <div class="project-summary">
+                            <p class="card-kicker">Data Slot 01</p>
+                            <h3>Predictive Modeling Case Study</h3>
+                            <p>
+                                Replace this with a supervised learning project. Describe the question,
+                                target variable, features, validation approach, strongest metric, and what
+                                the model helped decide.
+                            </p>
+                            <div class="card-tags">
+                                <span>Python</span>
+                                <span>Scikit-learn</span>
+                                <span>Modeling</span>
+                            </div>
+                        </div>
+                    </article>
 
-    <a href="project2.html" class="project-card">
-      <img src="../images/gamerate.png" alt="GameRate">
-      <div class="project-overlay">
-        <h3>GameRate</h3>
-      </div>
-    </a>
+                    <article class="project-detail">
+                        <img src="images/tickyaza.png" alt="Placeholder preview for an analytics dashboard project" />
+                        <div class="project-summary">
+                            <p class="card-kicker">Data Slot 02</p>
+                            <h3>Analytics Dashboard</h3>
+                            <p>
+                                Use this card for a dashboard or BI project. Include the stakeholder, KPIs,
+                                SQL logic, chart choices, and the decision someone could make from your work.
+                            </p>
+                            <div class="card-tags">
+                                <span>SQL</span>
+                                <span>Tableau / Power BI</span>
+                                <span>KPI Design</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-    <a href="project3.html" class="project-card">
-      <img src="../images/umd_creatives.png" alt="UMDCreatives">
-      <div class="project-overlay">
-        <h3>UMD Creatives</h3>
-      </div>
-    </a>
-  </section>
+            <section class="project-category" aria-labelledby="web-dev-title">
+                <div class="category-heading">
+                    <p class="eyebrow">Category 02</p>
+                    <h3 id="web-dev-title">Web Development</h3>
+                    <p>
+                        Projects for front-end builds, full-stack apps, responsive websites, UI polish,
+                        and product-focused interfaces.
+                    </p>
+                </div>
 
-  <!-- Site footer -->
-  <footer id="footer">
-    <p>&copy; 2026 Brandon Cartagena. All rights reserved.</p>
-  </footer>
-</body>
+                <div class="project-grid" aria-label="Web development project placeholders">
+                    <article class="project-detail">
+                        <img src="images/umd_creatives.png" alt="Placeholder preview for a web application project" />
+                        <div class="project-summary">
+                            <p class="card-kicker">Web Slot 01</p>
+                            <h3>Web App or Portfolio Build</h3>
+                            <p>
+                                Add a web development project here. Mention the user problem, tech stack,
+                                important features, responsive behavior, and what you improved through the build.
+                            </p>
+                            <div class="card-tags">
+                                <span>HTML / CSS</span>
+                                <span>JavaScript</span>
+                                <span>Responsive UI</span>
+                            </div>
+                        </div>
+                    </article>
 
+                    <article class="project-detail">
+                        <img src="images/umd_creatives_short.png" alt="Placeholder preview for a full-stack project" />
+                        <div class="project-summary">
+                            <p class="card-kicker">Web Slot 02</p>
+                            <h3>Full-Stack Project</h3>
+                            <p>
+                                Use this slot for a project with authentication, APIs, databases, or backend
+                                logic. Keep the summary focused on what the app does and what you built.
+                            </p>
+                            <div class="card-tags">
+                                <span>Frontend</span>
+                                <span>Backend</span>
+                                <span>Database</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="project-category" aria-labelledby="other-projects-title">
+                <div class="category-heading">
+                    <p class="eyebrow">Category 03</p>
+                    <h3 id="other-projects-title">Other Projects</h3>
+                    <p>
+                        A flexible area for creative tools, class projects, experiments, community work,
+                        design concepts, or anything else worth showing.
+                    </p>
+                </div>
+
+                <div class="project-grid" aria-label="Other project placeholders">
+                    <article class="project-detail">
+                        <img src="images/apple.png" alt="Placeholder preview for another project" />
+                        <div class="project-summary">
+                            <p class="card-kicker">Other Slot 01</p>
+                            <h3>Open Project Placeholder</h3>
+                            <p>
+                                Add any project that does not fit neatly into data science or web development.
+                                Explain the goal, your role, tools used, and the final outcome.
+                            </p>
+                            <div class="card-tags">
+                                <span>Experiment</span>
+                                <span>Creative</span>
+                                <span>Learning</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-detail">
+                        <img src="images/brandon.png" alt="Placeholder preview for a personal or academic project" />
+                        <div class="project-summary">
+                            <p class="card-kicker">Other Slot 02</p>
+                            <h3>Academic or Personal Project</h3>
+                            <p>
+                                Use this card for coursework, research, prototypes, event work, or a personal
+                                build that shows initiative beyond a standard portfolio category.
+                            </p>
+                            <div class="card-tags">
+                                <span>Research</span>
+                                <span>Prototype</span>
+                                <span>Documentation</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section-shell">
+                <div class="section-heading">
+                    <p class="eyebrow">What To Add Later</p>
+                    <h2>Recommended case study structure</h2>
+                    <p class="section-lead">
+                        For each project, add a short problem statement, tools used, your role,
+                        implementation details, results, and one strong screenshot or visual. Keep the
+                        writing outcome-focused so a recruiter understands the impact in under a minute.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer id="footer">
+            <p>&copy; 2026 Brandon Cartagena. All rights reserved.</p>
+        </footer>
+    </body>
 </html>
