@@ -4,146 +4,37 @@
         <title>Skills | Brandon Cartagena</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="refresh" content="0; url=projects.html" />
         <link rel="stylesheet" href="styles.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-            rel="stylesheet" />
     </head>
 
     <body>
-        <div id="header-container">
-            <a href="index.html">
-                <h1 id="main-header">Brandon Cartagena</h1>
+        <header class="site-header">
+            <a class="brand" href="index.html" aria-label="Brandon Cartagena home">
+                <span class="brand-mark">BC</span>
+                <span>Brandon Cartagena</span>
             </a>
-            <div id="linkedin-box">
-                <a href="https://www.linkedin.com/in/brancartagena" target="_blank" rel="noreferrer">
-                    <img src="images/linkedin-logo.png" alt="LinkedIn" id="linkedin-logo" />
-                </a>
-            </div>
-        </div>
 
-        <nav id="navbar" aria-label="Primary navigation">
-            <ul>
-                <li><a href="skills.html">Skills</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
 
-        <main class="page-shell">
-            <section class="page-hero">
-                <div class="page-hero-panel">
-                    <p class="eyebrow">Capabilities</p>
-                    <h2>Data science skills presented with recruiter clarity.</h2>
-                    <p>
-                        I focus on the full data workflow: asking better questions, preparing data,
-                        building models, visualizing results, and explaining what the work means for
-                        a real decision.
-                    </p>
-                </div>
-
-                <div class="page-hero-list">
-                    <article class="info-card">
-                        <p class="skill-label">Core Stack</p>
-                        <h3>Python, SQL, and visualization</h3>
-                        <p>Practical tools for analysis, cleaning, dashboards, and communicating findings.</p>
-                    </article>
-                    <article class="info-card">
-                        <p class="skill-label">Strength</p>
-                        <h3>Readable technical storytelling</h3>
-                        <p>Explaining the method, tradeoffs, and outcome without burying the point.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section-shell">
-                <div class="section-heading">
-                    <p class="eyebrow">Core Areas</p>
-                    <h2>What I bring to a data project</h2>
-                </div>
-
-                <div class="skills-grid">
-                    <article class="skill-card">
-                        <p class="skill-label">Analysis</p>
-                        <h3>Exploratory data work</h3>
-                        <p>
-                            Cleaning, grouping, visualizing, and investigating data to find patterns worth
-                            turning into decisions or model features.
-                        </p>
-                    </article>
-
-                    <article class="skill-card">
-                        <p class="skill-label">Modeling</p>
-                        <h3>Machine learning fundamentals</h3>
-                        <p>
-                            Building baseline models, comparing performance, validating results, and
-                            explaining what a metric says in plain language.
-                        </p>
-                    </article>
-
-                    <article class="skill-card">
-                        <p class="skill-label">Communication</p>
-                        <h3>Dashboards and summaries</h3>
-                        <p>
-                            Designing concise visuals, KPI views, and written takeaways that make analysis
-                            useful to people outside the notebook.
-                        </p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section-shell">
-                <div class="section-heading">
-                    <p class="eyebrow">Workflow</p>
-                    <h2>How I approach the work</h2>
-                </div>
-
-                <div class="timeline">
-                    <article class="timeline-item">
-                        <p class="timeline-label">01 Frame</p>
-                        <div class="timeline-copy">
-                            <h3>Start with the question</h3>
-                            <p>
-                                I define what decision the analysis should support before choosing tools,
-                                charts, or models.
-                            </p>
-                        </div>
-                    </article>
-
-                    <article class="timeline-item">
-                        <p class="timeline-label">02 Prepare</p>
-                        <div class="timeline-copy">
-                            <h3>Clean and inspect the data</h3>
-                            <p>
-                                I look for missing values, outliers, inconsistent categories, and leakage
-                                risks before trusting a result.
-                            </p>
-                        </div>
-                    </article>
-
-                    <article class="timeline-item">
-                        <p class="timeline-label">03 Explain</p>
-                        <div class="timeline-copy">
-                            <h3>Turn results into next steps</h3>
-                            <p>
-                                I summarize what changed, what the evidence suggests, and what should be
-                                tested or improved next.
-                            </p>
-                        </div>
-                    </article>
-                </div>
-
-                <p class="skills-note">
-                    Add specific tools here as your portfolio grows: NumPy, Pandas, Matplotlib, Seaborn,
-                    Scikit-learn, Jupyter, Tableau, Power BI, Excel, and cloud platforms.
+        <main>
+            <section class="page-hero compact-hero">
+                <p class="eyebrow">Skills Moved</p>
+                <h1>Skills now live inside the project story.</h1>
+                <p>
+                    The portfolio has been simplified to Home, Projects, and Contact. If you are not
+                    redirected automatically, open the project page.
                 </p>
+                <div class="hero-actions">
+                    <a class="button-primary" href="projects.html">Open Projects</a>
+                    <a class="button-secondary" href="index.html">Back Home</a>
+                </div>
             </section>
         </main>
-
-        <footer id="footer">
-            <p>&copy; 2026 Brandon Cartagena. All rights reserved.</p>
-        </footer>
     </body>
 </html>

@@ -44,6 +44,15 @@ const projects = {
     tools: "Kali Linux, VMs, documentation",
     next: "Add lab notes, screenshots, and a responsible summary of what was tested.",
   },
+  tickyaza: {
+    category: "Web / Interface",
+    title: "Tickyaza Interface Concept",
+    description:
+      "A visual interface project that can help show layout, hierarchy, responsive thinking, and presentation decisions as the portfolio grows.",
+    focus: "Interface design",
+    tools: "HTML, CSS, UI layout",
+    next: "Add the project goal, target user, live link, and a short before-and-after design note.",
+  },
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -55,7 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTools = document.querySelector("#modal-tools");
   const modalNext = document.querySelector("#modal-next");
   const closeButtons = document.querySelectorAll("[data-close-modal]");
-  const projectCards = document.querySelectorAll(".project-card");
+  const projectCards = document.querySelectorAll("[data-project]");
+  const revealCards = document.querySelectorAll(".feature-card");
 
   const openProject = (projectKey) => {
     const project = projects[projectKey];
@@ -74,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+    closeButtons[0]?.focus();
   };
 
   const closeProject = () => {
@@ -105,4 +116,21 @@ document.addEventListener("DOMContentLoaded", () => {
       closeProject();
     }
   });
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.45,
+      }
+    );
+
+    revealCards.forEach((card) => observer.observe(card));
+  } else {
+    revealCards.forEach((card) => card.classList.add("is-visible"));
+  }
 });

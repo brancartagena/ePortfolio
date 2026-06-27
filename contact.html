@@ -4,109 +4,91 @@
         <title>Contact | Brandon Cartagena</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Contact Brandon Cartagena for analytics, cybersecurity, front-end, or creative technology opportunities." />
         <link rel="stylesheet" href="styles.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-            rel="stylesheet" />
     </head>
 
     <body>
-        <div id="header-container">
-            <a href="index.html">
-                <h1 id="main-header">Brandon Cartagena</h1>
+        <header class="site-header">
+            <a class="brand" href="index.html" aria-label="Brandon Cartagena home">
+                <span class="brand-mark">BC</span>
+                <span>Brandon Cartagena</span>
             </a>
-            <div id="linkedin-box">
-                <a href="https://www.linkedin.com/in/brancartagena" target="_blank" rel="noreferrer">
-                    <img src="images/linkedin-logo.png" alt="LinkedIn" id="linkedin-logo" />
-                </a>
-            </div>
-        </div>
 
-        <nav id="navbar" aria-label="Primary navigation">
-            <ul>
-                <li><a href="skills.html">Skills</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html" aria-current="page">Contact</a>
+            </nav>
+        </header>
 
-        <main class="page-shell">
-            <section class="contact-intro">
-                <p class="eyebrow">Contact</p>
-                <h2>Open to data science internships, analytics work, and project conversations.</h2>
-                <p>
-                    I am interested in opportunities where I can combine technical analysis, clear
-                    communication, and thoughtful product thinking. LinkedIn is the best place to reach
-                    me while this portfolio continues to grow.
-                </p>
-                <div class="contact-actions">
-                    <a class="button-primary" href="https://www.linkedin.com/in/brancartagena" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
-                    <a class="button-secondary" href="projects.html">Review Projects</a>
+        <main>
+            <section class="contact-hero">
+                <div>
+                    <p class="eyebrow">Contact</p>
+                    <h1>Open to conversations across data, security, front-end, and creative technology.</h1>
+                    <p>
+                        LinkedIn is the best place to reach me while the portfolio grows. I am looking
+                        for opportunities where curiosity, technical learning, and clear communication
+                        are useful.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button-primary" href="https://www.linkedin.com/in/brancartagena" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+                        <a class="button-secondary" href="projects.html">Review Projects</a>
+                    </div>
                 </div>
-                <p class="availability">Currently building out additional project case studies and data science examples.</p>
+
+                <aside class="contact-snapshot">
+                    <p class="eyebrow">Best Fit</p>
+                    <ul>
+                        <li>Analytics projects that need clean explanations.</li>
+                        <li>Cybersecurity labs or entry-level security learning.</li>
+                        <li>Front-end builds with responsive, polished UI.</li>
+                        <li>Creative technical projects that need structure.</li>
+                    </ul>
+                </aside>
             </section>
 
             <section class="contact-grid">
                 <article class="contact-card">
-                    <p class="contact-label">Primary</p>
-                    <h3>LinkedIn</h3>
-                    <p>Connect professionally, view updates, and reach out about internships or project work.</p>
-                    <a
-                        class="contact-link"
-                        href="https://www.linkedin.com/in/brancartagena"
-                        target="_blank"
-                        rel="noreferrer">linkedin.com/in/brancartagena</a>
+                    <p class="project-label">Primary</p>
+                    <h2>LinkedIn</h2>
+                    <p>Connect professionally, view updates, and reach out about internships, projects, or collaboration.</p>
+                    <a class="text-link" href="https://www.linkedin.com/in/brancartagena" target="_blank" rel="noreferrer">linkedin.com/in/brancartagena</a>
                 </article>
 
                 <article class="contact-card">
-                    <p class="contact-label">Portfolio Direction</p>
-                    <h3>Data science focus</h3>
-                    <p>Best-fit conversations include analytics, machine learning, dashboards, and data-driven product work.</p>
-                    <a class="contact-link" href="projects.html">See the project placeholders</a>
+                    <p class="project-label">Portfolio</p>
+                    <h2>Project Review</h2>
+                    <p>Start with the project page to see how the work is grouped across your possible career directions.</p>
+                    <a class="text-link" href="projects.html">Open projects</a>
+                </article>
+
+                <article class="contact-card">
+                    <p class="project-label">Availability</p>
+                    <h2>Currently Building</h2>
+                    <p>Additional case studies, analytics examples, security notes, and front-end improvements.</p>
+                    <a class="text-link" href="index.html#featured-work">View featured work</a>
                 </article>
             </section>
 
-            <section class="section-shell">
-                <div class="section-heading">
-                    <p class="eyebrow">Best Fit</p>
-                    <h2>Roles and teams I am aiming toward</h2>
+            <section class="recommendation-panel">
+                <div>
+                    <p class="eyebrow">Suggestion</p>
+                    <h2>Add a real email and resume link before publishing.</h2>
                 </div>
-
-                <div class="skills-grid">
-                    <article class="skill-card">
-                        <p class="skill-label">Analytics</p>
-                        <h3>Business questions with data</h3>
-                        <p>
-                            Teams that need someone who can explore data, summarize findings, and support
-                            practical decisions.
-                        </p>
-                    </article>
-
-                    <article class="skill-card">
-                        <p class="skill-label">Machine Learning</p>
-                        <h3>Modeling with explanation</h3>
-                        <p>
-                            Projects where model performance matters, but interpretability and communication
-                            matter too.
-                        </p>
-                    </article>
-
-                    <article class="skill-card">
-                        <p class="skill-label">Product Data</p>
-                        <h3>Insights tied to users</h3>
-                        <p>
-                            Work that connects analysis to product behavior, user experience, and measurable
-                            improvement.
-                        </p>
-                    </article>
-                </div>
+                <p>
+                    LinkedIn is enough for now, but a polished portfolio should eventually include a
+                    professional email, resume PDF, GitHub link, and direct links to live projects or
+                    repositories.
+                </p>
             </section>
         </main>
 
-        <footer id="footer">
-            <p>&copy; 2026 Brandon Cartagena. All rights reserved.</p>
+        <footer class="site-footer">
+            <p>&copy; 2026 Brandon Cartagena. Open to useful technical conversations.</p>
         </footer>
     </body>
 </html>

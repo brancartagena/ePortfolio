@@ -4,204 +4,239 @@
         <title>Projects | Brandon Cartagena</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Projects by Brandon Cartagena across data analytics, cybersecurity, front-end development, and creative technology." />
         <link rel="stylesheet" href="styles.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-            rel="stylesheet" />
     </head>
 
     <body>
-        <div id="header-container">
-            <a href="index.html">
-                <h1 id="main-header">Brandon Cartagena</h1>
+        <header class="site-header">
+            <a class="brand" href="index.html" aria-label="Brandon Cartagena home">
+                <span class="brand-mark">BC</span>
+                <span>Brandon Cartagena</span>
             </a>
-            <div id="linkedin-box">
-                <a href="https://www.linkedin.com/in/brancartagena" target="_blank" rel="noreferrer">
-                    <img src="images/linkedin-logo.png" alt="LinkedIn" id="linkedin-logo" />
-                </a>
-            </div>
-        </div>
 
-        <nav id="navbar" aria-label="Primary navigation">
-            <ul>
-                <li><a href="skills.html">Skills</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="projects.html" aria-current="page">Projects</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
 
-        <main class="projects-page">
-            <section class="projects-header">
-                <div>
-                    <p class="eyebrow">Project Portfolio</p>
-                    <h2>Organized project spaces for data, web, and everything else I build.</h2>
-                </div>
-                <div class="project-meta" aria-label="Suggested project categories">
-                    <span>Data Science</span>
-                    <span>Web Development</span>
-                    <span>Other Projects</span>
-                </div>
+        <main>
+            <section class="page-hero compact-hero">
+                <p class="eyebrow">Project Portfolio</p>
+                <h1>Work grouped by the roles you are exploring.</h1>
+                <p>
+                    This page keeps your existing project ideas and visuals, then frames them in a way
+                    recruiters can scan quickly: what it is, what it shows, and why it matters.
+                </p>
             </section>
 
-            <section class="project-category" aria-labelledby="data-science-title">
+            <section class="project-category">
                 <div class="category-heading">
-                    <p class="eyebrow">Category 01</p>
-                    <h3 id="data-science-title">Data Science</h3>
-                    <p>
-                        Projects for analytics, machine learning, dashboards, data cleaning, and
-                        insight-driven storytelling.
-                    </p>
+                    <p class="eyebrow">Data + Analytics</p>
+                    <h2>Evidence, dashboards, and technical storytelling.</h2>
                 </div>
 
-                <div class="project-grid" aria-label="Data science project placeholders">
-                    <article class="project-detail">
-                        <img src="images/gamerate.png" alt="Placeholder preview for a predictive modeling project" />
+                <div class="project-grid">
+                    <article class="project-detail" data-project="fitbit" tabindex="0">
+                        <div class="project-visual data-visual" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                         <div class="project-summary">
-                            <p class="card-kicker">Data Slot 01</p>
-                            <h3>Predictive Modeling Case Study</h3>
+                            <p class="project-label">Python / Analytics</p>
+                            <h3>Fitbit/Fitness Tracker Python App</h3>
                             <p>
-                                Replace this with a supervised learning project. Describe the question,
-                                target variable, features, validation approach, strongest metric, and what
-                                the model helped decide.
+                                A Python workflow for turning personal fitness tracker data into patterns,
+                                summaries, and practical goals. This is a strong place to show cleaning,
+                                grouping, visualization, and interpretation.
                             </p>
                             <div class="card-tags">
                                 <span>Python</span>
-                                <span>Scikit-learn</span>
-                                <span>Modeling</span>
+                                <span>Data Cleaning</span>
+                                <span>Visualization</span>
                             </div>
                         </div>
                     </article>
 
-                    <article class="project-detail">
-                        <img src="images/tickyaza.png" alt="Placeholder preview for an analytics dashboard project" />
+                    <article class="project-detail" data-project="faker" tabindex="0">
+                        <div class="project-visual line-visual" aria-hidden="true">
+                            <svg viewBox="0 0 440 220">
+                                <path d="M22 166 C72 118, 106 174, 158 94 S246 50, 292 86 S348 156, 416 36" />
+                                <circle cx="416" cy="36" r="10" />
+                            </svg>
+                        </div>
                         <div class="project-summary">
-                            <p class="card-kicker">Data Slot 02</p>
-                            <h3>Analytics Dashboard</h3>
+                            <p class="project-label">Tableau / Data Story</p>
+                            <h3>Tableau League of Legends Faker Story</h3>
                             <p>
-                                Use this card for a dashboard or BI project. Include the stakeholder, KPIs,
-                                SQL logic, chart choices, and the decision someone could make from your work.
+                                A Tableau narrative exploring Faker's impact through esports data. It shows
+                                a valuable analytics skill: turning numbers into context, comparison, and a
+                                story people can follow.
                             </p>
                             <div class="card-tags">
-                                <span>SQL</span>
-                                <span>Tableau / Power BI</span>
-                                <span>KPI Design</span>
+                                <span>Tableau</span>
+                                <span>Storytelling</span>
+                                <span>Esports Data</span>
                             </div>
                         </div>
                     </article>
                 </div>
             </section>
 
-            <section class="project-category" aria-labelledby="web-dev-title">
+            <section class="project-category">
                 <div class="category-heading">
-                    <p class="eyebrow">Category 02</p>
-                    <h3 id="web-dev-title">Web Development</h3>
-                    <p>
-                        Projects for front-end builds, full-stack apps, responsive websites, UI polish,
-                        and product-focused interfaces.
-                    </p>
+                    <p class="eyebrow">Front-end + Product</p>
+                    <h2>Interfaces with structure, flow, and a little personality.</h2>
                 </div>
 
-                <div class="project-grid" aria-label="Web development project placeholders">
-                    <article class="project-detail">
-                        <img src="images/umd_creatives.png" alt="Placeholder preview for a web application project" />
+                <div class="project-grid">
+                    <article class="project-detail is-wide" data-project="entertainment" tabindex="0">
+                        <img src="images/gamerate.png" alt="Entertainment Discovery Platform preview" />
                         <div class="project-summary">
-                            <p class="card-kicker">Web Slot 01</p>
-                            <h3>Web App or Portfolio Build</h3>
+                            <p class="project-label">Front-end / Product</p>
+                            <h3>Entertainment Discovery Platform</h3>
                             <p>
-                                Add a web development project here. Mention the user problem, tech stack,
-                                important features, responsive behavior, and what you improved through the build.
+                                A discovery experience for browsing, comparing, and organizing entertainment
+                                content. This project can become your strongest front-end/product case study
+                                once it includes user flow, key screens, and responsive behavior.
                             </p>
                             <div class="card-tags">
-                                <span>HTML / CSS</span>
+                                <span>HTML</span>
+                                <span>CSS</span>
                                 <span>JavaScript</span>
-                                <span>Responsive UI</span>
+                                <span>Product UI</span>
                             </div>
                         </div>
                     </article>
 
-                    <article class="project-detail">
-                        <img src="images/umd_creatives_short.png" alt="Placeholder preview for a full-stack project" />
+                    <article class="project-detail" data-project="tickyaza" tabindex="0">
+                        <img src="images/tickyaza.png" alt="Tickyaza project interface preview" />
                         <div class="project-summary">
-                            <p class="card-kicker">Web Slot 02</p>
-                            <h3>Full-Stack Project</h3>
+                            <p class="project-label">Web / Interface</p>
+                            <h3>Tickyaza Interface Concept</h3>
                             <p>
-                                Use this slot for a project with authentication, APIs, databases, or backend
-                                logic. Keep the summary focused on what the app does and what you built.
+                                A visual interface project that can help show layout, hierarchy, and
+                                presentation decisions. Add a short note about the problem, target user,
+                                and what you built.
                             </p>
                             <div class="card-tags">
-                                <span>Frontend</span>
-                                <span>Backend</span>
-                                <span>Database</span>
+                                <span>UI Layout</span>
+                                <span>Responsive Design</span>
+                                <span>Visual Polish</span>
                             </div>
                         </div>
                     </article>
                 </div>
             </section>
 
-            <section class="project-category" aria-labelledby="other-projects-title">
+            <section class="project-category">
                 <div class="category-heading">
-                    <p class="eyebrow">Category 03</p>
-                    <h3 id="other-projects-title">Other Projects</h3>
-                    <p>
-                        A flexible area for creative tools, class projects, experiments, community work,
-                        design concepts, or anything else worth showing.
-                    </p>
+                    <p class="eyebrow">Security + Creative Tech</p>
+                    <h2>Hands-on practice, documentation, and experimental builds.</h2>
                 </div>
 
-                <div class="project-grid" aria-label="Other project placeholders">
-                    <article class="project-detail">
-                        <img src="images/apple.png" alt="Placeholder preview for another project" />
-                        <div class="project-summary">
-                            <p class="card-kicker">Other Slot 01</p>
-                            <h3>Open Project Placeholder</h3>
-                            <p>
-                                Add any project that does not fit neatly into data science or web development.
-                                Explain the goal, your role, tools used, and the final outcome.
-                            </p>
-                            <div class="card-tags">
-                                <span>Experiment</span>
-                                <span>Creative</span>
-                                <span>Learning</span>
-                            </div>
+                <div class="project-grid">
+                    <article class="project-detail" data-project="cyber" tabindex="0">
+                        <div class="project-visual terminal-visual" aria-hidden="true">
+                            <code>$ start vm</code>
+                            <code>$ inspect target</code>
+                            <code>$ capture notes</code>
+                            <code>$ write findings</code>
                         </div>
-                    </article>
-
-                    <article class="project-detail">
-                        <img src="images/brandon.png" alt="Placeholder preview for a personal or academic project" />
                         <div class="project-summary">
-                            <p class="card-kicker">Other Slot 02</p>
-                            <h3>Academic or Personal Project</h3>
+                            <p class="project-label">Cybersecurity / Labs</p>
+                            <h3>Cybersecurity VM/Kali Linux Labs</h3>
                             <p>
-                                Use this card for coursework, research, prototypes, event work, or a personal
-                                build that shows initiative beyond a standard portfolio category.
+                                Hands-on virtual machine labs for practicing security tooling and documenting
+                                findings. Keep this ethical and clear: what environment was used, what you
+                                learned, and how you communicated risks.
                             </p>
                             <div class="card-tags">
-                                <span>Research</span>
-                                <span>Prototype</span>
+                                <span>Kali Linux</span>
+                                <span>Virtual Machines</span>
                                 <span>Documentation</span>
                             </div>
                         </div>
                     </article>
+
+                    <article class="project-detail" data-project="douglass" tabindex="0">
+                        <div class="project-visual board-visual" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="project-summary">
+                            <p class="project-label">Game / Creative Tech</p>
+                            <h3>Frederick Douglass Adventure Square Game</h3>
+                            <p>
+                                A square-based adventure concept connecting interaction design with
+                                historical storytelling. This can show creativity, systems thinking, and
+                                how you translate learning goals into interaction.
+                            </p>
+                            <div class="card-tags">
+                                <span>Game Logic</span>
+                                <span>Storytelling</span>
+                                <span>Interaction Design</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </section>
 
-            <section class="section-shell">
-                <div class="section-heading">
-                    <p class="eyebrow">What To Add Later</p>
-                    <h2>Recommended case study structure</h2>
-                    <p class="section-lead">
-                        For each project, add a short problem statement, tools used, your role,
-                        implementation details, results, and one strong screenshot or visual. Keep the
-                        writing outcome-focused so a recruiter understands the impact in under a minute.
-                    </p>
+            <section class="recommendation-panel">
+                <div>
+                    <p class="eyebrow">Portfolio Tip</p>
+                    <h2>Upgrade each project with one case-study paragraph.</h2>
                 </div>
+                <p>
+                    For every project, add the problem, your role, tools, process, outcome, and one
+                    honest next step. That format works whether you apply for analytics, cyber, front-end,
+                    or creative roles.
+                </p>
             </section>
         </main>
 
-        <footer id="footer">
-            <p>&copy; 2026 Brandon Cartagena. All rights reserved.</p>
+        <footer class="site-footer">
+            <p>&copy; 2026 Brandon Cartagena. Projects in progress, documented with intent.</p>
         </footer>
+
+        <div class="project-modal" id="project-modal" aria-hidden="true">
+            <div class="modal-backdrop" data-close-modal></div>
+            <article class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+                <button class="modal-close" type="button" data-close-modal aria-label="Close project details">Close</button>
+                <p class="project-label" id="modal-category"></p>
+                <h2 id="modal-title"></h2>
+                <p id="modal-description"></p>
+                <div class="modal-details">
+                    <div>
+                        <span>Focus</span>
+                        <strong id="modal-focus"></strong>
+                    </div>
+                    <div>
+                        <span>Tools</span>
+                        <strong id="modal-tools"></strong>
+                    </div>
+                    <div>
+                        <span>Next step</span>
+                        <strong id="modal-next"></strong>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <script src="script.js"></script>
     </body>
 </html>
