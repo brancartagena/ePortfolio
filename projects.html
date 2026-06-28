@@ -12,10 +12,7 @@
 
     <body>
         <header class="site-header">
-            <a class="brand" href="index.html" aria-label="Brandon Cartagena home">
-                <span class="brand-mark">BC</span>
-                <span>Brandon Cartagena</span>
-            </a>
+            <a class="brand" href="index.html" aria-label="Brandon Cartagena home">BC</a>
 
             <nav class="nav-links" aria-label="Primary navigation">
                 <a href="index.html">Home</a>
@@ -25,149 +22,97 @@
         </header>
 
         <main>
-            <section class="page-hero compact-hero">
-                <p class="eyebrow">Project Portfolio</p>
-                <h1>Work grouped by the roles you are exploring.</h1>
-                <p>
-                    This page keeps your existing project ideas and visuals, then frames them in a way
-                    recruiters can scan quickly: what it is, what it shows, and why it matters.
+            <section class="hero page-hero">
+                <p class="eyebrow">Projects</p>
+                <h1>Work that shows the direction, not just the tools.</h1>
+                <p class="hero-lede">
+                    Each project is framed by what it proves: analytical thinking, product sense,
+                    security practice, or creative technical range.
                 </p>
             </section>
 
-            <section class="project-category">
-                <div class="category-heading">
-                    <p class="eyebrow">Data + Analytics</p>
-                    <h2>Evidence, dashboards, and technical storytelling.</h2>
-                </div>
+            <section class="project-product-list">
+                <article class="project-product hero-project" data-project="entertainment" tabindex="0">
+                    <div class="project-product-copy">
+                        <p class="project-label">Front-end / Product</p>
+                        <h2>Entertainment Discovery Platform</h2>
+                        <p>
+                            A discovery experience for browsing, comparing, and organizing entertainment
+                            content. This can become the flagship front-end case study.
+                        </p>
+                        <div class="inline-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>Product UI</span>
+                        </div>
+                    </div>
+                    <img src="images/gamerate.png" alt="Entertainment Discovery Platform preview" />
+                </article>
 
-                <div class="project-grid">
-                    <article class="project-detail" data-project="fitbit" tabindex="0">
-                        <div class="project-visual data-visual" aria-hidden="true">
-                            <span></span>
+                <article class="project-product split-product" data-project="tickyaza" tabindex="0">
+                    <img src="images/tickyaza.png" alt="Tickyaza project interface preview" />
+                    <div class="project-product-copy">
+                        <p class="project-label">Web / Interface</p>
+                        <h2>Tickyaza Interface Concept</h2>
+                        <p>
+                            A visual interface project for showing hierarchy, presentation, and layout
+                            decisions with more polish.
+                        </p>
+                        <div class="inline-tags">
+                            <span>UI Layout</span>
+                            <span>Responsive Design</span>
+                            <span>Visual Polish</span>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="project-duo">
+                    <article class="project-product compact-product" data-project="fitbit" tabindex="0">
+                        <div class="metric-visual" aria-hidden="true">
                             <span></span>
                             <span></span>
                             <span></span>
                             <span></span>
                         </div>
-                        <div class="project-summary">
+                        <div class="project-product-copy">
                             <p class="project-label">Python / Analytics</p>
-                            <h3>Fitbit/Fitness Tracker Python App</h3>
-                            <p>
-                                A Python workflow for turning personal fitness tracker data into patterns,
-                                summaries, and practical goals. This is a strong place to show cleaning,
-                                grouping, visualization, and interpretation.
-                            </p>
-                            <div class="card-tags">
-                                <span>Python</span>
-                                <span>Data Cleaning</span>
-                                <span>Visualization</span>
-                            </div>
+                            <h2>Fitbit/Fitness Tracker Python App</h2>
+                            <p>Personal fitness data translated into patterns, summaries, and goals.</p>
                         </div>
                     </article>
 
-                    <article class="project-detail" data-project="faker" tabindex="0">
-                        <div class="project-visual line-visual" aria-hidden="true">
+                    <article class="project-product compact-product" data-project="faker" tabindex="0">
+                        <div class="line-visual" aria-hidden="true">
                             <svg viewBox="0 0 440 220">
                                 <path d="M22 166 C72 118, 106 174, 158 94 S246 50, 292 86 S348 156, 416 36" />
                                 <circle cx="416" cy="36" r="10" />
                             </svg>
                         </div>
-                        <div class="project-summary">
+                        <div class="project-product-copy">
                             <p class="project-label">Tableau / Data Story</p>
-                            <h3>Tableau League of Legends Faker Story</h3>
-                            <p>
-                                A Tableau narrative exploring Faker's impact through esports data. It shows
-                                a valuable analytics skill: turning numbers into context, comparison, and a
-                                story people can follow.
-                            </p>
-                            <div class="card-tags">
-                                <span>Tableau</span>
-                                <span>Storytelling</span>
-                                <span>Esports Data</span>
-                            </div>
+                            <h2>Tableau League of Legends Faker Story</h2>
+                            <p>Esports data shaped into a Tableau story with context and comparison.</p>
                         </div>
                     </article>
                 </div>
-            </section>
 
-            <section class="project-category">
-                <div class="category-heading">
-                    <p class="eyebrow">Front-end + Product</p>
-                    <h2>Interfaces with structure, flow, and a little personality.</h2>
-                </div>
-
-                <div class="project-grid">
-                    <article class="project-detail is-wide" data-project="entertainment" tabindex="0">
-                        <img src="images/gamerate.png" alt="Entertainment Discovery Platform preview" />
-                        <div class="project-summary">
-                            <p class="project-label">Front-end / Product</p>
-                            <h3>Entertainment Discovery Platform</h3>
-                            <p>
-                                A discovery experience for browsing, comparing, and organizing entertainment
-                                content. This project can become your strongest front-end/product case study
-                                once it includes user flow, key screens, and responsive behavior.
-                            </p>
-                            <div class="card-tags">
-                                <span>HTML</span>
-                                <span>CSS</span>
-                                <span>JavaScript</span>
-                                <span>Product UI</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-detail" data-project="tickyaza" tabindex="0">
-                        <img src="images/tickyaza.png" alt="Tickyaza project interface preview" />
-                        <div class="project-summary">
-                            <p class="project-label">Web / Interface</p>
-                            <h3>Tickyaza Interface Concept</h3>
-                            <p>
-                                A visual interface project that can help show layout, hierarchy, and
-                                presentation decisions. Add a short note about the problem, target user,
-                                and what you built.
-                            </p>
-                            <div class="card-tags">
-                                <span>UI Layout</span>
-                                <span>Responsive Design</span>
-                                <span>Visual Polish</span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <section class="project-category">
-                <div class="category-heading">
-                    <p class="eyebrow">Security + Creative Tech</p>
-                    <h2>Hands-on practice, documentation, and experimental builds.</h2>
-                </div>
-
-                <div class="project-grid">
-                    <article class="project-detail" data-project="cyber" tabindex="0">
-                        <div class="project-visual terminal-visual" aria-hidden="true">
+                <div class="project-duo">
+                    <article class="project-product compact-product dark-product" data-project="cyber" tabindex="0">
+                        <div class="terminal-lines" aria-hidden="true">
                             <code>$ start vm</code>
                             <code>$ inspect target</code>
-                            <code>$ capture notes</code>
                             <code>$ write findings</code>
                         </div>
-                        <div class="project-summary">
+                        <div class="project-product-copy">
                             <p class="project-label">Cybersecurity / Labs</p>
-                            <h3>Cybersecurity VM/Kali Linux Labs</h3>
-                            <p>
-                                Hands-on virtual machine labs for practicing security tooling and documenting
-                                findings. Keep this ethical and clear: what environment was used, what you
-                                learned, and how you communicated risks.
-                            </p>
-                            <div class="card-tags">
-                                <span>Kali Linux</span>
-                                <span>Virtual Machines</span>
-                                <span>Documentation</span>
-                            </div>
+                            <h2>Cybersecurity VM/Kali Linux Labs</h2>
+                            <p>Hands-on lab practice with security tooling and careful documentation.</p>
                         </div>
                     </article>
 
-                    <article class="project-detail" data-project="douglass" tabindex="0">
-                        <div class="project-visual board-visual" aria-hidden="true">
+                    <article class="project-product compact-product" data-project="douglass" tabindex="0">
+                        <div class="board-visual" aria-hidden="true">
                             <span></span>
                             <span></span>
                             <span></span>
@@ -178,39 +123,27 @@
                             <span></span>
                             <span></span>
                         </div>
-                        <div class="project-summary">
+                        <div class="project-product-copy">
                             <p class="project-label">Game / Creative Tech</p>
-                            <h3>Frederick Douglass Adventure Square Game</h3>
-                            <p>
-                                A square-based adventure concept connecting interaction design with
-                                historical storytelling. This can show creativity, systems thinking, and
-                                how you translate learning goals into interaction.
-                            </p>
-                            <div class="card-tags">
-                                <span>Game Logic</span>
-                                <span>Storytelling</span>
-                                <span>Interaction Design</span>
-                            </div>
+                            <h2>Frederick Douglass Adventure Square Game</h2>
+                            <p>Historical storytelling explored through a square-based adventure concept.</p>
                         </div>
                     </article>
                 </div>
             </section>
 
-            <section class="recommendation-panel">
-                <div>
-                    <p class="eyebrow">Portfolio Tip</p>
-                    <h2>Upgrade each project with one case-study paragraph.</h2>
-                </div>
+            <section class="closing-panel light-panel">
+                <p class="eyebrow">Project Standard</p>
+                <h2>Make every project answer one question: what did this teach or prove?</h2>
                 <p>
-                    For every project, add the problem, your role, tools, process, outcome, and one
-                    honest next step. That format works whether you apply for analytics, cyber, front-end,
-                    or creative roles.
+                    The next upgrade is adding one tight case-study paragraph to each project:
+                    problem, role, tools, process, outcome, and next step.
                 </p>
             </section>
         </main>
 
         <footer class="site-footer">
-            <p>&copy; 2026 Brandon Cartagena. Projects in progress, documented with intent.</p>
+            <p>&copy; 2026 Brandon Cartagena</p>
         </footer>
 
         <div class="project-modal" id="project-modal" aria-hidden="true">
