@@ -4,7 +4,7 @@ import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Brandon Morgan | Portfolio",
+  title: "Brandon Cartagena | Portfolio",
   description: "A premium personal portfolio experience.",
 };
 
