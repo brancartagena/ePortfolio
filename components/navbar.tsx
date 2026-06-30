@@ -23,7 +23,7 @@ const defaultItems: NavbarItem[] = [
 ];
 
 export function Navbar({
-  brand = "Brandon Morgan",
+  brand = "Brandon Cartagena",
   items = defaultItems,
   activeHref,
   className,

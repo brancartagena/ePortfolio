@@ -21,7 +21,7 @@ const defaultLinks: FooterLink[] = [
 ];
 
 export function Footer({
-  brand = "Brandon Morgan",
+  brand = "Brandon Cartagena",
   links = defaultLinks,
   className,
 }: FooterProps) {

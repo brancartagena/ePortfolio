@@ -1,6 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import type { MouseEvent } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -41,33 +51,12 @@ export function ProjectCard({
 }: ProjectCardProps) {
   if (variant === "poster") {
     return (
-      <GlassCard
-        interactive
-        className={cn("group aspect-[4/5] p-3 sm:p-4", className)}
-      >
-        <div className="relative size-full overflow-hidden rounded-md bg-secondary">
-          {image ? (
-            <Image
-              src={image}
-              alt={title}
-              fill
-              className="object-cover transition duration-700 group-hover:scale-105"
-              sizes="(min-width: 1024px) 44vw, 100vw"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_45%_20%,hsl(var(--accent)/0.34),transparent_32%),linear-gradient(145deg,hsl(34_38%_18%),hsl(24_22%_5%))]" />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 space-y-4 p-5 sm:p-7">
-            <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
-              {category ?? eyebrow ?? index ?? "Project"}
-            </p>
-            <h3 className="text-balance text-3xl font-semibold leading-none tracking-normal text-foreground sm:text-4xl lg:text-5xl">
-              {title}
-            </h3>
-          </div>
-        </div>
-      </GlassCard>
+      <PosterProjectCard
+        title={title}
+        category={category ?? eyebrow ?? index ?? "Project"}
+        image={image}
+        className={className}
+      />
     );
   }
 
@@ -136,6 +125,136 @@ export function ProjectCard({
           ) : null}
         </div>
       </div>
+    </GlassCard>
+  );
+}
+
+type PosterProjectCardProps = {
+  title: string;
+  category: string;
+  image?: string;
+  className?: string;
+};
+
+function PosterProjectCard({
+  title,
+  category,
+  image,
+  className,
+}: PosterProjectCardProps) {
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, { stiffness: 120, damping: 24, mass: 0.4 });
+  const smoothY = useSpring(pointerY, { stiffness: 120, damping: 24, mass: 0.4 });
+  const imageX = useTransform(smoothX, [-1, 1], [-10, 10]);
+  const imageY = useTransform(smoothY, [-1, 1], [-10, 10]);
+  const titleY = useTransform(smoothY, [-1, 1], [3, -3]);
+  const glowX = useTransform(smoothX, [-1, 1], [18, 82]);
+  const glowY = useTransform(smoothY, [-1, 1], [18, 82]);
+  const glow = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, hsl(var(--accent) / 0.32), transparent 42%)`;
+
+  const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+
+    pointerX.set((x - 0.5) * 2);
+    pointerY.set((y - 0.5) * 2);
+  };
+
+  const onMouseLeave = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
+  return (
+    <GlassCard
+      interactive
+      className={cn("aspect-[4/5] p-3 sm:p-4", className)}
+    >
+      <motion.div
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        className="relative size-full overflow-hidden rounded-md bg-secondary will-change-transform"
+      >
+        <motion.div
+          className="absolute -inset-3"
+          style={{ x: imageX, y: imageY }}
+          variants={{
+            rest: { scale: 1 },
+            hover: { scale: 1.06 },
+          }}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {image ? (
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 44vw, 100vw"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_45%_20%,hsl(var(--accent)/0.34),transparent_32%),linear-gradient(145deg,hsl(34_38%_18%),hsl(24_22%_5%))]" />
+          )}
+        </motion.div>
+
+        <motion.div
+          className="absolute inset-0 opacity-0"
+          style={{ background: glow }}
+          variants={{
+            rest: { opacity: 0 },
+            hover: { opacity: 1 },
+          }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <motion.div
+          className="absolute inset-0 bg-white/[0.045] opacity-0 backdrop-blur-[2px]"
+          variants={{
+            rest: { opacity: 0 },
+            hover: { opacity: 1 },
+          }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
+
+        <div className="absolute inset-x-0 bottom-0 overflow-hidden p-5 sm:p-7">
+          <motion.div style={{ y: titleY }}>
+            <motion.div
+              className="space-y-4"
+              variants={{
+                rest: { y: 0 },
+                hover: { y: -12 },
+              }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.p
+                className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver"
+                variants={{
+                  rest: { opacity: 0, y: 8 },
+                  hover: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {category}
+              </motion.p>
+              <motion.h3
+                className="text-balance text-3xl font-semibold leading-none tracking-normal text-foreground sm:text-4xl lg:text-5xl"
+                variants={{
+                  rest: { y: 0, opacity: 0.94 },
+                  hover: { y: -6, opacity: 1 },
+                }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {title}
+              </motion.h3>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.div>
     </GlassCard>
   );
 }
