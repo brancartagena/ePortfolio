@@ -23,6 +23,7 @@ type ProjectMeta = {
 };
 
 type ProjectCardProps = {
+  id?: string;
   index?: string;
   title: string;
   description?: string;
@@ -34,9 +35,11 @@ type ProjectCardProps = {
   meta?: ProjectMeta[];
   variant?: "feature" | "poster";
   className?: string;
+  onSelect?: () => void;
 };
 
 export function ProjectCard({
+  id,
   index,
   title,
   description = "",
@@ -48,14 +51,17 @@ export function ProjectCard({
   meta = [],
   variant = "feature",
   className,
+  onSelect,
 }: ProjectCardProps) {
   if (variant === "poster") {
     return (
       <PosterProjectCard
+        id={id ?? title}
         title={title}
         category={category ?? eyebrow ?? index ?? "Project"}
         image={image}
         className={className}
+        onSelect={onSelect}
       />
     );
   }
@@ -130,17 +136,21 @@ export function ProjectCard({
 }
 
 type PosterProjectCardProps = {
+  id: string;
   title: string;
   category: string;
   image?: string;
   className?: string;
+  onSelect?: () => void;
 };
 
 function PosterProjectCard({
+  id,
   title,
   category,
   image,
   className,
+  onSelect,
 }: PosterProjectCardProps) {
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -168,9 +178,16 @@ function PosterProjectCard({
   };
 
   return (
-    <GlassCard
-      interactive
-      className={cn("aspect-[4/5] p-3 sm:p-4", className)}
+    <motion.button
+      type="button"
+      layoutId={`project-card-${id}`}
+      onClick={onSelect}
+      className={cn(
+        "glass-surface group relative block aspect-[4/5] w-full overflow-hidden rounded-lg p-3 text-left outline-none transition duration-500 focus-visible:ring-1 focus-visible:ring-ring sm:p-4",
+        "hover:-translate-y-1 hover:border-white/25 hover:shadow-glow",
+        className,
+      )}
+      transition={{ layout: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } }}
     >
       <motion.div
         initial="rest"
@@ -181,6 +198,7 @@ function PosterProjectCard({
         className="relative size-full overflow-hidden rounded-md bg-secondary will-change-transform"
       >
         <motion.div
+          layoutId={`project-image-${id}`}
           className="absolute -inset-3"
           style={{ x: imageX, y: imageY }}
           variants={{
@@ -231,18 +249,20 @@ function PosterProjectCard({
               }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              <motion.p
-                className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver"
+            <motion.p
+              layoutId={`project-category-${id}`}
+              className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver"
                 variants={{
                   rest: { opacity: 0, y: 8 },
                   hover: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               >
-                {category}
-              </motion.p>
-              <motion.h3
-                className="text-balance text-3xl font-semibold leading-none tracking-normal text-foreground sm:text-4xl lg:text-5xl"
+              {category}
+            </motion.p>
+            <motion.h3
+              layoutId={`project-title-${id}`}
+              className="text-balance text-3xl font-semibold leading-none tracking-normal text-foreground sm:text-4xl lg:text-5xl"
                 variants={{
                   rest: { y: 0, opacity: 0.94 },
                   hover: { y: -6, opacity: 1 },
@@ -255,6 +275,6 @@ function PosterProjectCard({
           </motion.div>
         </div>
       </motion.div>
-    </GlassCard>
+    </motion.button>
   );
 }

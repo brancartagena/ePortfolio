@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Mail, X } from "lucide-react";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
 import { fadeUp, staggerContainer } from "@/animations/framer";
 import { Container } from "@/components/container";
@@ -13,29 +15,7 @@ import { ProjectCard } from "@/components/project-card";
 import { Section } from "@/components/section";
 import { SectionTitle } from "@/components/section-title";
 import { Button } from "@/components/ui/button";
-
-const projects = [
-  {
-    title: "Creative Systems",
-    category: "Brand Direction",
-    image: "/assets/images/umd_creatives.png",
-  },
-  {
-    title: "Product Motion",
-    category: "Interaction Design",
-    image: "/assets/images/gamerate.png",
-  },
-  {
-    title: "Commerce Flow",
-    category: "Frontend Engineering",
-    image: "/assets/images/tickyaza.png",
-  },
-  {
-    title: "Digital Identity",
-    category: "Visual Design",
-    image: "/assets/images/apple.png",
-  },
-];
+import { projects } from "@/lib/projects";
 
 const navItems = [
   { label: "Work", href: "#work" },
@@ -44,9 +24,34 @@ const navItems = [
 ];
 
 export function LandingPage() {
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[number] | null
+  >(null);
+
+  useEffect(() => {
+    if (!selectedProject) {
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedProject(null);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedProject]);
+
   return (
-    <div className="min-h-dvh overflow-hidden bg-background text-foreground">
-      <Navbar items={navItems} activeHref="#work" />
+    <LayoutGroup>
+      <div className="min-h-dvh overflow-hidden bg-background text-foreground">
+        <Navbar items={navItems} activeHref="#work" />
 
       <main>
         <section className="relative min-h-dvh overflow-hidden pt-32 sm:pt-40">
@@ -115,10 +120,12 @@ export function LandingPage() {
               {projects.map((project) => (
                 <motion.div key={project.title} variants={fadeUp}>
                   <ProjectCard
+                    id={project.id}
                     variant="poster"
                     title={project.title}
                     category={project.category}
                     image={project.image}
+                    onSelect={() => setSelectedProject(project)}
                   />
                 </motion.div>
               ))}
@@ -186,7 +193,134 @@ export function LandingPage() {
         </Section>
       </main>
 
-      <Footer />
-    </div>
+        <Footer />
+        <ProjectReveal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      </div>
+    </LayoutGroup>
+  );
+}
+
+type ProjectRevealProps = {
+  project: (typeof projects)[number] | null;
+  onClose: () => void;
+};
+
+function ProjectReveal({ project, onClose }: ProjectRevealProps) {
+  return (
+    <AnimatePresence>
+      {project ? (
+        <motion.div
+          className="fixed inset-0 z-[90]"
+          role="dialog"
+          aria-modal
+          aria-label={`${project.title} project preview`}
+        >
+          <motion.button
+            type="button"
+            aria-label="Close project preview"
+            className="absolute inset-0 cursor-default bg-background/78 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            onClick={onClose}
+          />
+
+          <motion.div
+            layoutId={`project-card-${project.id}`}
+            className="fixed inset-4 overflow-hidden rounded-lg border border-white/16 bg-background/76 shadow-glass backdrop-blur-2xl sm:inset-6 lg:inset-8"
+            transition={{
+              layout: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+            }}
+          >
+            <div className="relative grid size-full lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
+              <motion.div
+                layoutId={`project-image-${project.id}`}
+                className="relative min-h-[46dvh] overflow-hidden bg-secondary lg:min-h-full"
+                transition={{
+                  layout: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+                }}
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 52vw, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/72" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_45%,hsl(var(--accent)/0.2),transparent_34%)]" />
+              </motion.div>
+
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/65 via-transparent to-transparent lg:hidden" />
+
+              <motion.aside
+                className="relative z-10 flex items-center p-4 sm:p-6 lg:p-10"
+                initial={{ x: 64, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: 36, opacity: 0 }}
+                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="glass-surface w-full rounded-lg p-6 sm:p-8 lg:p-10">
+                  <button
+                    type="button"
+                    aria-label="Close project preview"
+                    onClick={onClose}
+                    className="mb-10 inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-foreground/80 transition hover:bg-white/[0.08] hover:text-foreground"
+                  >
+                    <X className="size-4" aria-hidden="true" />
+                  </button>
+
+                  <div className="space-y-7">
+                    <motion.p
+                      layoutId={`project-category-${project.id}`}
+                      className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver"
+                    >
+                      {project.category}
+                    </motion.p>
+                    <motion.h2
+                      layoutId={`project-title-${project.id}`}
+                      className="text-balance text-5xl font-semibold leading-none tracking-normal text-foreground sm:text-6xl"
+                    >
+                      {project.title}
+                    </motion.h2>
+                    <p className="max-w-xl text-base leading-8 text-muted-foreground">
+                      {project.description}
+                    </p>
+                    <div className="grid gap-5 border-t border-white/12 pt-7 sm:grid-cols-3">
+                      {["Year 2026", "Role Design", "Mode Preview"].map(
+                        (item) => {
+                          const [label, value] = item.split(" ");
+
+                          return (
+                            <div key={item} className="space-y-2">
+                              <p className="text-[0.68rem] font-semibold uppercase tracking-widecaps text-premium-silver">
+                                {label}
+                              </p>
+                              <p className="text-sm text-foreground/90">
+                                {value}
+                              </p>
+                            </div>
+                          );
+                        },
+                      )}
+                    </div>
+                    <Button asChild variant="glass" className="w-full justify-between">
+                      <Link href={`/projects/${project.slug}`}>
+                        <span>View Case Study</span>
+                        <ArrowUpRight className="size-4" aria-hidden="true" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </motion.aside>
+            </div>
+          </motion.div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
   );
 }
