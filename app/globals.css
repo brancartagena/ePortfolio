@@ -4,26 +4,32 @@
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 7%;
+    --background: 24 22% 4%;
+    --foreground: 42 24% 96%;
+    --card: 24 18% 7%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 7%;
+    --popover: 24 18% 7%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 7%;
-    --secondary: 0 0% 12%;
+    --primary-foreground: 24 18% 7%;
+    --secondary: 28 18% 13%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 13%;
-    --muted-foreground: 0 0% 67%;
-    --accent: 18 88% 52%;
+    --muted: 28 16% 14%;
+    --muted-foreground: 34 12% 68%;
+    --accent: 18 92% 56%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 100% / 0.16;
-    --input: 0 0% 100% / 0.18;
+    --border: 34 30% 92% / 0.14;
+    --input: 34 30% 92% / 0.18;
     --ring: 18 88% 52%;
-    --radius: 0.5rem;
+    --radius: 1.75rem;
+    --glass: 26 22% 9% / 0.58;
+    --glass-strong: 24 20% 10% / 0.76;
+    --glass-border: 34 30% 92% / 0.18;
+    --surface-glow: 20 90% 55%;
+    --shadow-glass: 0 24px 80px rgb(0 0 0 / 0.46);
+    --shadow-soft: 0 16px 48px rgb(0 0 0 / 0.34);
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", sans-serif;
   }
@@ -39,10 +45,35 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
     background: hsl(var(--accent) / 0.45);
     color: hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .glass-surface {
+    background:
+      linear-gradient(
+        135deg,
+        hsl(var(--glass-border)) 0%,
+        transparent 32%,
+        hsl(var(--surface-glow) / 0.12) 100%
+      ),
+      hsl(var(--glass));
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-glass);
+    backdrop-filter: blur(28px) saturate(150%);
+    -webkit-backdrop-filter: blur(28px) saturate(150%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
   }
 }
