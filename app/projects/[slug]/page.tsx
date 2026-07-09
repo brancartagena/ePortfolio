@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { notFound } from "next/navigation";
 
+import { ProjectDetailAnimations } from "@/components/project-detail-animations";
 import { Button } from "@/components/ui/button";
 import { getProjectBySlug, projects } from "@/lib/projects";
 
@@ -51,23 +52,36 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     ["Lessons Learned", project.lessons],
     ["Results", project.results],
   ] as const;
+  const galleryImages = [
+    project.image,
+    ...projects
+      .filter((galleryProject) => galleryProject.id !== project.id)
+      .slice(0, 3)
+      .map((galleryProject) => galleryProject.image),
+  ];
 
   return (
-    <main className="min-h-dvh bg-background text-foreground">
+    <main data-project-detail className="min-h-dvh bg-background text-foreground">
+      <ProjectDetailAnimations />
       <div className="grid min-h-dvh lg:grid-cols-2">
         <aside className="relative min-h-[70dvh] overflow-hidden lg:sticky lg:top-0 lg:h-dvh">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            priority
-            className="object-cover"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-          />
+          <div data-gsap="image" className="absolute inset-0">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/5" />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/70" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,hsl(var(--accent)/0.24),transparent_34%)]" />
-          <div className="absolute inset-x-6 bottom-6 rounded-lg border border-white/12 bg-background/20 p-5 backdrop-blur-xl sm:inset-x-10 sm:bottom-10">
+          <div
+            data-gsap="text"
+            className="absolute inset-x-6 bottom-6 rounded-lg border border-white/12 bg-background/20 p-5 backdrop-blur-xl sm:inset-x-10 sm:bottom-10"
+          >
             <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
               {project.category}
             </p>
@@ -81,19 +95,19 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,hsl(var(--accent)/0.12),transparent_30%)]" />
           <article className="glass-surface relative z-10 mx-auto w-full max-w-3xl rounded-lg p-6 sm:p-9 lg:my-10 lg:p-11">
             <div className="mb-10 flex flex-wrap gap-3">
-              <Button asChild variant="glass" size="sm">
+              <Button asChild variant="glass" size="sm" data-gsap="button">
                 <Link href="/">
                   <ArrowLeft className="size-4" aria-hidden="true" />
                   <span>Back</span>
                 </Link>
               </Button>
-              <Button asChild variant="glass" size="sm">
+              <Button asChild variant="glass" size="sm" data-gsap="button">
                 <Link href={project.liveUrl} target="_blank">
                   <span>View Live</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="sm">
+              <Button asChild variant="outline" size="sm" data-gsap="button">
                 <Link href={project.githubUrl} target="_blank">
                   <Github className="size-4" aria-hidden="true" />
                   <span>GitHub</span>
@@ -101,7 +115,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               </Button>
             </div>
 
-            <header className="space-y-6 border-b border-white/12 pb-10">
+            <header data-gsap="text" className="space-y-6 border-b border-white/12 pb-10">
               <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                 Case Study
               </p>
@@ -115,15 +129,24 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
             <div className="space-y-11 py-11">
               {sections.map(([title, body]) => (
-                <section key={title} className="grid gap-4 sm:grid-cols-[180px_1fr]">
+                <section
+                  key={title}
+                  data-gsap="section"
+                  className="grid gap-4 sm:grid-cols-[180px_1fr]"
+                >
                   <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                     {title}
                   </h3>
-                  <p className="text-base leading-8 text-foreground/82">{body}</p>
+                  <p data-gsap="text" className="text-base leading-8 text-foreground/82">
+                    {body}
+                  </p>
                 </section>
               ))}
 
-              <section className="grid gap-4 border-y border-white/12 py-9 sm:grid-cols-[180px_1fr]">
+              <section
+                data-gsap="section"
+                className="grid gap-4 border-y border-white/12 py-9 sm:grid-cols-[180px_1fr]"
+              >
                 <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                   Technologies Used
                 </h3>
@@ -138,16 +161,56 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   ))}
                 </div>
               </section>
+
+              <section data-gsap="section" className="space-y-5">
+                <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
+                  <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                    Gallery
+                  </h3>
+                  <p data-gsap="text" className="text-base leading-8 text-foreground/82">
+                    A closer look at the visual rhythm, image treatment, and
+                    cinematic tone behind the project direction.
+                  </p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {galleryImages.map((image, index) => (
+                    <div
+                      key={`${image}-${index}`}
+                      data-gsap="gallery"
+                      className="relative aspect-[4/3] overflow-hidden rounded-md border border-white/12 bg-secondary"
+                    >
+                      <Image
+                        src={image}
+                        alt={`${project.title} gallery image ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 320px, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/45 to-transparent" />
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
 
             <footer className="flex flex-col gap-3 border-t border-white/12 pt-9 sm:flex-row">
-              <Button asChild variant="glass" className="flex-1 justify-between">
+              <Button
+                asChild
+                variant="glass"
+                className="flex-1 justify-between"
+                data-gsap="button"
+              >
                 <Link href={project.liveUrl} target="_blank">
                   <span>View Live</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="flex-1 justify-between">
+              <Button
+                asChild
+                variant="outline"
+                className="flex-1 justify-between"
+                data-gsap="button"
+              >
                 <Link href={project.githubUrl} target="_blank">
                   <span>GitHub</span>
                   <Github className="size-4" aria-hidden="true" />
