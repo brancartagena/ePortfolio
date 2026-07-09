@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { ProjectDetailAnimations } from "@/components/project-detail-animations";
+import { ProjectGallery, type ProjectGalleryItem } from "@/components/project-gallery";
 import { Button } from "@/components/ui/button";
 import { getProjectBySlug, projects } from "@/lib/projects";
 
@@ -43,8 +44,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const sections = [
-    ["Overview", project.overview],
+  const detailSections = [
     ["Problem", project.problem],
     ["Solution", project.solution],
     ["My Role", project.role],
@@ -52,12 +52,34 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     ["Lessons Learned", project.lessons],
     ["Results", project.results],
   ] as const;
-  const galleryImages = [
-    project.image,
-    ...projects
-      .filter((galleryProject) => galleryProject.id !== project.id)
-      .slice(0, 3)
-      .map((galleryProject) => galleryProject.image),
+  const supportingImages = projects
+    .filter((galleryProject) => galleryProject.id !== project.id)
+    .map((galleryProject) => galleryProject.image);
+  const galleryItems: ProjectGalleryItem[] = [
+    {
+      src: project.image,
+      alt: `${project.title} large screenshot`,
+      label: "Large Screenshot",
+      size: "wide",
+    },
+    {
+      src: supportingImages[0] ?? project.image,
+      alt: `${project.title} wireframe exploration`,
+      label: "Wireframe",
+      size: "tall",
+    },
+    {
+      src: supportingImages[1] ?? project.image,
+      alt: `${project.title} interface design`,
+      label: "UI Design",
+      size: "standard",
+    },
+    {
+      src: supportingImages[2] ?? project.image,
+      alt: `${project.title} process image`,
+      label: "Process Image",
+      size: "large",
+    },
   ];
 
   return (
@@ -65,7 +87,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       <ProjectDetailAnimations />
       <div className="grid min-h-dvh lg:grid-cols-2">
         <aside className="relative min-h-[70dvh] overflow-hidden lg:sticky lg:top-0 lg:h-dvh">
-          <div data-gsap="image" className="absolute inset-0">
+          <div data-gsap="image" data-parallax-image className="absolute inset-0">
             <Image
               src={project.image}
               alt={project.title}
@@ -128,7 +150,32 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             </header>
 
             <div className="space-y-11 py-11">
-              {sections.map(([title, body]) => (
+              <section
+                data-gsap="section"
+                className="grid gap-4 sm:grid-cols-[180px_1fr]"
+              >
+                <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                  Overview
+                </h3>
+                <p data-gsap="text" className="text-base leading-8 text-foreground/82">
+                  {project.overview}
+                </p>
+              </section>
+
+              <section data-gsap="section" className="space-y-5">
+                <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
+                  <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                    Gallery
+                  </h3>
+                  <p data-gsap="text" className="text-base leading-8 text-foreground/82">
+                    Large screenshots, wireframes, UI designs, and process
+                    images from the project direction.
+                  </p>
+                </div>
+                <ProjectGallery items={galleryItems} />
+              </section>
+
+              {detailSections.map(([title, body]) => (
                 <section
                   key={title}
                   data-gsap="section"
@@ -162,35 +209,6 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 </div>
               </section>
 
-              <section data-gsap="section" className="space-y-5">
-                <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
-                  <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
-                    Gallery
-                  </h3>
-                  <p data-gsap="text" className="text-base leading-8 text-foreground/82">
-                    A closer look at the visual rhythm, image treatment, and
-                    cinematic tone behind the project direction.
-                  </p>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {galleryImages.map((image, index) => (
-                    <div
-                      key={`${image}-${index}`}
-                      data-gsap="gallery"
-                      className="relative aspect-[4/3] overflow-hidden rounded-md border border-white/12 bg-secondary"
-                    >
-                      <Image
-                        src={image}
-                        alt={`${project.title} gallery image ${index + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="(min-width: 1024px) 320px, 50vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/45 to-transparent" />
-                    </div>
-                  ))}
-                </div>
-              </section>
             </div>
 
             <footer className="flex flex-col gap-3 border-t border-white/12 pt-9 sm:flex-row">

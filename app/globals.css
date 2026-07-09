@@ -30,6 +30,8 @@
     --surface-glow: 20 90% 55%;
     --shadow-glass: 0 24px 80px rgb(0 0 0 / 0.46);
     --shadow-soft: 0 16px 48px rgb(0 0 0 / 0.34);
+    --mouse-x: 50vw;
+    --mouse-y: 50vh;
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", sans-serif;
   }
@@ -49,6 +51,8 @@
       "rlig" 1,
       "calt" 1;
     text-rendering: optimizeLegibility;
+    min-height: 100dvh;
+    overflow-x: hidden;
   }
 
   ::selection {
@@ -60,6 +64,11 @@
 @layer utilities {
   .glass-surface {
     background:
+      radial-gradient(
+        520px circle at var(--mouse-x) var(--mouse-y),
+        hsl(var(--surface-glow) / 0.08),
+        transparent 42%
+      ),
       linear-gradient(
         135deg,
         hsl(var(--glass-border)) 0%,
@@ -73,7 +82,138 @@
     -webkit-backdrop-filter: blur(28px) saturate(150%);
   }
 
+  .glass-surface::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(
+        110deg,
+        transparent 0%,
+        rgb(255 255 255 / 0.08) 28%,
+        transparent 46%
+      ),
+      radial-gradient(
+        420px circle at var(--mouse-x) var(--mouse-y),
+        rgb(255 255 255 / 0.06),
+        transparent 48%
+      );
+    opacity: 0.55;
+    mix-blend-mode: screen;
+  }
+
+  .ambient-gradient {
+    position: absolute;
+    inset: -18%;
+    background:
+      radial-gradient(
+        circle at 20% 18%,
+        hsl(var(--surface-glow) / 0.2),
+        transparent 28%
+      ),
+      radial-gradient(circle at 78% 8%, hsl(38 92% 62% / 0.12), transparent 25%),
+      radial-gradient(circle at 50% 80%, hsl(350 70% 45% / 0.08), transparent 30%);
+    filter: blur(12px);
+    opacity: 0.72;
+    animation: ambient-drift 22s ease-in-out infinite alternate;
+  }
+
+  .mouse-light {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      560px circle at var(--mouse-x) var(--mouse-y),
+      hsl(var(--surface-glow) / 0.14),
+      transparent 45%
+    );
+    opacity: 0.86;
+    transition: opacity 250ms ease;
+  }
+
+  .ambient-particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.42;
+  }
+
+  .ambient-particles span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgb(255 244 226 / 0.48);
+    box-shadow: 0 0 22px rgb(255 136 64 / 0.28);
+    animation: particle-float linear infinite;
+    will-change: transform, opacity;
+  }
+
+  .animated-button {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+  }
+
+  .animated-button::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 0%,
+      rgb(255 255 255 / 0.14) 42%,
+      transparent 62%
+    );
+    transform: translateX(-120%);
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .animated-button:hover::after {
+    transform: translateX(120%);
+  }
+
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@keyframes ambient-drift {
+  0% {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(2%, 1.5%, 0) scale(1.05);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.8);
+  }
+
+  18%,
+  76% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(18px, -96px, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

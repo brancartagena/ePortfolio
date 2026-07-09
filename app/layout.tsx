@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { AmbientEffects } from "@/components/providers/ambient-effects";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
 
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <AmbientEffects />
+          <div className="relative z-10">{children}</div>
+        </LenisProvider>
       </body>
     </html>
   );

@@ -71,6 +71,25 @@ export function ProjectDetailAnimations() {
       });
 
       gsap.utils
+        .toArray<HTMLElement>("[data-parallax-image]")
+        .forEach((item) => {
+          gsap.fromTo(
+            item,
+            { yPercent: -2 },
+            {
+              yPercent: 4,
+              ease: "none",
+              scrollTrigger: {
+                trigger: item,
+                start: "top top",
+                end: "bottom top",
+                scrub: 0.8,
+              },
+            },
+          );
+        });
+
+      gsap.utils
         .toArray<HTMLElement>("[data-gsap='button']")
         .forEach((item, index) => {
           gsap.fromTo(
