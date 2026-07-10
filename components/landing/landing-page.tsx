@@ -54,7 +54,7 @@ export function LandingPage() {
         <Navbar items={navItems} activeHref="#work" />
 
       <main>
-        <section className="relative min-h-dvh overflow-hidden pt-32 sm:pt-40">
+        <section className="relative min-h-dvh overflow-hidden pt-28 sm:pt-36 lg:pt-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,hsl(var(--surface-glow)/0.34),transparent_28%),radial-gradient(circle_at_78%_28%,hsl(38_92%_62%/0.18),transparent_24%),linear-gradient(135deg,hsl(24_22%_4%),hsl(24_18%_7%)_48%,hsl(20_35%_8%))]" />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
           <div className="absolute left-1/2 top-24 h-px w-[84vw] -translate-x-1/2 bg-white/12" />
@@ -74,25 +74,25 @@ export function LandingPage() {
               </motion.p>
               <motion.h1
                 variants={fadeUp}
-                className="text-balance text-6xl font-semibold leading-[0.88] tracking-normal text-foreground sm:text-7xl lg:text-8xl"
+                className="text-balance text-5xl font-semibold leading-[0.88] tracking-normal text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
                 Premium digital work with cinematic precision.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
-                className="max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg"
+                className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base lg:text-lg"
               >
                 A minimal portfolio for polished interfaces, visual systems,
                 and high-performance frontend experiences.
               </motion.p>
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-                <Button asChild variant="glass">
+              <motion.div variants={fadeUp} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Button asChild variant="glass" className="w-full justify-center sm:w-auto">
                   <Link href="#work">
                     <span>View Work</span>
                     <ArrowUpRight className="size-4" aria-hidden="true" />
                   </Link>
                 </Button>
-                <Button asChild variant="ghost">
+                <Button asChild variant="ghost" className="w-full justify-center sm:w-auto">
                   <Link href="#contact">Contact</Link>
                 </Button>
               </motion.div>
@@ -116,7 +116,7 @@ export function LandingPage() {
               />
             </motion.div>
 
-            <div className="grid gap-5 lg:grid-cols-2 lg:gap-7">
+            <div className="grid gap-5 md:grid-cols-2 lg:gap-7">
               {projects.map((project) => (
                 <motion.div key={project.title} variants={fadeUp}>
                   <ProjectCard
@@ -172,7 +172,7 @@ export function LandingPage() {
             viewport={{ once: true, margin: "-12% 0px" }}
           >
             <GlassCard className="p-8 sm:p-10 lg:p-12">
-              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div className="space-y-4">
                   <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                     Contact

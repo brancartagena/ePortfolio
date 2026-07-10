@@ -85,8 +85,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   return (
     <main data-project-detail className="min-h-dvh bg-background text-foreground">
       <ProjectDetailAnimations />
-      <div className="grid min-h-dvh lg:grid-cols-2">
-        <aside className="relative min-h-[70dvh] overflow-hidden lg:sticky lg:top-0 lg:h-dvh">
+      <div className="grid min-h-dvh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        <aside className="relative min-h-[62dvh] overflow-hidden sm:min-h-[68dvh] lg:sticky lg:top-0 lg:h-dvh">
           <div data-gsap="image" data-parallax-image className="absolute inset-0">
             <Image
               src={project.image}
@@ -102,7 +102,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,hsl(var(--accent)/0.24),transparent_34%)]" />
           <div
             data-gsap="text"
-            className="absolute inset-x-6 bottom-6 rounded-lg border border-white/12 bg-background/20 p-5 backdrop-blur-xl sm:inset-x-10 sm:bottom-10"
+            className="absolute inset-x-4 bottom-4 rounded-lg border border-white/12 bg-background/20 p-4 backdrop-blur-xl sm:inset-x-6 sm:bottom-6 sm:p-5 lg:inset-x-8 lg:bottom-8 lg:p-6"
           >
             <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
               {project.category}
@@ -113,10 +113,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </div>
         </aside>
 
-        <section className="relative px-5 py-8 sm:px-8 sm:py-12 lg:-ml-16 lg:flex lg:min-h-dvh lg:items-start lg:px-10 lg:py-16">
+        <section className="relative px-4 py-6 sm:px-6 sm:py-8 lg:-ml-10 lg:flex lg:min-h-dvh lg:items-start lg:px-8 lg:py-12">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,hsl(var(--accent)/0.12),transparent_30%)]" />
-          <article className="glass-surface relative z-10 mx-auto w-full max-w-3xl rounded-lg p-6 sm:p-9 lg:my-10 lg:p-11">
-            <div className="mb-10 flex flex-wrap gap-3">
+          <article className="glass-surface relative z-10 mx-auto w-full max-w-3xl rounded-lg p-5 sm:p-7 lg:my-8 lg:p-10">
+            <div className="mb-8 flex flex-wrap gap-3 sm:mb-10">
               <Button asChild variant="glass" size="sm" data-gsap="button">
                 <Link href="/">
                   <ArrowLeft className="size-4" aria-hidden="true" />
@@ -137,11 +137,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               </Button>
             </div>
 
-            <header data-gsap="text" className="space-y-6 border-b border-white/12 pb-10">
+            <header data-gsap="text" className="space-y-5 border-b border-white/12 pb-8 sm:space-y-6 sm:pb-10">
               <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                 Case Study
               </p>
-              <h2 className="text-balance text-5xl font-semibold leading-[0.95] tracking-normal sm:text-6xl lg:text-7xl">
+              <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-normal sm:text-5xl lg:text-6xl">
                 {project.title}
               </h2>
               <p className="max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
@@ -149,7 +149,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               </p>
             </header>
 
-            <div className="space-y-11 py-11">
+            <div className="space-y-8 py-8 sm:space-y-10 sm:py-10 lg:space-y-11 lg:py-11">
               <section
                 data-gsap="section"
                 className="grid gap-4 sm:grid-cols-[180px_1fr]"
@@ -179,7 +179,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 <section
                   key={title}
                   data-gsap="section"
-                  className="grid gap-4 sm:grid-cols-[180px_1fr]"
+                  className="grid gap-3 sm:grid-cols-[140px_1fr] lg:grid-cols-[180px_1fr]"
                 >
                   <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                     {title}
@@ -192,7 +192,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
               <section
                 data-gsap="section"
-                className="grid gap-4 border-y border-white/12 py-9 sm:grid-cols-[180px_1fr]"
+                className="grid gap-3 border-y border-white/12 py-8 sm:grid-cols-[140px_1fr] sm:py-9 lg:grid-cols-[180px_1fr]"
               >
                 <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                   Technologies Used
@@ -211,7 +211,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
             </div>
 
-            <footer className="flex flex-col gap-3 border-t border-white/12 pt-9 sm:flex-row">
+            <footer className="flex flex-col gap-3 border-t border-white/12 pt-8 sm:flex-row sm:pt-9">
               <Button
                 asChild
                 variant="glass"
