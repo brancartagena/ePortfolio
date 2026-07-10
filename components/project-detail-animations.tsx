@@ -8,8 +8,10 @@ import { gsap } from "@/animations/gsap";
 export function ProjectDetailAnimations() {
   useEffect(() => {
     const root = document.querySelector("[data-project-detail]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
-    if (!root) {
+    if (!root || reduceMotion || coarsePointer) {
       return;
     }
 

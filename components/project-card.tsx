@@ -3,14 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { useCallback, useMemo, type MouseEvent } from "react";
+import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -152,40 +145,6 @@ function PosterProjectCard({
   className,
   onSelect,
 }: PosterProjectCardProps) {
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const smoothX = useSpring(pointerX, { stiffness: 120, damping: 24, mass: 0.4 });
-  const smoothY = useSpring(pointerY, { stiffness: 120, damping: 24, mass: 0.4 });
-  const imageX = useTransform(smoothX, [-1, 1], [-10, 10]);
-  const imageY = useTransform(smoothY, [-1, 1], [-10, 10]);
-  const titleY = useTransform(smoothY, [-1, 1], [3, -3]);
-  const glowX = useTransform(smoothX, [-1, 1], [18, 82]);
-  const glowY = useTransform(smoothY, [-1, 1], [18, 82]);
-  const glow = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, hsl(var(--accent) / 0.32), transparent 42%)`;
-
-  const onMouseMove = useCallback((event: MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-
-    pointerX.set((x - 0.5) * 2);
-    pointerY.set((y - 0.5) * 2);
-  }, [pointerX, pointerY]);
-
-  const onMouseLeave = useCallback(() => {
-    pointerX.set(0);
-    pointerY.set(0);
-  }, [pointerX, pointerY]);
-
-  const motionProps = useMemo(
-    () => ({
-      initial: "rest" as const,
-      whileHover: "hover" as const,
-      animate: "rest" as const,
-    }),
-    [],
-  );
-
   return (
     <motion.button
       type="button"
@@ -196,23 +155,11 @@ function PosterProjectCard({
         "hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_18px_60px_rgba(0,0,0,0.3)]",
         className,
       )}
-      transition={{ layout: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }}
     >
-      <motion.div
-        {...motionProps}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-        className="relative size-full overflow-hidden rounded-md bg-secondary will-change-transform"
-      >
+      <div className="relative size-full overflow-hidden rounded-md bg-secondary will-change-transform">
         <motion.div
           layoutId={`project-image-${id}`}
-          className="absolute -inset-3"
-          style={{ x: imageX, y: imageY }}
-          variants={{
-            rest: { scale: 1 },
-            hover: { scale: 1.06 },
-          }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute -inset-3 transition duration-[900ms] ease-out group-hover:scale-[1.06]"
         >
           {image ? (
             <Image
@@ -227,61 +174,27 @@ function PosterProjectCard({
           )}
         </motion.div>
 
-        <motion.div
-          className="absolute inset-0 opacity-0"
-          style={{ background: glow }}
-          variants={{
-            rest: { opacity: 0 },
-            hover: { opacity: 1 },
-          }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-white/[0.045] opacity-0 backdrop-blur-[2px]"
-          variants={{
-            rest: { opacity: 0 },
-            hover: { opacity: 1 },
-          }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,hsl(var(--accent)/0.22),transparent_44%)] opacity-0 transition duration-500 ease-out group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-white/[0.045] opacity-0 backdrop-blur-[2px] transition duration-500 ease-out group-hover:opacity-100" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
 
         <div className="absolute inset-x-0 bottom-0 overflow-hidden p-5 sm:p-7">
-          <motion.div style={{ y: titleY }}>
-            <motion.div
-              className="space-y-4"
-              variants={{
-                rest: { y: 0 },
-                hover: { y: -12 },
-              }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
+          <div className="space-y-4 transition duration-500 ease-out group-hover:-translate-y-3">
             <motion.p
               layoutId={`project-category-${id}`}
-              className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver"
-                variants={{
-                  rest: { opacity: 0, y: 8 },
-                  hover: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              >
+              className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver opacity-0 translate-y-2 transition duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100"
+            >
               {category}
             </motion.p>
             <motion.h3
               layoutId={`project-title-${id}`}
-              className="text-balance text-3xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-4xl lg:text-5xl"
-                variants={{
-                  rest: { y: 0, opacity: 0.94 },
-                  hover: { y: -6, opacity: 1 },
-                }}
-                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {title}
-              </motion.h3>
-            </motion.div>
-          </motion.div>
+              className="text-balance text-3xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground opacity-95 transition duration-500 ease-out group-hover:translate-y-[-6px] group-hover:opacity-100 sm:text-4xl lg:text-5xl"
+            >
+              {title}
+            </motion.h3>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </motion.button>
   );
 }

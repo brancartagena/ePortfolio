@@ -61,6 +61,8 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
             key={`${item.src}-${item.label}-${index}`}
             type="button"
             data-gsap="gallery"
+            aria-haspopup="dialog"
+            aria-label={`Open ${item.label} preview`}
             onClick={() => setActiveItem(item)}
             className={cn(
               "group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-md border border-white/12 bg-secondary text-left shadow-soft outline-none",
@@ -83,7 +85,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,hsl(var(--accent)/0.2),transparent_42%)]" />
             </div>
             <div className="absolute inset-x-0 bottom-0 p-4">
-              <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
                 {item.label}
               </p>
             </div>
@@ -134,7 +136,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
                   sizes="(min-width: 1024px) 70vw, 100vw"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/78 to-transparent p-6">
-                  <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
                     {activeItem.label}
                   </p>
                 </div>

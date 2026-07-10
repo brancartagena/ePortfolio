@@ -23,7 +23,6 @@ type NavbarProps = {
 const defaultItems: NavbarItem[] = [
   { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
-  { label: "Experiments", href: "#experiments" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -36,13 +35,13 @@ export function Navbar({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 py-4 sm:py-6", className)}>
+    <header className={cn("fixed inset-x-0 top-0 z-50 py-3 sm:py-5", className)}>
       <Container>
-        <nav className="rounded-lg border border-white/10 bg-background/25 px-4 py-3 shadow-soft backdrop-blur-2xl sm:px-7 sm:py-4">
+        <nav className="rounded-full border border-white/10 bg-background/25 px-4 py-3 shadow-soft backdrop-blur-2xl sm:px-6 sm:py-3.5">
           <div className="flex items-center justify-between gap-3">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-widecaps text-foreground sm:text-xs"
+              className="group inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-foreground sm:text-xs"
               aria-label={`${brand} home`}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -59,7 +58,7 @@ export function Navbar({
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "group relative text-xs font-semibold uppercase tracking-widecaps text-foreground/55 transition hover:text-foreground",
+                      "group relative text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-foreground/55 transition duration-300 ease-out hover:text-foreground",
                       active && "text-foreground",
                     )}
                   >
@@ -108,7 +107,7 @@ export function Navbar({
                         href={item.href}
                         onClick={() => setIsMenuOpen(false)}
                         className={cn(
-                          "rounded-md px-2 py-2 text-sm font-semibold uppercase tracking-widecaps text-foreground/70 transition hover:bg-white/[0.05] hover:text-foreground",
+                          "rounded-full px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/70 transition duration-300 ease-out hover:bg-white/[0.05] hover:text-foreground",
                           active && "bg-white/[0.05] text-foreground",
                         )}
                       >

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { notFound } from "next/navigation";
 
+import { Eyebrow } from "@/components/eyebrow";
 import { ProjectDetailAnimations } from "@/components/project-detail-animations";
 import { ProjectGallery, type ProjectGalleryItem } from "@/components/project-gallery";
 import { Button } from "@/components/ui/button";
@@ -104,10 +105,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             data-gsap="text"
             className="absolute inset-x-4 bottom-4 rounded-lg border border-white/12 bg-background/20 p-4 backdrop-blur-xl sm:inset-x-6 sm:bottom-6 sm:p-5 lg:inset-x-8 lg:bottom-8 lg:p-6"
           >
-            <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
-              {project.category}
-            </p>
-            <h1 className="mt-3 text-balance text-5xl font-semibold leading-none tracking-normal sm:text-6xl">
+            <Eyebrow>{project.category}</Eyebrow>
+            <h1 className="mt-3 text-balance text-5xl font-semibold leading-[0.92] tracking-[-0.03em] sm:text-6xl">
               {project.title}
             </h1>
           </div>
@@ -138,10 +137,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             </div>
 
             <header data-gsap="text" className="space-y-5 border-b border-white/12 pb-8 sm:space-y-6 sm:pb-10">
-              <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
-                Case Study
-              </p>
-              <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-normal sm:text-5xl lg:text-6xl">
+              <Eyebrow>Case Study</Eyebrow>
+              <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
                 {project.title}
               </h2>
               <p className="max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
@@ -154,7 +151,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 data-gsap="section"
                 className="grid gap-4 sm:grid-cols-[180px_1fr]"
               >
-                <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
                   Overview
                 </h3>
                 <p data-gsap="text" className="text-base leading-8 text-foreground/82">
@@ -164,7 +161,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
               <section data-gsap="section" className="space-y-5">
                 <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
-                  <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                  <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
                     Gallery
                   </h3>
                   <p data-gsap="text" className="text-base leading-8 text-foreground/82">
@@ -181,7 +178,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   data-gsap="section"
                   className="grid gap-3 sm:grid-cols-[140px_1fr] lg:grid-cols-[180px_1fr]"
                 >
-                  <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                  <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
                     {title}
                   </h3>
                   <p data-gsap="text" className="text-base leading-8 text-foreground/82">
@@ -194,7 +191,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 data-gsap="section"
                 className="grid gap-3 border-y border-white/12 py-8 sm:grid-cols-[140px_1fr] sm:py-9 lg:grid-cols-[180px_1fr]"
               >
-                <h3 className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
                   Technologies Used
                 </h3>
                 <div className="flex flex-wrap gap-2">

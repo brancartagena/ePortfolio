@@ -14,6 +14,7 @@ import { Navbar } from "@/components/navbar";
 import { ProjectCard } from "@/components/project-card";
 import { Section } from "@/components/section";
 import { SectionTitle } from "@/components/section-title";
+import { Eyebrow } from "@/components/eyebrow";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/projects";
 
@@ -67,21 +68,18 @@ export function LandingPage() {
               animate="visible"
               className="max-w-5xl space-y-8"
             >
-              <motion.p
-                variants={fadeUp}
-                className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver"
-              >
-                Portfolio / Frontend Engineering / Visual Systems
-              </motion.p>
+              <motion.div variants={fadeUp}>
+                <Eyebrow>Portfolio / Frontend Engineering / Visual Systems</Eyebrow>
+              </motion.div>
               <motion.h1
                 variants={fadeUp}
-                className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.03em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
+                className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
                 Premium digital work with cinematic precision.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
-                className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg"
+                className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
                 A minimal portfolio for polished interfaces, visual systems,
                 and high-performance frontend experiences.
@@ -175,10 +173,10 @@ export function LandingPage() {
             <GlassCard className="p-8 sm:p-10 lg:p-12">
               <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div className="space-y-4">
-                  <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
                     Contact
                   </p>
-                  <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.02em] sm:text-5xl">
+                  <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl">
                     Let&apos;s build something with presence.
                   </h2>
                 </div>
@@ -266,7 +264,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                 exit={{ x: 36, opacity: 0 }}
                 transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="glass-surface w-full rounded-lg p-6 sm:p-8 lg:p-10">
+                <div className="glass-surface w-full rounded-[1.35rem] p-6 sm:p-8 lg:p-10">
                   <button
                     type="button"
                     aria-label="Close project preview"
@@ -299,7 +297,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
 
                           return (
                             <div key={item} className="space-y-2">
-                              <p className="text-[0.68rem] font-semibold uppercase tracking-widecaps text-premium-silver">
+                              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
                                 {label}
                               </p>
                               <p className="text-sm text-foreground/90">
