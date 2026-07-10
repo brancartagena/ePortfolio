@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 const particles = Array.from({ length: 18 }, (_, index) => ({
   id: index,
@@ -11,6 +11,8 @@ const particles = Array.from({ length: 18 }, (_, index) => ({
 }));
 
 export function AmbientEffects() {
+  const particlesMemo = useMemo(() => particles, []);
+
   useEffect(() => {
     const root = document.documentElement;
     let frame = 0;
@@ -52,7 +54,7 @@ export function AmbientEffects() {
       <div className="ambient-gradient" />
       <div className="mouse-light" />
       <div className="ambient-particles">
-        {particles.map((particle) => (
+        {particlesMemo.map((particle) => (
           <span
             key={particle.id}
             style={{

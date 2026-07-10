@@ -10,7 +10,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import type { MouseEvent } from "react";
+import { useCallback, useMemo, type MouseEvent } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -163,19 +163,28 @@ function PosterProjectCard({
   const glowY = useTransform(smoothY, [-1, 1], [18, 82]);
   const glow = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, hsl(var(--accent) / 0.32), transparent 42%)`;
 
-  const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+  const onMouseMove = useCallback((event: MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
 
     pointerX.set((x - 0.5) * 2);
     pointerY.set((y - 0.5) * 2);
-  };
+  }, [pointerX, pointerY]);
 
-  const onMouseLeave = () => {
+  const onMouseLeave = useCallback(() => {
     pointerX.set(0);
     pointerY.set(0);
-  };
+  }, [pointerX, pointerY]);
+
+  const motionProps = useMemo(
+    () => ({
+      initial: "rest" as const,
+      whileHover: "hover" as const,
+      animate: "rest" as const,
+    }),
+    [],
+  );
 
   return (
     <motion.button
@@ -183,16 +192,14 @@ function PosterProjectCard({
       layoutId={`project-card-${id}`}
       onClick={onSelect}
       className={cn(
-        "glass-surface group relative block aspect-[5/4] w-full overflow-hidden rounded-lg p-3 text-left outline-none transition duration-500 focus-visible:ring-1 focus-visible:ring-ring sm:aspect-[4/5] sm:p-4",
-        "hover:-translate-y-1 hover:border-white/25 hover:shadow-glow",
+        "glass-surface group relative block aspect-[5/4] w-full overflow-hidden rounded-[1.35rem] p-3 text-left outline-none transition duration-500 ease-out focus-visible:ring-1 focus-visible:ring-ring sm:aspect-[4/5] sm:p-4",
+        "hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_18px_60px_rgba(0,0,0,0.3)]",
         className,
       )}
-      transition={{ layout: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } }}
+      transition={{ layout: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }}
     >
       <motion.div
-        initial="rest"
-        whileHover="hover"
-        animate="rest"
+        {...motionProps}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
         className="relative size-full overflow-hidden rounded-md bg-secondary will-change-transform"
@@ -227,7 +234,7 @@ function PosterProjectCard({
             rest: { opacity: 0 },
             hover: { opacity: 1 },
           }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         />
         <motion.div
           className="absolute inset-0 bg-white/[0.045] opacity-0 backdrop-blur-[2px]"
@@ -235,7 +242,7 @@ function PosterProjectCard({
             rest: { opacity: 0 },
             hover: { opacity: 1 },
           }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
 
@@ -247,7 +254,7 @@ function PosterProjectCard({
                 rest: { y: 0 },
                 hover: { y: -12 },
               }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
             <motion.p
               layoutId={`project-category-${id}`}
@@ -262,7 +269,7 @@ function PosterProjectCard({
             </motion.p>
             <motion.h3
               layoutId={`project-title-${id}`}
-              className="text-balance text-3xl font-semibold leading-none tracking-normal text-foreground sm:text-4xl lg:text-5xl"
+              className="text-balance text-3xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-4xl lg:text-5xl"
                 variants={{
                   rest: { y: 0, opacity: 0.94 },
                   hover: { y: -6, opacity: 1 },

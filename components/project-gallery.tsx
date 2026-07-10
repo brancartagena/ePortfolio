@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -28,6 +28,8 @@ const sizeClassName: Record<NonNullable<ProjectGalleryItem["size"]>, string> = {
 
 export function ProjectGallery({ items, className }: ProjectGalleryProps) {
   const [activeItem, setActiveItem] = useState<ProjectGalleryItem | null>(null);
+
+  const activeLabel = useMemo(() => activeItem?.label ?? "gallery preview", [activeItem]);
 
   useEffect(() => {
     if (!activeItem) {
@@ -95,7 +97,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
             role="dialog"
             aria-modal="true"
-            aria-label={`${activeItem.label} gallery preview`}
+            aria-label={`${activeLabel} gallery preview`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -129,7 +131,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
                   fill
                   priority
                   className="object-cover"
-                  sizes="100vw"
+                  sizes="(min-width: 1024px) 70vw, 100vw"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/78 to-transparent p-6">
                   <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">

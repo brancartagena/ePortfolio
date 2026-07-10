@@ -28,8 +28,9 @@
     --glass-strong: 24 20% 10% / 0.76;
     --glass-border: 34 30% 92% / 0.18;
     --surface-glow: 20 90% 55%;
-    --shadow-glass: 0 24px 80px rgb(0 0 0 / 0.46);
-    --shadow-soft: 0 16px 48px rgb(0 0 0 / 0.34);
+    --shadow-glass: 0 22px 70px rgb(0 0 0 / 0.48);
+    --shadow-soft: 0 14px 40px rgb(0 0 0 / 0.32);
+    --shadow-elevated: 0 24px 80px rgb(0 0 0 / 0.36);
     --mouse-x: 50vw;
     --mouse-y: 50vh;
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -78,8 +79,8 @@
       hsl(var(--glass));
     border: 1px solid hsl(var(--glass-border));
     box-shadow: var(--shadow-glass);
-    backdrop-filter: blur(28px) saturate(150%);
-    -webkit-backdrop-filter: blur(28px) saturate(150%);
+    backdrop-filter: blur(26px) saturate(150%);
+    -webkit-backdrop-filter: blur(26px) saturate(150%);
   }
 
   .glass-surface::after {
@@ -100,7 +101,7 @@
         rgb(255 255 255 / 0.06),
         transparent 48%
       );
-    opacity: 0.55;
+    opacity: 0.6;
     mix-blend-mode: screen;
   }
 
@@ -168,7 +169,7 @@
       transparent 62%
     );
     transform: translateX(-120%);
-    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .animated-button:hover::after {

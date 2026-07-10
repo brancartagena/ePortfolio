@@ -21,10 +21,10 @@ export function GlassCard<T extends ElementType = "div">({
   return (
     <Comp
       className={cn(
-        "glass-surface relative overflow-hidden rounded-lg",
-        "before:pointer-events-none before:absolute before:inset-px before:rounded-[calc(var(--radius)-1px)] before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-60",
+        "glass-surface relative overflow-hidden rounded-[1.35rem]",
+        "before:pointer-events-none before:absolute before:inset-px before:rounded-[calc(1.35rem-1px)] before:bg-gradient-to-br before:from-white/12 before:via-white/4 before:to-transparent before:opacity-80",
         interactive &&
-          "transition duration-500 hover:-translate-y-1 hover:border-white/25 hover:shadow-glow",
+          "transition duration-500 ease-out hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_18px_50px_rgba(0,0,0,0.28)]",
         className,
       )}
       {...props}

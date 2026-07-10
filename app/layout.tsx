@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SkipLink } from "@/components/skip-link";
 import { AmbientEffects } from "@/components/providers/ambient-effects";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
+        <SkipLink />
         <LenisProvider>
           <AmbientEffects />
           <div className="relative z-10">{children}</div>

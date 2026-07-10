@@ -26,7 +26,7 @@ export function Footer({
   className,
 }: FooterProps) {
   return (
-    <footer className={cn("border-t border-white/10 py-10", className)}>
+    <footer className={cn("border-t border-white/10 py-10 sm:py-12", className)}>
       <Container className="flex flex-col gap-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
         <p className="font-medium text-foreground/80">{brand}</p>
         <div className="flex flex-wrap gap-x-6 gap-y-3">
@@ -34,7 +34,7 @@ export function Footer({
             <Link
               key={link.href}
               href={link.href}
-              className="transition hover:text-foreground"
+              className="transition duration-300 ease-out hover:text-foreground"
             >
               {link.label}
             </Link>

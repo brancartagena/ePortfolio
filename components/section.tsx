@@ -18,7 +18,7 @@ export function Section({
 
   return (
     <section
-      className={cn("relative py-20 sm:py-28 lg:py-36", className)}
+      className={cn("relative py-20 sm:py-28 lg:py-36 xl:py-40", className)}
       {...props}
     >
       {content}

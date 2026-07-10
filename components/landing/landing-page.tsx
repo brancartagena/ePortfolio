@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Mail, X } from "lucide-react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
@@ -27,6 +27,7 @@ export function LandingPage() {
   const [selectedProject, setSelectedProject] = useState<
     (typeof projects)[number] | null
   >(null);
+  const projectPreview = useMemo(() => selectedProject, [selectedProject]);
 
   useEffect(() => {
     if (!selectedProject) {
@@ -53,8 +54,8 @@ export function LandingPage() {
       <div className="min-h-dvh overflow-hidden bg-background text-foreground">
         <Navbar items={navItems} activeHref="#work" />
 
-      <main>
-        <section className="relative min-h-dvh overflow-hidden pt-28 sm:pt-36 lg:pt-40">
+      <main id="main-content">
+        <section className="relative min-h-dvh overflow-hidden pt-28 sm:pt-36 lg:pt-40 xl:pt-44">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,hsl(var(--surface-glow)/0.34),transparent_28%),radial-gradient(circle_at_78%_28%,hsl(38_92%_62%/0.18),transparent_24%),linear-gradient(135deg,hsl(24_22%_4%),hsl(24_18%_7%)_48%,hsl(20_35%_8%))]" />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
           <div className="absolute left-1/2 top-24 h-px w-[84vw] -translate-x-1/2 bg-white/12" />
@@ -74,13 +75,13 @@ export function LandingPage() {
               </motion.p>
               <motion.h1
                 variants={fadeUp}
-                className="text-balance text-5xl font-semibold leading-[0.88] tracking-normal text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
+                className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.03em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
                 Premium digital work with cinematic precision.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
-                className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base lg:text-lg"
+                className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg"
               >
                 A minimal portfolio for polished interfaces, visual systems,
                 and high-performance frontend experiences.
@@ -106,7 +107,7 @@ export function LandingPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-12% 0px" }}
-            className="space-y-12"
+            className="space-y-10 sm:space-y-12"
           >
             <motion.div variants={fadeUp}>
               <SectionTitle
@@ -116,7 +117,7 @@ export function LandingPage() {
               />
             </motion.div>
 
-            <div className="grid gap-5 md:grid-cols-2 lg:gap-7">
+            <div className="grid gap-5 md:grid-cols-2 lg:gap-7 xl:gap-8">
               {projects.map((project) => (
                 <motion.div key={project.title} variants={fadeUp}>
                   <ProjectCard
@@ -177,7 +178,7 @@ export function LandingPage() {
                   <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                     Contact
                   </p>
-                  <h2 className="text-balance text-4xl font-semibold leading-none tracking-normal sm:text-5xl">
+                  <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.02em] sm:text-5xl">
                     Let&apos;s build something with presence.
                   </h2>
                 </div>
@@ -195,7 +196,7 @@ export function LandingPage() {
 
         <Footer />
         <ProjectReveal
-          project={selectedProject}
+          project={projectPreview}
           onClose={() => setSelectedProject(null)}
         />
       </div>
@@ -225,13 +226,13 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
             onClick={onClose}
           />
 
           <motion.div
             layoutId={`project-card-${project.id}`}
-            className="fixed inset-4 overflow-hidden rounded-lg border border-white/16 bg-background/76 shadow-glass backdrop-blur-2xl sm:inset-6 lg:inset-8"
+            className="fixed inset-3 overflow-hidden rounded-[1.35rem] border border-white/16 bg-background/76 shadow-[0_32px_90px_rgba(0,0,0,0.4)] backdrop-blur-2xl sm:inset-5 lg:inset-8"
             transition={{
               layout: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
             }}
@@ -248,8 +249,9 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover"
+                  priority
                   sizes="(min-width: 1024px) 52vw, 100vw"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/72" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_45%,hsl(var(--accent)/0.2),transparent_34%)]" />
@@ -262,7 +264,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                 initial={{ x: 64, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: 36, opacity: 0 }}
-                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="glass-surface w-full rounded-lg p-6 sm:p-8 lg:p-10">
                   <button
@@ -283,11 +285,11 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                     </motion.p>
                     <motion.h2
                       layoutId={`project-title-${project.id}`}
-                      className="text-balance text-5xl font-semibold leading-none tracking-normal text-foreground sm:text-6xl"
+                      className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-6xl"
                     >
                       {project.title}
                     </motion.h2>
-                    <p className="max-w-xl text-base leading-8 text-muted-foreground">
+                    <p className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
                       {project.description}
                     </p>
                     <div className="grid gap-5 border-t border-white/12 pt-7 sm:grid-cols-3">
