@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { X } from "lucide-react";
+import { Minus, Plus, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 
@@ -30,6 +30,7 @@ const sizeClassName: Record<NonNullable<ProjectGalleryItem["size"]>, string> = {
 export function ProjectGallery({ items, className }: ProjectGalleryProps) {
   // Currently selected gallery item for the modal preview.
   const [activeItem, setActiveItem] = useState<ProjectGalleryItem | null>(null);
+  const [zoom, setZoom] = useState(1);
 
   // Accessible label for the active preview dialog.
   const activeLabel = useMemo(() => activeItem?.label ?? "gallery preview", [activeItem]);
@@ -38,6 +39,8 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
     if (!activeItem) {
       return;
     }
+
+    setZoom(1);
 
     // Allow closing the modal with Escape key and freeze page scroll while open.
     const onKeyDown = (event: KeyboardEvent) => {
@@ -132,13 +135,33 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
               >
                 <X className="size-4" aria-hidden="true" />
               </button>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-md bg-secondary">
+              <div className="absolute right-5 top-20 z-20 flex gap-2">
+                <button
+                  type="button"
+                  aria-label="Zoom out"
+                  onClick={() => setZoom((value) => Math.max(1, Number((value - 0.25).toFixed(2))))}
+                  className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                >
+                  <Minus className="size-4" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Zoom in"
+                  onClick={() => setZoom((value) => Number((value + 0.25).toFixed(2)))}
+                  className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                >
+                  <Plus className="size-4" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="relative flex max-h-[78vh] max-w-[88vw] items-center justify-center overflow-auto rounded-md bg-secondary p-3 sm:p-4">
                 <Image
                   src={activeItem.src}
                   alt={activeItem.alt}
-                  fill
+                  width={1600}
+                  height={1000}
                   priority
-                  className="object-cover"
+                  className="h-auto max-h-[74vh] w-auto max-w-[84vw] object-contain"
+                  style={{ transform: `scale(${zoom})`, transformOrigin: "center center" }}
                   sizes="(min-width: 1024px) 70vw, 100vw"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/78 to-transparent p-6">
