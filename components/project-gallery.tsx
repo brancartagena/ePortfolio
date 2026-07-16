@@ -88,10 +88,6 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
               sizes="(min-width: 1024px) 320px, 92vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/72 via-background/10 to-transparent" />
-            <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
-              <div className="absolute inset-0 bg-white/[0.045] backdrop-blur-[2px]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,hsl(var(--accent)/0.2),transparent_42%)]" />
-            </div>
             <div className="absolute inset-x-0 bottom-0 p-4">
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
                 {item.label}
