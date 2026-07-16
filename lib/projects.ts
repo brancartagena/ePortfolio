@@ -31,7 +31,7 @@ export const projects: ProjectDetail[] = [
     problem:
       "Many UMD students are not aware of the resources available to them to expand their creativity. The university needs to better support students in their creative endeavors.",
     solution:
-      `In a team of 6, we designed a website that provides our research findings. We came up with the idea of designing a app that allow users to find the latets creative events and resources on campus.
+      `In a team of 6, we designed a website that provides our research findings. We came up with the idea of designing a app that allow users to find the latest creative events and resources on campus.
       We made sure that all our findings will be accessible to anyone on the website. We also made sure that the website is easy to navigate and understand.`,
     role: "Visual design, interface design, component planning, and frontend implementation.",
     technologies: ["Google Sites, Figma, Miro"],
