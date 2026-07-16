@@ -139,12 +139,14 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="sm" data-gsap="button">
-                <Link href={project.githubUrl} target="_blank">
-                  <Github className="size-4" aria-hidden="true" />
-                  <span>GitHub</span>
-                </Link>
-              </Button>
+              {project.githubUrl && (
+                <Button asChild variant="outline" size="sm" data-gsap="button">
+                  <Link href={project.githubUrl} target="_blank">
+                    <Github className="size-4" aria-hidden="true" />
+                    <span>GitHub</span>
+                  </Link>
+                </Button>
+              )}
             </div>
 
             <header data-gsap="text" className="space-y-5 border-b border-white/12 pb-8 sm:space-y-6 sm:pb-10">
@@ -234,17 +236,19 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="flex-1 justify-between"
-                data-gsap="button"
-              >
-                <Link href={project.githubUrl} target="_blank">
-                  <span>GitHub</span>
-                  <Github className="size-4" aria-hidden="true" />
-                </Link>
-              </Button>
+              {project.githubUrl && (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="flex-1 justify-between"
+                  data-gsap="button"
+                >
+                  <Link href={project.githubUrl} target="_blank">
+                    <span>GitHub</span>
+                    <Github className="size-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+              )}
             </footer>
           </article>
         </section>
