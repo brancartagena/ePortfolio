@@ -69,20 +69,23 @@ export function LandingPage() {
               className="max-w-5xl space-y-8"
             >
               <motion.div variants={fadeUp}>
-                <Eyebrow>Portfolio / Frontend Engineering / Visual Systems</Eyebrow>
+                <Eyebrow>PORTFOLIO / DATA ANALYTICS / DIGITAL EXPERIENCES</Eyebrow>
               </motion.div>
               <motion.h1
                 variants={fadeUp}
                 className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
-                Premium digital work with cinematic precision.
+                Building with curiosity and purpose.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
-                A minimal portfolio for polished interfaces, visual systems,
-                and high-performance frontend experiences.
+                Welcome to my portfolio! 
+                I'm a tech enthusiast who builds immersive digital experiences. 
+                My work focuses on front-end with AI assistance, data analysis, and interactive design. I also have a strong interest in 
+                cybersecurity and UI/UX design.
+
               </motion.p>
               <motion.div variants={fadeUp} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button asChild variant="glass" className="w-full justify-center sm:w-auto">
