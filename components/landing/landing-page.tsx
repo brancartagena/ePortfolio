@@ -75,14 +75,14 @@ export function LandingPage() {
                 variants={fadeUp}
                 className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
-                Building with curiosity and purpose.
+                Welcome! Where I share what I build.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
                 Welcome to my portfolio! 
-                I'm a tech enthusiast who builds immersive digital experiences. 
+                I&apos;m a tech enthusiast who builds immersive digital experiences. 
                 My work focuses on front-end with AI assistance, data analysis, and interactive design. I also have a strong interest in 
                 cybersecurity and UI/UX design.
 
@@ -112,9 +112,9 @@ export function LandingPage() {
           >
             <motion.div variants={fadeUp}>
               <SectionTitle
-                eyebrow="Featured Projects"
-                title="Selected work framed like film posters."
-                description="A compact grid for visual-first projects, built to feel cinematic, quiet, and sharp."
+                eyebrow="My proud projects"
+                title="Showing off my work."
+                description="Each project represents a unique challenge and solution. For now they are all University projects."
               />
             </motion.div>
 
@@ -223,29 +223,23 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
           <motion.button
             type="button"
             aria-label="Close project preview"
-            className="absolute inset-0 cursor-default bg-background/78 backdrop-blur-md"
+            className="absolute inset-0 cursor-default bg-background/80"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             onClick={onClose}
           />
 
           <motion.div
-            layoutId={`project-card-${project.id}`}
-            className="fixed inset-3 overflow-hidden rounded-[1.35rem] border border-white/16 bg-background/76 shadow-[0_32px_90px_rgba(0,0,0,0.4)] backdrop-blur-2xl sm:inset-5 lg:inset-8"
-            transition={{
-              layout: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-            }}
+            initial={{ opacity: 0, scale: 0.98, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98, y: 8 }}
+            className="fixed inset-3 overflow-hidden rounded-[1.35rem] border border-white/16 bg-background/90 shadow-[0_24px_70px_rgba(0,0,0,0.34)] sm:inset-5 lg:inset-8"
+            transition={{ duration: 0.22, ease: "easeOut" }}
           >
             <div className="relative grid size-full lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
-              <motion.div
-                layoutId={`project-image-${project.id}`}
-                className="relative min-h-[46dvh] overflow-hidden bg-secondary lg:min-h-full"
-                transition={{
-                  layout: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-                }}
-              >
+              <div className="relative min-h-[46dvh] overflow-hidden bg-secondary lg:min-h-full">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -256,16 +250,16 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/72" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_45%,hsl(var(--accent)/0.2),transparent_34%)]" />
-              </motion.div>
+              </div>
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/65 via-transparent to-transparent lg:hidden" />
 
               <motion.aside
                 className="relative z-10 flex items-center p-4 sm:p-6 lg:p-10"
-                initial={{ x: 64, opacity: 0 }}
+                initial={{ x: 24, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 36, opacity: 0 }}
-                transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ x: 16, opacity: 0 }}
+                transition={{ duration: 0.24, ease: "easeOut" }}
               >
                 <div className="glass-surface w-full rounded-[1.35rem] p-6 sm:p-8 lg:p-10">
                   <button
@@ -278,18 +272,12 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                   </button>
 
                   <div className="space-y-7">
-                    <motion.p
-                      layoutId={`project-category-${project.id}`}
-                      className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver"
-                    >
+                    <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                       {project.category}
-                    </motion.p>
-                    <motion.h2
-                      layoutId={`project-title-${project.id}`}
-                      className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-6xl"
-                    >
+                    </p>
+                    <h2 className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-6xl">
                       {project.title}
-                    </motion.h2>
+                    </h2>
                     <p className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
                       {project.description}
                     </p>

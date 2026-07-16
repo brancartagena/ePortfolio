@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 24 22% 4%;
-    --foreground: 42 24% 96%;
-    --card: 24 18% 7%;
-    --card-foreground: 0 0% 98%;
-    --popover: 24 18% 7%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 24 18% 7%;
-    --secondary: 28 18% 13%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 28 16% 14%;
-    --muted-foreground: 34 12% 68%;
-    --accent: 18 92% 56%;
-    --accent-foreground: 0 0% 98%;
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 34 30% 92% / 0.14;
-    --input: 34 30% 92% / 0.18;
-    --ring: 18 88% 52%;
+    --border: 214 32% 91% / 0.14;
+    --input: 214 32% 91% / 0.16;
+    --ring: 217 91% 60%;
     --radius: 1.75rem;
-    --glass: 26 22% 9% / 0.58;
-    --glass-strong: 24 20% 10% / 0.76;
-    --glass-border: 34 30% 92% / 0.18;
-    --surface-glow: 20 90% 55%;
-    --shadow-glass: 0 22px 70px rgb(0 0 0 / 0.48);
-    --shadow-soft: 0 14px 40px rgb(0 0 0 / 0.32);
-    --shadow-elevated: 0 24px 80px rgb(0 0 0 / 0.36);
+    --glass: 217 33% 17% / 0.56;
+    --glass-strong: 217 33% 17% / 0.74;
+    --glass-border: 214 32% 91% / 0.16;
+    --surface-glow: 217 91% 60%;
+    --shadow-glass: 0 22px 70px rgb(2 8 23 / 0.36);
+    --shadow-soft: 0 14px 40px rgb(2 8 23 / 0.26);
+    --shadow-elevated: 0 24px 80px rgb(2 8 23 / 0.3);
     --mouse-x: 50vw;
     --mouse-y: 50vh;
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,

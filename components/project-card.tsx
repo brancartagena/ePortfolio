@@ -175,7 +175,6 @@ function PosterProjectCard({
         </motion.div>
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,hsl(var(--accent)/0.22),transparent_44%)] opacity-0 transition duration-500 ease-out group-hover:opacity-100" />
-        <div className="absolute inset-0 bg-white/[0.045] opacity-0 backdrop-blur-[2px] transition duration-500 ease-out group-hover:opacity-100" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
 
         <div className="absolute inset-x-0 bottom-0 overflow-hidden p-5 sm:p-7">
