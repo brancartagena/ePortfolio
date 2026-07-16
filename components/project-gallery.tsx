@@ -19,6 +19,7 @@ type ProjectGalleryProps = {
   className?: string;
 };
 
+// Maps gallery item sizes to Tailwind aspect ratio utility classes.
 const sizeClassName: Record<NonNullable<ProjectGalleryItem["size"]>, string> = {
   large: "aspect-[4/3]",
   wide: "aspect-[16/10]",
@@ -27,8 +28,10 @@ const sizeClassName: Record<NonNullable<ProjectGalleryItem["size"]>, string> = {
 };
 
 export function ProjectGallery({ items, className }: ProjectGalleryProps) {
+  // Currently selected gallery item for the modal preview.
   const [activeItem, setActiveItem] = useState<ProjectGalleryItem | null>(null);
 
+  // Accessible label for the active preview dialog.
   const activeLabel = useMemo(() => activeItem?.label ?? "gallery preview", [activeItem]);
 
   useEffect(() => {
@@ -36,6 +39,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
       return;
     }
 
+    // Allow closing the modal with Escape key and freeze page scroll while open.
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setActiveItem(null);
@@ -53,6 +57,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
 
   return (
     <>
+      {/* Gallery grid of image buttons. Clicking a tile opens the preview modal. */}
       <div
         className={cn("columns-1 gap-3 space-y-3 sm:columns-2", className)}
       >
@@ -93,6 +98,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
         ))}
       </div>
 
+      {/* Modal preview overlay. AnimatePresence handles exit animations when activeItem becomes null. */}
       <AnimatePresence>
         {activeItem ? (
           <motion.div

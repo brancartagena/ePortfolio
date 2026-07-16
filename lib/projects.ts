@@ -14,34 +14,35 @@ export type ProjectDetail = {
   lessons: string;
   results: string;
   liveUrl: string;
-  githubUrl: string;
+  githubUrl?: string;
 };
 
 export const projects: ProjectDetail[] = [
   {
-    id: "creative-systems",
-    slug: "creative-systems",
-    title: "Creative Systems",
-    category: "Brand Direction",
+    id: "terrapin-creatives",
+    slug: "terrapin-creatives",
+    title: "TerrapinCreatives",
+    category: "UI/UX Research & Design",
     image: "/assets/images/umd_creatives.png",
     description:
-      "A visual identity system built around editorial pacing, expressive layouts, and premium digital presentation.",
+      "A website that goes into depth on the research whether UMD students are aware of the resources available to them to expand their creativity and how the university can better support them.",
     overview:
-      "Creative Systems is a polished identity and portfolio framework for presenting campaign work with clarity, hierarchy, and atmosphere.",
+      "TerrapinCreatives is a research website exploring student awareness of university resources.",
     problem:
-      "The work needed a stronger sense of continuity. Individual visuals were compelling, but the experience lacked a cinematic structure that could guide viewers from first impression to proof.",
+      "Many UMD students are not aware of the resources available to them to expand their creativity. The university needs to better support students in their creative endeavors.",
     solution:
-      "I designed a restrained visual system with dark surfaces, precise spacing, editorial typography, and image-led sections that let the work feel immersive without overwhelming the content.",
-    role: "Creative direction, interface design, component planning, and frontend implementation.",
-    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      `In a team of 6, we designed a website that provides our research findings. We came up with the idea of designing a app that allow users to find the latets creative events and resources on campus.
+      We made sure that all our findings will be accessible to anyone on the website. We also made sure that the website is easy to navigate and understand.`,
+    role: "Visual design, interface design, component planning, and frontend implementation.",
+    technologies: ["Google Sites, Figma, Miro"],
     challenges:
-      "The main challenge was balancing atmosphere with usability. The design needed to feel premium while still keeping every section readable and fast to scan.",
+      `The main challenge was finding users to participate in our research. We conducted surveys and interviews with students to gather data on their awareness of university resources. 
+      Another challenge was prototyping the app and making the website that ensures our research findings are clearly communicated.`,
     lessons:
-      "Strong presentation comes from restraint. Small motion cues, consistent rhythm, and disciplined spacing can make a portfolio feel more expensive than adding more decoration.",
+      "The team learned the importance of clear communication in research dissemination. We also learned the importance of user-centered design in creating a website and app that is easy to navigate and understand.",
     results:
-      "The final system creates a more confident project narrative and establishes a reusable visual language for future case studies.",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
+      "Our findings were that many UMD students were aware of the resources available to them, but they did not know how to access them. Our app did get good feedback from students who tested the prototype on figma.",
+    liveUrl: "https://sites.google.com/terpmail.umd.edu/terrapincreatives/home",
   },
   {
     id: "product-motion",

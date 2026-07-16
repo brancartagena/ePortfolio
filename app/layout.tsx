@@ -7,7 +7,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Brandon Cartagena | Portfolio",
-  description: "A premium personal portfolio experience.",
+  description: "Welcome to my portfolio!",
 };
 
 export default function RootLayout({

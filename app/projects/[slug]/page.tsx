@@ -15,12 +15,14 @@ type ProjectPageProps = {
   }>;
 };
 
+// Generate all project detail routes at build time for static site generation.
 export function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
   }));
 }
 
+// Generate dynamic metadata for each project detail page.
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
@@ -37,6 +39,8 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   };
 }
 
+// Page component for individual project details.
+// This is a server component because it uses async data lookup from the route params.
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
@@ -45,6 +49,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  // Build a list of detail sections for the case study layout.
   const detailSections = [
     ["Problem", project.problem],
     ["Solution", project.solution],
@@ -53,9 +58,12 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     ["Lessons Learned", project.lessons],
     ["Results", project.results],
   ] as const;
+
+  // Choose supporting gallery images from other projects as fallback visuals.
   const supportingImages = projects
     .filter((galleryProject) => galleryProject.id !== project.id)
     .map((galleryProject) => galleryProject.image);
+  // Configure gallery preview items shown in the project case study.
   const galleryItems: ProjectGalleryItem[] = [
     {
       src: project.image,
@@ -85,8 +93,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   return (
     <main data-project-detail className="min-h-dvh bg-background text-foreground">
+      {/* Global page entrance and scroll animations for this project detail route. */}
       <ProjectDetailAnimations />
       <div className="grid min-h-dvh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        {/* Left-side hero panel with project image and title overlay. */}
         <aside className="relative min-h-[62dvh] overflow-hidden sm:min-h-[68dvh] lg:sticky lg:top-0 lg:h-dvh">
           <div data-gsap="image" data-parallax-image className="absolute inset-0">
             <Image
@@ -116,6 +126,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,hsl(var(--accent)/0.12),transparent_30%)]" />
           <article className="glass-surface relative z-10 mx-auto w-full max-w-3xl rounded-lg p-5 sm:p-7 lg:my-8 lg:p-10">
             <div className="mb-8 flex flex-wrap gap-3 sm:mb-10">
+              {/* Primary actions for navigating away or viewing the project externally. */}
               <Button asChild variant="glass" size="sm" data-gsap="button">
                 <Link href="/">
                   <ArrowLeft className="size-4" aria-hidden="true" />
@@ -169,9 +180,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                     images from the project direction.
                   </p>
                 </div>
+                {/* The gallery component shows clickable preview cards for this project. */}
                 <ProjectGallery items={galleryItems} />
               </section>
 
+              {/* Render each case study detail section from the project data array. */}
               {detailSections.map(([title, body]) => (
                 <section
                   key={title}
@@ -209,6 +222,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             </div>
 
             <footer className="flex flex-col gap-3 border-t border-white/12 pt-8 sm:flex-row sm:pt-9">
+              {/* Repeated call-to-action links at the bottom of the case study. */}
               <Button
                 asChild
                 variant="glass"
