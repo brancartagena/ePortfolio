@@ -59,37 +59,51 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     ["Results", project.results],
   ] as const;
 
-  // Choose supporting gallery images from other projects as fallback visuals.
-  const supportingImages = projects
-    .filter((galleryProject) => galleryProject.id !== project.id)
-    .map((galleryProject) => galleryProject.image);
-  // Configure gallery preview items shown in the project case study.
-  const galleryItems: ProjectGalleryItem[] = [
-    {
-      src: project.image,
-      alt: `${project.title} large screenshot`,
-      label: "Large Screenshot",
-      size: "wide",
-    },
-    {
-      src: supportingImages[0] ?? project.image,
-      alt: `${project.title} wireframe exploration`,
-      label: "Wireframe",
-      size: "tall",
-    },
-    {
-      src: supportingImages[1] ?? project.image,
-      alt: `${project.title} interface design`,
-      label: "UI Design",
-      size: "standard",
-    },
-    {
-      src: supportingImages[2] ?? project.image,
-      alt: `${project.title} process image`,
-      label: "Process Image",
-      size: "large",
-    },
+  const terrapinCreativeImages = [
+    "/assets/images/terrapin_creatives/home_terpcreative.png",
+    "/assets/images/terrapin_creatives/creative_profile.png",
+    "/assets/images/terrapin_creatives/event_profile.png",
+    "/assets/images/terrapin_creatives/market_page.png",
+    "/assets/images/terrapin_creatives/market_edit.png",
+    "/assets/images/terrapin_creatives/sell_page.png",
+    "/assets/images/terrapin_creatives/van_gogh_page.png",
+    "/assets/images/terrapin_creatives/calender_page.png",
   ];
+
+  const galleryItems: ProjectGalleryItem[] =
+    project.slug === "terrapin-creatives"
+      ? terrapinCreativeImages.map((src, index) => ({
+          src,
+          alt: `${project.title} gallery image ${index + 1}`,
+          label: `Gallery ${index + 1}`,
+          size: index % 2 === 0 ? "wide" : "standard",
+        }))
+      : [
+          {
+            src: project.image,
+            alt: `${project.title} large screenshot`,
+            label: "Large Screenshot",
+            size: "wide",
+          },
+          {
+            src: project.image,
+            alt: `${project.title} wireframe exploration`,
+            label: "Wireframe",
+            size: "tall",
+          },
+          {
+            src: project.image,
+            alt: `${project.title} interface design`,
+            label: "UI Design",
+            size: "standard",
+          },
+          {
+            src: project.image,
+            alt: `${project.title} process image`,
+            label: "Process Image",
+            size: "large",
+          },
+        ];
 
   return (
     <main data-project-detail className="min-h-dvh bg-background text-foreground">
