@@ -86,14 +86,6 @@ export function LandingPage() {
                 Right now I'm exploring data analytics, UI/UX, and cybersecurity, and most of what's here overlaps more than one of those
 
               </motion.p>
-              <motion.div variants={fadeUp} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Button asChild variant="glass" className="w-full justify-center sm:w-auto">
-                  <Link href="#work">
-                    <span>View Work</span>
-                    <ArrowUpRight className="size-4" aria-hidden="true" />
-                  </Link>
-                </Button>
-              </motion.div>
             </motion.div>
           </Container>
         </section>

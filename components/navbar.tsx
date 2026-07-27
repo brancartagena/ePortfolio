@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/container";
@@ -36,54 +36,57 @@ export function Navbar({
   const [activeSection, setActiveSection] = useState(activeHref ?? items[0]?.href ?? "");
   const isProgrammaticScrollRef = useRef(false);
   const programmaticScrollTimeoutRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const sectionIds = items
+  const sectionTargets = useMemo(() => {
+    return items
       .map((item) => item.href)
       .filter((href) => href.startsWith("#"))
-      .map((href) => href.slice(1));
+      .map((href) => ({ href, id: href.slice(1) }));
+  }, [items]);
 
-    if (sectionIds.length === 0) {
-      return;
-    }
+  useEffect(() => {
+    const updateActiveSection = () => {
+      if (isProgrammaticScrollRef.current) {
+        return;
+      }
 
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
+      const scrollPosition = window.scrollY + 140;
+      let currentSection = sectionTargets[0]?.href ?? "";
 
-    if (sections.length === 0) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isProgrammaticScrollRef.current) {
-          return;
+      for (const section of sectionTargets) {
+        const target = document.getElementById(section.id);
+        if (!target) {
+          continue;
         }
 
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        const top = target.offsetTop;
+        const nextSection = sectionTargets[sectionTargets.indexOf(section) + 1];
+        const nextTop = nextSection ? document.getElementById(nextSection.id)?.offsetTop ?? Infinity : Infinity;
 
-        if (visibleEntry) {
-          setActiveSection(`#${visibleEntry.target.id}`);
+        if (scrollPosition >= top && scrollPosition < nextTop) {
+          currentSection = section.href;
+          break;
         }
-      },
-      {
-        rootMargin: "-35% 0px -45% 0px",
-        threshold: [0.2, 0.4, 0.6],
-      },
-    );
+      }
 
-    sections.forEach((section) => observer.observe(section));
+      if (window.scrollY < 120) {
+        currentSection = sectionTargets[0]?.href ?? "";
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
       if (programmaticScrollTimeoutRef.current) {
         window.clearTimeout(programmaticScrollTimeoutRef.current);
       }
     };
-  }, [items]);
+  }, [sectionTargets]);
 
   useEffect(() => {
     if (activeHref) {
