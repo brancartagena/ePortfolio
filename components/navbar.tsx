@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/container";
@@ -33,6 +33,89 @@ export function Navbar({
   className,
 }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(activeHref ?? items[0]?.href ?? "");
+  const isProgrammaticScrollRef = useRef(false);
+  const programmaticScrollTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const sectionIds = items
+      .map((item) => item.href)
+      .filter((href) => href.startsWith("#"))
+      .map((href) => href.slice(1));
+
+    if (sectionIds.length === 0) {
+      return;
+    }
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    if (sections.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isProgrammaticScrollRef.current) {
+          return;
+        }
+
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry) {
+          setActiveSection(`#${visibleEntry.target.id}`);
+        }
+      },
+      {
+        rootMargin: "-35% 0px -45% 0px",
+        threshold: [0.2, 0.4, 0.6],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+      if (programmaticScrollTimeoutRef.current) {
+        window.clearTimeout(programmaticScrollTimeoutRef.current);
+      }
+    };
+  }, [items]);
+
+  useEffect(() => {
+    if (activeHref) {
+      setActiveSection(activeHref);
+    }
+  }, [activeHref]);
+
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith("#")) {
+      setActiveSection(href);
+      return;
+    }
+
+    event.preventDefault();
+    setActiveSection(href);
+    isProgrammaticScrollRef.current = true;
+
+    if (programmaticScrollTimeoutRef.current) {
+      window.clearTimeout(programmaticScrollTimeoutRef.current);
+    }
+
+    const target = document.getElementById(href.slice(1));
+    if (target) {
+      const offsetTop = target.getBoundingClientRect().top + window.scrollY - 96;
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      window.history.pushState(null, "", href);
+
+      programmaticScrollTimeoutRef.current = window.setTimeout(() => {
+        isProgrammaticScrollRef.current = false;
+      }, 900);
+    }
+  };
 
   return (
     <header className={cn("fixed inset-x-0 top-0 z-50 py-3 sm:py-5", className)}>
@@ -51,24 +134,19 @@ export function Navbar({
 
             <div className="hidden items-center gap-8 md:flex">
               {items.map((item) => {
-                const active = activeHref === item.href;
+                const active = activeSection === item.href;
 
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
+                    onClick={(event) => handleNavClick(event, item.href)}
                     className={cn(
                       "group relative text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-foreground/55 transition duration-300 ease-out hover:text-foreground",
                       active && "text-foreground",
                     )}
                   >
                     {item.label}
-                    <span
-                      className={cn(
-                        "absolute -bottom-3 left-1/2 h-px w-0 -translate-x-1/2 bg-foreground transition-all group-hover:w-8",
-                        active && "w-8",
-                      )}
-                    />
                     {active ? (
                       <span className="absolute -bottom-[15px] left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-foreground" />
                     ) : null}
@@ -99,13 +177,16 @@ export function Navbar({
               >
                 <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4">
                   {items.map((item) => {
-                    const active = activeHref === item.href;
+                    const active = activeSection === item.href;
 
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={(event) => {
+                          setIsMenuOpen(false);
+                          handleNavClick(event, item.href);
+                        }}
                         className={cn(
                           "rounded-full px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/70 transition duration-300 ease-out hover:bg-white/[0.05] hover:text-foreground",
                           active && "bg-white/[0.05] text-foreground",

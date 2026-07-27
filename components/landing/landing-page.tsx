@@ -57,7 +57,8 @@ export function LandingPage() {
 
       <main id="main-content">
         <section className="relative min-h-dvh overflow-hidden pt-28 sm:pt-36 lg:pt-40 xl:pt-44">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,hsl(var(--surface-glow)/0.34),transparent_28%),radial-gradient(circle_at_78%_28%,hsl(38_92%_62%/0.18),transparent_24%),linear-gradient(135deg,hsl(24_22%_4%),hsl(24_18%_7%)_48%,hsl(20_35%_8%))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,hsl(24_22%_4%),hsl(24_18%_7%)_48%,hsl(20_35%_8%))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,hsl(214_78%_58%/0.22),transparent_36%),radial-gradient(circle_at_50%_20%,hsl(38_92%_62%/0.18),transparent_42%)]" />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
           <div className="absolute left-1/2 top-24 h-px w-[84vw] -translate-x-1/2 bg-white/12" />
 
@@ -81,10 +82,8 @@ export function LandingPage() {
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
-                Welcome to my portfolio! 
-                I&apos;m a tech enthusiast who builds immersive digital experiences. 
-                My work focuses on front-end with AI assistance, data analysis, and interactive design. I also have a strong interest in 
-                cybersecurity and UI/UX design.
+                Hey, I'm Brandon. I like building things — mostly at the intersection of data, design, and code. 
+                Right now I'm exploring data analytics, UI/UX, and cybersecurity, and most of what's here overlaps more than one of those
 
               </motion.p>
               <motion.div variants={fadeUp} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -111,7 +110,7 @@ export function LandingPage() {
               <SectionTitle
                 eyebrow="My proud projects"
                 title="Showing off my work."
-                description="Each project represents a unique challenge and solution. For now they are all University projects."
+                description="These are mostly school projects for now — but each one has its own problem to figure out, not just a class assignment. More real-world stuff is coming as I build it."
               />
             </motion.div>
 
@@ -142,7 +141,8 @@ export function LandingPage() {
             >
               <SectionTitle
                 eyebrow="About"
-                title="Design-minded engineering for refined product moments."
+                title="I like building things that work well and look like they were made on purpose."
+                titleClassName="font-bold leading-[1.2]"
               />
             </motion.div>
 
@@ -153,10 +153,10 @@ export function LandingPage() {
               viewport={{ once: true, margin: "-12% 0px" }}
             >
               <GlassCard className="p-6 sm:p-8">
-                <p className="text-base leading-8 text-muted-foreground sm:text-lg">
-                  I build interfaces where interaction, typography, motion, and
-                  structure work together. The goal is simple: make each screen
-                  feel intentional, fast, and memorable without adding noise.
+                <p className="text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
+                  I started out in Computer Engineering, then pivoted to Information Science with a Data Science minor at the University of Maryland, it turned out to be the better fit. 
+                  Since graduating, I've been exploring three directions: data analytics, UX/UI design, and cybersecurity, instead of picking one lane right away. 
+                  This site is where I keep the projects that came out of that exploring, and it'll keep growing as I figure out where I land.
                 </p>
               </GlassCard>
             </motion.div>
