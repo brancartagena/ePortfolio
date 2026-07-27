@@ -70,9 +70,9 @@ export const projects: ProjectDetail[] = [
     githubUrl: "https://github.com",
   },
   {
-    id: "commerce-flow",
-    slug: "commerce-flow",
-    title: "Commerce Flow",
+    id: "tick-yaza",
+    slug: "tick-yaza",
+    title: "Tick Yaza",
     category: "Frontend Engineering",
     image: "/assets/images/tickyaza.png",
     description:

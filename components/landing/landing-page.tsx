@@ -94,9 +94,6 @@ export function LandingPage() {
                     <ArrowUpRight className="size-4" aria-hidden="true" />
                   </Link>
                 </Button>
-                <Button asChild variant="ghost" className="w-full justify-center sm:w-auto">
-                  <Link href="#contact">Contact</Link>
-                </Button>
               </motion.div>
             </motion.div>
           </Container>
@@ -183,12 +180,21 @@ export function LandingPage() {
                     Let&apos;s build something with presence.
                   </h2>
                 </div>
-                <Button asChild variant="glass">
-                  <Link href="mailto:hello@example.com">
-                    <Mail className="size-4" aria-hidden="true" />
-                    <span>Start a Conversation</span>
-                  </Link>
-                </Button>
+                <div className="flex flex-col gap-3 sm:items-start">
+                  <p className="text-base text-muted-foreground">
+                    Email: brancartagena@gmail.com
+                  </p>
+                  <Button asChild variant="ghost">
+                    <Link
+                      href="https://www.linkedin.com/in/brancartagena/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ArrowUpRight className="size-4" aria-hidden="true" />
+                      <span>LinkedIn</span>
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </GlassCard>
           </motion.div>

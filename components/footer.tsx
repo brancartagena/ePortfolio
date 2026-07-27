@@ -15,9 +15,9 @@ type FooterProps = {
 };
 
 const defaultLinks: FooterLink[] = [
-  { label: "LinkedIn", href: "https://www.linkedin.com" },
-  { label: "GitHub", href: "https://github.com" },
-  { label: "Email", href: "mailto:hello@example.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/brancartagena/" },
+  { label: "GitHub", href: "https://github.com/brancartagena" },
+  { label: "Email", href: "mailto:brancartagena@gmail.com" },
 ];
 
 export function Footer({
