@@ -23,7 +23,7 @@ export const projects: ProjectDetail[] = [
     slug: "terrapin-creatives",
     title: "TerrapinCreatives",
     category: "UI/UX Research & Design",
-    image: "/assets/images/umd_creatives.png",
+    image: "/assets/images/projects/terrapin-creatives/cover.png",
     description:
       "A website that goes into depth on the research whether UMD students are aware of the resources available to them to expand their creativity and how the university can better support them.",
     overview:
@@ -49,7 +49,7 @@ export const projects: ProjectDetail[] = [
     slug: "product-motion",
     title: "Product Motion",
     category: "Interaction Design",
-    image: "/assets/images/gamerate.png",
+    image: "/assets/images/projects/product-motion/cover.png",
     description:
       "High-touch interface motion for product moments that need to feel responsive, cinematic, and precise.",
     overview:
@@ -74,7 +74,7 @@ export const projects: ProjectDetail[] = [
     slug: "tick-yaza",
     title: "Tick Yaza",
     category: "Frontend Engineering",
-    image: "/assets/images/tickyaza.png",
+    image: "/assets/images/projects/tick-yaza/cover.png",
     description:
       "A polished commerce experience focused on clarity, momentum, and confident user decision-making.",
     overview:
@@ -99,7 +99,7 @@ export const projects: ProjectDetail[] = [
     slug: "digital-identity",
     title: "Digital Identity",
     category: "Visual Design",
-    image: "/assets/images/apple.png",
+    image: "/assets/images/projects/digital-identity/cover.png",
     description:
       "A minimal digital presence with sharp typography, restrained color, and a product-page sense of depth.",
     overview:

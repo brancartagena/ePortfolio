@@ -5,8 +5,9 @@ import { notFound } from "next/navigation";
 
 import { Eyebrow } from "@/components/eyebrow";
 import { ProjectDetailAnimations } from "@/components/project-detail-animations";
-import { ProjectGallery, type ProjectGalleryItem } from "@/components/project-gallery";
+import { ProjectGallery } from "@/components/project-gallery";
 import { Button } from "@/components/ui/button";
+import { getProjectGallery } from "@/lib/gallery";
 import { getProjectBySlug, projects } from "@/lib/projects";
 
 type ProjectPageProps = {
@@ -59,51 +60,13 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     ["Results", project.results],
   ] as const;
 
-  const terrapinCreativeImages = [
-    "/assets/images/terrapin_creatives/home_terpcreative.png",
-    "/assets/images/terrapin_creatives/creative_profile.png",
-    "/assets/images/terrapin_creatives/event_profile.png",
-    "/assets/images/terrapin_creatives/market_page.png",
-    "/assets/images/terrapin_creatives/market_edit.png",
-    "/assets/images/terrapin_creatives/sell_page.png",
-    "/assets/images/terrapin_creatives/van_gogh_page.png",
-    "/assets/images/terrapin_creatives/calender_page.png",
-  ];
-
-  const galleryItems: ProjectGalleryItem[] =
-    project.slug === "terrapin-creatives"
-      ? terrapinCreativeImages.map((src, index) => ({
-          src,
-          alt: `${project.title} gallery image ${index + 1}`,
-          label: `Gallery ${index + 1}`,
-          size: index % 2 === 0 ? "wide" : "standard",
-        }))
-      : [
-          {
-            src: project.image,
-            alt: `${project.title} large screenshot`,
-            label: "Large Screenshot",
-            size: "wide",
-          },
-          {
-            src: project.image,
-            alt: `${project.title} wireframe exploration`,
-            label: "Wireframe",
-            size: "tall",
-          },
-          {
-            src: project.image,
-            alt: `${project.title} interface design`,
-            label: "UI Design",
-            size: "standard",
-          },
-          {
-            src: project.image,
-            alt: `${project.title} process image`,
-            label: "Process Image",
-            size: "large",
-          },
-        ];
+  // Screenshots are read from public/assets/images/projects/<slug>/ at build time,
+  // so adding images to that folder is all that is needed to extend the gallery.
+  const galleryItems = getProjectGallery({
+    slug: project.slug,
+    title: project.title,
+    fallbackSrc: project.image,
+  });
 
   return (
     <main data-project-detail className="min-h-dvh bg-background text-foreground">
