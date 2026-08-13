@@ -112,7 +112,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               </Button>
               <Button asChild variant="glass" size="sm" data-gsap="button">
                 <Link href={project.liveUrl} target="_blank">
-                  <span>View Live</span>
+                  <span>View Project</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
@@ -209,7 +209,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 data-gsap="button"
               >
                 <Link href={project.liveUrl} target="_blank">
-                  <span>View Live</span>
+                  <span>View Project</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>

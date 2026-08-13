@@ -25,7 +25,7 @@ export const projects: ProjectDetail[] = [
     category: "UI/UX Research & Design",
     image: "/assets/images/projects/terrapin-creatives/cover.png",
     description:
-      "A website that goes into depth on the research whether UMD students are aware of the resources available to them to expand their creativity and how the university can better support them.",
+      "A website that goes into depth on the research whether UMD students are aware of the resources available to them to expand their creativity and how the university can better support them. A prototype was created to demonstrate how the proposed app could look and function.",
     overview:
       "TerrapinCreatives is a research website exploring student awareness of university resources.",
     problem:
@@ -45,11 +45,11 @@ export const projects: ProjectDetail[] = [
     liveUrl: "https://sites.google.com/terpmail.umd.edu/terrapincreatives/home",
   },
   {
-    id: "product-motion",
-    slug: "product-motion",
-    title: "Product Motion",
-    category: "Interaction Design",
-    image: "/assets/images/projects/product-motion/cover.png",
+    id: "game-rate",
+    slug: "game-rate",
+    title: "GameRate",
+    category: "UI/UX Design",
+    image: "/assets/images/projects/game-rate/cover.png",
     description:
       "High-touch interface motion for product moments that need to feel responsive, cinematic, and precise.",
     overview:
@@ -66,8 +66,7 @@ export const projects: ProjectDetail[] = [
       "The best motion systems are felt more than noticed. Transform and opacity animations can add depth while preserving responsiveness.",
     results:
       "The interaction model feels more premium and gives the product a smoother sense of continuity between states.",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
+    liveUrl: "https://www.figma.com/proto/VxXo68vS9TFPxcRROuc3Y0/GameRate?node-id=1-3&p=f&t=mUEdmQ8oW40I1Hx8-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A3",
   },
   {
     id: "tick-yaza",
@@ -91,8 +90,8 @@ export const projects: ProjectDetail[] = [
       "Commerce interfaces need a careful rhythm: enough emotional polish to build confidence, enough restraint to keep people moving.",
     results:
       "The final direction reduces friction, improves scanability, and gives the buying flow a more trustworthy visual presence.",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
+    liveUrl:
+      "https://www.figma.com/proto/1CfgVoLAgoLb87mFmRCa3s/TickYaza?node-id=102-236&p=f&t=NJtHSv47DuIsz4lQ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1",
   },
   {
     id: "digital-identity",
