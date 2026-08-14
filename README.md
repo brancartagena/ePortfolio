@@ -1,6 +1,6 @@
 # ePortfolio
 
-Personal portfolio site for Brandon Cartagena — a landing page with project highlights plus a case-study detail page per project, built as a single Next.js app.
+My personal portfolio site. The landing page with project highlights plus a case study detail page per project.
 
 ## Tech stack
 
