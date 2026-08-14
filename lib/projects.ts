@@ -94,11 +94,11 @@ export const projects: ProjectDetail[] = [
       "https://www.figma.com/proto/1CfgVoLAgoLb87mFmRCa3s/TickYaza?node-id=102-236&p=f&t=NJtHSv47DuIsz4lQ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1",
   },
   {
-    id: "digital-identity",
-    slug: "digital-identity",
-    title: "Digital Identity",
-    category: "Visual Design",
-    image: "/assets/images/projects/digital-identity/cover.png",
+    id: "stream-trendr",
+    slug: "stream-trendr",
+    title: "StreamTrendr",
+    category: "Website & Visual Design",
+    image: "/assets/images/projects/stream-trendr/cover.png",
     description:
       "A minimal digital presence with sharp typography, restrained color, and a product-page sense of depth.",
     overview:
@@ -115,8 +115,8 @@ export const projects: ProjectDetail[] = [
       "A personal site should feel focused, not crowded. The strongest impression comes from one clear story told with conviction.",
     results:
       "The final identity feels more memorable, premium, and aligned with high-end product storytelling.",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
+    liveUrl: "https://streamtrendr.vercel.app/",
+    githubUrl: "https://github.com/brancartagena/StreamTrendr",
   },
 ];
 

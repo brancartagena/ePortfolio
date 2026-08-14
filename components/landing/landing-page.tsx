@@ -7,6 +7,7 @@ import { ArrowUpRight, Mail, X } from "lucide-react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
 import { fadeUp, staggerContainer } from "@/animations/framer";
+import { BrowserPreview } from "@/components/browser-preview";
 import { Container } from "@/components/container";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/glass-card";
@@ -82,8 +83,8 @@ export function LandingPage() {
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
-                Hey, I'm Brandon. I like building things — mostly at the intersection of data, design, and code. 
-                Right now I'm exploring data analytics, UI/UX, and cybersecurity, and most of what's here overlaps more than one of those
+                Hey, I&apos;m Brandon. I like building things — mostly at the intersection of data, design, and code.
+                Right now I&apos;m exploring data analytics, UI/UX, and cybersecurity, and most of what&apos;s here overlaps more than one of those
 
               </motion.p>
             </motion.div>
@@ -146,9 +147,9 @@ export function LandingPage() {
             >
               <GlassCard className="p-6 sm:p-8">
                 <p className="text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
-                  I started out in Computer Engineering, then pivoted to Information Science with a Data Science minor at the University of Maryland, it turned out to be the better fit. 
-                  Since graduating, I've been exploring three directions: data analytics, UX/UI design, and cybersecurity, instead of picking one lane right away. 
-                  This site is where I keep the projects that came out of that exploring, and it'll keep growing as I figure out where I land.
+                  I started out in Computer Engineering, then pivoted to Information Science with a Data Science minor at the University of Maryland, it turned out to be the better fit.
+                  Since graduating, I&apos;ve been exploring three directions: data analytics, UX/UI design, and cybersecurity, instead of picking one lane right away.
+                  This site is where I keep the projects that came out of that exploring, and it&apos;ll keep growing as I figure out where I land.
                 </p>
               </GlassCard>
             </motion.div>
@@ -238,14 +239,29 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
           >
             <div className="relative grid size-full lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
               <div className="relative min-h-[46dvh] overflow-hidden bg-secondary lg:min-h-full">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 52vw, 100vw"
-                  className="object-cover"
-                />
+                {project.slug === "stream-trendr" ? (
+                  <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-8">
+                    <BrowserPreview
+                      src={project.image}
+                      alt={project.title}
+                      imageWidth={2940}
+                      imageHeight={1482}
+                      url={project.liveUrl}
+                      priority
+                      sizes="(min-width: 1024px) 48vw, 92vw"
+                      className="w-full max-w-xl"
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 52vw, 100vw"
+                    className="object-cover"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/72" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_45%,hsl(var(--accent)/0.2),transparent_34%)]" />
               </div>

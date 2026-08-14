@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { notFound } from "next/navigation";
 
+import { BrowserPreview } from "@/components/browser-preview";
 import { Eyebrow } from "@/components/eyebrow";
 import { ProjectDetailAnimations } from "@/components/project-detail-animations";
 import { ProjectGallery } from "@/components/project-gallery";
@@ -68,6 +69,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     fallbackSrc: project.image,
   });
 
+  // StreamTrendr's cover is a wide website screenshot (~1.98:1) that a full-bleed
+  // object-cover crop reduces to a sliver. It gets a browser-chrome frame locked
+  // to its native aspect ratio instead, so the whole homepage stays visible.
+  const isStreamTrendr = project.slug === "stream-trendr";
+
   return (
     <main data-project-detail className="min-h-dvh bg-background text-foreground">
       {/* Global page entrance and scroll animations for this project detail route. */}
@@ -75,16 +81,34 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       <div className="grid min-h-dvh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
         {/* Left-side hero panel with project image and title overlay. */}
         <aside className="relative min-h-[62dvh] overflow-hidden sm:min-h-[68dvh] lg:sticky lg:top-0 lg:h-dvh">
-          <div data-gsap="image" data-parallax-image className="absolute inset-0">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-            />
-          </div>
+          {isStreamTrendr ? (
+            <div
+              data-gsap="image"
+              className="absolute inset-0 flex items-center justify-center bg-secondary p-5 sm:p-8 lg:p-10"
+            >
+              <BrowserPreview
+                src={project.image}
+                alt={project.title}
+                imageWidth={2940}
+                imageHeight={1482}
+                url={project.liveUrl}
+                priority
+                sizes="(min-width: 1024px) 46vw, 92vw"
+                className="w-full max-w-2xl"
+              />
+            </div>
+          ) : (
+            <div data-gsap="image" data-parallax-image className="absolute inset-0">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                priority
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/5" />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/70" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,hsl(var(--accent)/0.24),transparent_34%)]" />
