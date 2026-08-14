@@ -30,15 +30,21 @@ export function Footer({
       <Container className="flex flex-col gap-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
         <p className="font-medium text-foreground/80">{brand}</p>
         <div className="flex flex-wrap gap-x-6 gap-y-3">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="transition duration-300 ease-out hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const isExternal = link.href.startsWith("http");
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noreferrer" : undefined}
+                className="transition duration-300 ease-out hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
       </Container>
     </footer>

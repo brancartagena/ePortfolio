@@ -79,7 +79,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const isStreamTrendr = project.slug === "stream-trendr";
 
   return (
-    <main data-project-detail className="min-h-dvh bg-background text-foreground">
+    <main data-project-detail id="main-content" className="min-h-dvh bg-background text-foreground">
       {/* Global page entrance and scroll animations for this project detail route. */}
       <ProjectDetailAnimations />
       <div className="grid min-h-dvh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
@@ -139,14 +139,14 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 </Link>
               </Button>
               <Button asChild variant="glass" size="sm" data-gsap="button">
-                <Link href={project.liveUrl} target="_blank">
+                <Link href={project.liveUrl} target="_blank" rel="noreferrer">
                   <span>View Project</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
               {project.githubUrl && (
                 <Button asChild variant="outline" size="sm" data-gsap="button">
-                  <Link href={project.githubUrl} target="_blank">
+                  <Link href={project.githubUrl} target="_blank" rel="noreferrer">
                     <Github className="size-4" aria-hidden="true" />
                     <span>GitHub</span>
                   </Link>
@@ -236,7 +236,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 className="flex-1 justify-between"
                 data-gsap="button"
               >
-                <Link href={project.liveUrl} target="_blank">
+                <Link href={project.liveUrl} target="_blank" rel="noreferrer">
                   <span>View Project</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
@@ -248,7 +248,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   className="flex-1 justify-between"
                   data-gsap="button"
                 >
-                  <Link href={project.githubUrl} target="_blank">
+                  <Link href={project.githubUrl} target="_blank" rel="noreferrer">
                     <span>GitHub</span>
                     <Github className="size-4" aria-hidden="true" />
                   </Link>
