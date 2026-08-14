@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, Mail, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
 import { fadeUp, staggerContainer } from "@/animations/framer";
@@ -42,11 +42,12 @@ export function LandingPage() {
       }
     };
 
+    const previousBodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousBodyOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [selectedProject]);
@@ -235,10 +236,11 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
             initial={{ opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 8 }}
-            className="fixed inset-3 overflow-hidden rounded-[1.35rem] border border-white/16 bg-background/90 shadow-[0_24px_70px_rgba(0,0,0,0.34)] sm:inset-5 lg:inset-8"
+            data-lenis-prevent
+            className="fixed inset-3 touch-pan-y overflow-y-auto overscroll-contain rounded-[1.35rem] border border-white/16 bg-background/90 shadow-[0_24px_70px_rgba(0,0,0,0.34)] sm:inset-5 lg:inset-8"
             transition={{ duration: 0.22, ease: "easeOut" }}
           >
-            <div className="relative grid size-full lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
+            <div className="relative grid min-h-full lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
               <div className="relative min-h-[46dvh] overflow-hidden bg-secondary lg:min-h-full">
                 {project.slug === "stream-trendr" ? (
                   <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-8">

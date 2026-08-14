@@ -53,11 +53,12 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
       }
     };
 
+    const previousBodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousBodyOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [activeItem]);
@@ -114,6 +115,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
             <AnimatePresence>
               {activeItem ? (
                 <motion.div
+                  data-lenis-prevent
                   className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
                   role="dialog"
                   aria-modal="true"
