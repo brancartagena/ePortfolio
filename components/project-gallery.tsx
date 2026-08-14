@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Minus, Plus, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/utils";
 
@@ -12,6 +13,9 @@ export type ProjectGalleryItem = {
   alt: string;
   label: string;
   size?: "large" | "wide" | "tall" | "standard";
+  /** Natural pixel dimensions. When present, the tile locks to this ratio instead of `size`, so the full screenshot shows uncropped. */
+  width?: number;
+  height?: number;
 };
 
 type ProjectGalleryProps = {
@@ -72,6 +76,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
             aria-haspopup="dialog"
             aria-label={`Open ${item.label} preview`}
             onClick={() => setActiveItem(item)}
+            style={item.width && item.height ? { aspectRatio: `${item.width} / ${item.height}` } : undefined}
             className={cn(
               "group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-md border border-white/12 bg-secondary text-left shadow-soft outline-none",
               "focus-visible:ring-1 focus-visible:ring-ring",
@@ -97,79 +102,90 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
         ))}
       </div>
 
-      {/* Modal preview overlay. AnimatePresence handles exit animations when activeItem becomes null. */}
-      <AnimatePresence>
-        {activeItem ? (
-          <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${activeLabel} gallery preview`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <button
-              type="button"
-              aria-label="Close gallery preview"
-              className="absolute inset-0 bg-background/82 backdrop-blur-xl"
-              onClick={() => setActiveItem(null)}
-            />
-            <motion.div
-              className="glass-surface relative z-10 w-full max-w-6xl overflow-hidden rounded-lg p-3 sm:p-4"
-              initial={{ scale: 0.96, y: 18 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.98, y: 10 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <button
-                type="button"
-                aria-label="Close gallery preview"
-                onClick={() => setActiveItem(null)}
-                className="absolute right-5 top-5 z-20 inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
-              >
-                <X className="size-4" aria-hidden="true" />
-              </button>
-              <div className="absolute right-5 top-20 z-20 flex gap-2">
-                <button
-                  type="button"
-                  aria-label="Zoom out"
-                  onClick={() => setZoom((value) => Math.max(1, Number((value - 0.25).toFixed(2))))}
-                  className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+      {/* Modal preview overlay. AnimatePresence handles exit animations when activeItem becomes null.
+          The whole AnimatePresence is portaled to <body> (rather than portaling its child) because
+          AnimatePresence clones its direct child via React.cloneElement, which requires a real
+          element — a ReactPortal fails that check and gets silently dropped. Portaling here is also
+          what's needed in the first place: the case study article's `.glass-surface` backdrop-filter
+          creates a new containing block for `position: fixed`, which would otherwise trap this
+          overlay inside the article instead of covering the full viewport. */}
+      {typeof document !== "undefined"
+        ? createPortal(
+            <AnimatePresence>
+              {activeItem ? (
+                <motion.div
+                  className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={`${activeLabel} gallery preview`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Minus className="size-4" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Zoom in"
-                  onClick={() => setZoom((value) => Number((value + 0.25).toFixed(2)))}
-                  className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
-                >
-                  <Plus className="size-4" aria-hidden="true" />
-                </button>
-              </div>
-              <div className="relative flex max-h-[78vh] max-w-[88vw] items-center justify-center overflow-auto rounded-md bg-secondary p-3 sm:p-4">
-                <Image
-                  src={activeItem.src}
-                  alt={activeItem.alt}
-                  width={1600}
-                  height={1000}
-                  priority
-                  className="h-auto max-h-[74vh] w-auto max-w-[84vw] object-contain"
-                  style={{ transform: `scale(${zoom})`, transformOrigin: "center center" }}
-                  sizes="(min-width: 1024px) 70vw, 100vw"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/78 to-transparent p-6">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
-                    {activeItem.label}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+                  <button
+                    type="button"
+                    aria-label="Close gallery preview"
+                    className="absolute inset-0 bg-background/82 backdrop-blur-xl"
+                    onClick={() => setActiveItem(null)}
+                  />
+                  <motion.div
+                    className="glass-surface relative z-10 w-full max-w-6xl overflow-hidden rounded-lg p-3 sm:p-4"
+                    initial={{ scale: 0.96, y: 18 }}
+                    animate={{ scale: 1, y: 0 }}
+                    exit={{ scale: 0.98, y: 10 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <button
+                      type="button"
+                      aria-label="Close gallery preview"
+                      onClick={() => setActiveItem(null)}
+                      className="absolute right-5 top-5 z-20 inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                    >
+                      <X className="size-4" aria-hidden="true" />
+                    </button>
+                    <div className="absolute right-5 top-20 z-20 flex gap-2">
+                      <button
+                        type="button"
+                        aria-label="Zoom out"
+                        onClick={() => setZoom((value) => Math.max(1, Number((value - 0.25).toFixed(2))))}
+                        className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                      >
+                        <Minus className="size-4" aria-hidden="true" />
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Zoom in"
+                        onClick={() => setZoom((value) => Number((value + 0.25).toFixed(2)))}
+                        className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                      >
+                        <Plus className="size-4" aria-hidden="true" />
+                      </button>
+                    </div>
+                    <div className="relative flex max-h-[78vh] max-w-[88vw] items-center justify-center overflow-auto rounded-md bg-secondary p-3 sm:p-4">
+                      <Image
+                        src={activeItem.src}
+                        alt={activeItem.alt}
+                        width={activeItem.width ?? 1600}
+                        height={activeItem.height ?? 1000}
+                        priority
+                        className="h-auto max-h-[74vh] w-auto max-w-[84vw] object-contain"
+                        style={{ transform: `scale(${zoom})`, transformOrigin: "center center" }}
+                        sizes="(min-width: 1024px) 70vw, 100vw"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/78 to-transparent p-6">
+                        <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
+                          {activeItem.label}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>,
+            document.body,
+          )
+        : null}
     </>
   );
 }

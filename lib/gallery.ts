@@ -58,6 +58,27 @@ function fileBasename(file: string) {
 }
 
 /**
+ * Reads a PNG's width/height straight from its IHDR chunk (bytes 16-23), so the
+ * gallery can size a tile to an image's real aspect ratio without a new dependency.
+ */
+function readPngDimensions(filePath: string): { width: number; height: number } | null {
+  try {
+    const buffer = Buffer.alloc(24);
+    const fd = fs.openSync(filePath, "r");
+    fs.readSync(fd, buffer, 0, 24, 0);
+    fs.closeSync(fd);
+
+    if (buffer.toString("ascii", 12, 16) !== "IHDR") {
+      return null;
+    }
+
+    return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Tile shape comes from an optional `--wide`, `--tall`, `--large`, or `--standard`
  * suffix on the filename (for example `03-checkout--tall.png`). Without a suffix,
  * tiles alternate between wide and standard to keep the masonry rhythm varied.
@@ -110,6 +131,13 @@ type ProjectGalleryOptions = {
   title: string;
   /** Shown as placeholder tiles when the project folder has no screenshots yet. */
   fallbackSrc: string;
+  /**
+   * Sizes each tile to the screenshot's own aspect ratio instead of the canned
+   * masonry shapes, so full-page website screenshots display uncropped. Opt-in
+   * because it changes the grid's rhythm — only worth it for wide screenshots
+   * that don't suit the default portrait-leaning tile shapes.
+   */
+  preserveAspectRatio?: boolean;
 };
 
 /**
@@ -120,6 +148,7 @@ export function getProjectGallery({
   slug,
   title,
   fallbackSrc,
+  preserveAspectRatio,
 }: ProjectGalleryOptions): ProjectGalleryItem[] {
   const files = readProjectImageFiles(slug).filter(
     (file) => fileBasename(file) !== COVER_BASENAME,
@@ -129,10 +158,18 @@ export function getProjectGallery({
     return buildPlaceholderGallery(title, fallbackSrc);
   }
 
-  return files.map((file, index) => ({
-    src: `${PROJECTS_PUBLIC_PATH}/${slug}/${file}`,
-    alt: `${title} gallery image ${index + 1}`,
-    label: `Gallery ${index + 1}`,
-    size: resolveGallerySize(file, index),
-  }));
+  return files.map((file, index) => {
+    const dimensions = preserveAspectRatio
+      ? readPngDimensions(path.join(PROJECTS_IMAGE_DIRECTORY, slug, file))
+      : null;
+
+    return {
+      src: `${PROJECTS_PUBLIC_PATH}/${slug}/${file}`,
+      alt: `${title} gallery image ${index + 1}`,
+      label: `Gallery ${index + 1}`,
+      size: resolveGallerySize(file, index),
+      width: dimensions?.width,
+      height: dimensions?.height,
+    };
+  });
 }

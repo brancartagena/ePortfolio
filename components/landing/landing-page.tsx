@@ -296,7 +296,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                       {project.description}
                     </p>
                     <div className="grid gap-5 border-t border-white/12 pt-7 sm:grid-cols-3">
-                      {["Year 2026", "Role Design", "Mode Preview"].map(
+                      {[`Year ${project.year}`, "Role Design", "Mode Preview"].map(
                         (item) => {
                           const [label, value] = item.split(" ");
 

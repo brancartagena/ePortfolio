@@ -63,10 +63,14 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   // Screenshots are read from public/assets/images/projects/<slug>/ at build time,
   // so adding images to that folder is all that is needed to extend the gallery.
+  // StreamTrendr's screenshots are all wide website captures that the masonry
+  // grid's default portrait-leaning tile shapes would crop, so its gallery locks
+  // each tile to the screenshot's own aspect ratio instead.
   const galleryItems = getProjectGallery({
     slug: project.slug,
     title: project.title,
     fallbackSrc: project.image,
+    preserveAspectRatio: project.slug === "stream-trendr",
   });
 
   // StreamTrendr's cover is a wide website screenshot (~1.98:1) that a full-bleed
