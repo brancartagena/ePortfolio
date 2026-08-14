@@ -237,11 +237,11 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 8 }}
             data-lenis-prevent
-            className="fixed inset-3 touch-pan-y overflow-y-auto overscroll-contain rounded-[1.35rem] border border-white/16 bg-background/90 shadow-[0_24px_70px_rgba(0,0,0,0.34)] sm:inset-5 lg:inset-8"
+            className="fixed inset-3 touch-pan-y overflow-x-hidden overflow-y-auto overscroll-contain rounded-[1.35rem] border border-white/16 bg-background/90 shadow-[0_24px_70px_rgba(0,0,0,0.34)] sm:inset-5 lg:inset-8"
             transition={{ duration: 0.22, ease: "easeOut" }}
           >
-            <div className="relative grid min-h-full lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
-              <div className="relative min-h-[46dvh] overflow-hidden bg-secondary lg:min-h-full">
+            <div className="relative grid min-h-full min-w-0 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
+              <div className="relative min-h-[46dvh] min-w-0 overflow-hidden bg-secondary lg:min-h-full">
                 {project.slug === "stream-trendr" ? (
                   <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-8">
                     <BrowserPreview
@@ -262,7 +262,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                     fill
                     priority
                     sizes="(min-width: 1024px) 52vw, 100vw"
-                    className="object-cover"
+                    className="object-contain sm:object-cover"
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/72" />
@@ -272,13 +272,13 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/65 via-transparent to-transparent lg:hidden" />
 
               <motion.aside
-                className="relative z-10 flex items-center p-4 sm:p-6 lg:p-10"
+                className="relative z-10 flex min-w-0 items-center p-4 sm:p-6 lg:p-10"
                 initial={{ x: 24, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: 16, opacity: 0 }}
                 transition={{ duration: 0.24, ease: "easeOut" }}
               >
-                <div className="glass-surface w-full rounded-[1.35rem] p-6 sm:p-8 lg:p-10">
+                <div className="glass-surface min-w-0 w-full rounded-[1.35rem] p-6 sm:p-8 lg:p-10">
                   <button
                     type="button"
                     aria-label="Close project preview"
@@ -292,7 +292,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                     <p className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
                       {project.category}
                     </p>
-                    <h2 className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-6xl">
+                    <h2 className="break-words text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-6xl">
                       {project.title}
                     </h2>
                     <p className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
