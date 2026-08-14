@@ -147,9 +147,10 @@ export function LandingPage() {
             >
               <GlassCard className="p-6 sm:p-8">
                 <p className="text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
-                  I started out in Computer Engineering, then pivoted to Information Science with a Data Science minor at the University of Maryland, it turned out to be the better fit.
-                  Since graduating, I&apos;ve been exploring three directions: data analytics, UX/UI design, and cybersecurity, instead of picking one lane right away.
-                  This site is where I keep the projects that came out of that exploring, and it&apos;ll keep growing as I figure out where I land.
+                  I&apos;m an Information Science graduate from the University of Maryland with a minor in Data Science. I chose Information Science because of its flexibility—it gave me the opportunity to explore different areas of technology, from data and cybersecurity to UI/UX and people-centered work. I&apos;ve always enjoyed the creative side of technology, especially the process of planning an idea, thinking through how it should work, and turning it into something people can interact with.
+                </p>
+                <p className="mt-4 text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
+                  Outside of technology, I enjoy anime, TV shows, movies, music, and spending time with friends. A lot of those interests have found their way into my projects, including the entertainment-focused products I&apos;ve designed and built. I&apos;m still exploring where I want to take my career, and this portfolio is a collection of that exploration as I continue learning, experimenting, and figuring out where my creativity fits best.
                 </p>
               </GlassCard>
             </motion.div>
