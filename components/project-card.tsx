@@ -151,7 +151,7 @@ function PosterProjectCard({
       layoutId={`project-card-${id}`}
       onClick={onSelect}
       className={cn(
-        "glass-surface group relative block aspect-[5/4] w-full overflow-hidden rounded-[1.35rem] p-3 text-left outline-none transition duration-500 ease-out focus-visible:ring-1 focus-visible:ring-ring sm:aspect-[4/5] sm:p-4",
+        "project-card-surface glass-surface group relative block aspect-[5/4] w-full overflow-hidden rounded-[1.35rem] p-3 text-left outline-none transition duration-500 ease-out focus-visible:ring-1 focus-visible:ring-ring sm:aspect-[4/5] sm:p-4",
         "hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_18px_60px_rgba(0,0,0,0.3)]",
         className,
       )}

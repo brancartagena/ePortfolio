@@ -108,7 +108,10 @@ export function Navbar({
     const target = document.getElementById(href.slice(1));
     if (target) {
       const offsetTop = target.getBoundingClientRect().top + window.scrollY - 96;
-      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      // Lenis owns scroll interpolation globally. Native smooth scrolling here
+      // would stack a second animation and make the jump to the project grid
+      // feel delayed.
+      window.scrollTo({ top: offsetTop, behavior: "auto" });
       window.history.pushState(null, "", href);
 
       programmaticScrollTimeoutRef.current = window.setTimeout(() => {
