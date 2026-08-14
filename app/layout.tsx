@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { Analytics } from "@vercel/analytics/next";
 import { SkipLink } from "@/components/skip-link";
 import { AmbientEffects } from "@/components/providers/ambient-effects";
 import { LenisProvider } from "@/components/providers/lenis-provider";
@@ -39,6 +40,7 @@ export default function RootLayout({
           <AmbientEffects />
           <div className="relative z-10">{children}</div>
         </LenisProvider>
+        <Analytics />
       </body>
     </html>
   );
