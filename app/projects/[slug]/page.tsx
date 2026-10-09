@@ -144,8 +144,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               )}
             </div>
 
-            <header data-gsap="text" className="space-y-5 border-b border-white/12 pb-8 sm:space-y-6 sm:pb-10">
-              <Eyebrow>{project.category}</Eyebrow>
+            <header
+              data-gsap="text"
+              className="space-y-5 border-b border-primary/25 pb-8 sm:space-y-6 sm:pb-10"
+            >
+              <Eyebrow className="text-premium-gold">{project.category}</Eyebrow>
               <h1 className="break-words text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
                 {project.title}
               </h1>

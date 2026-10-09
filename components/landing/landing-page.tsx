@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import type { RefObject } from "react";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight, Linkedin, Mail, X } from "lucide-react";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
 
 import { fadeUp, staggerContainer } from "@/animations/framer";
@@ -62,22 +62,32 @@ export function LandingPage() {
               variants={staggerContainer}
               initial={shouldReduceMotion ? false : "hidden"}
               animate={shouldReduceMotion ? undefined : "visible"}
-              className="max-w-5xl space-y-8"
+              className="max-w-5xl space-y-8 xl:max-w-[54rem]"
             >
               <motion.div variants={fadeUp}>
-                <Eyebrow>PRODUCT DESIGN · UX · WEB DEVELOPMENT</Eyebrow>
+                <Eyebrow className="text-premium-gold">
+                  PRODUCT DESIGN · UX · WEB DEVELOPMENT
+                </Eyebrow>
               </motion.div>
               <motion.h1
                 variants={fadeUp}
                 className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
-                I design digital products and build for the web.
+                I design{" "}
+                <span className="relative inline-block text-premium-gold">
+                  digital products
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-1 left-0 h-1 w-[72%] rounded-full bg-primary/80 sm:-bottom-2 sm:h-1.5"
+                  />
+                </span>{" "}
+                and build for the web.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
-                I&apos;m Brandon, a University of Maryland Information Science graduate with a Data Science minor. My work brings together user research, product design, and hands-on web development—from team-based prototypes to a live, API-powered web app.
+                I&apos;m Brandon Cartagena, an Information Science graduate who enjoys shaping digital products from early research and concepts through to a working web experience.
               </motion.p>
               <motion.div variants={fadeUp} className="flex flex-wrap gap-3 pt-1">
                 <Button asChild variant="secondary">
@@ -92,6 +102,46 @@ export function LandingPage() {
               </motion.div>
             </motion.div>
           </Container>
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-[max(3rem,calc((100vw-82rem)/2))] top-1/2 hidden h-[25rem] w-[19rem] -translate-y-1/2 xl:block"
+          >
+            <div className="absolute bottom-5 left-8 top-5 w-px bg-gradient-to-b from-transparent via-primary/70 to-transparent" />
+            <div className="absolute -right-5 top-1/2 size-64 -translate-y-1/2 rounded-full border border-white/[0.06]" />
+            <div className="absolute -right-1 top-1/2 size-48 -translate-y-1/2 rounded-full border border-primary/10" />
+            <div className="relative flex h-full flex-col justify-between py-5">
+              {[
+                ["01", "DISCOVER", "Research with intention"],
+                ["02", "DESIGN", "Prototype the experience"],
+                ["03", "BUILD", "Bring it to the web"],
+              ].map(([number, label, description], index) => (
+                <div
+                  key={number}
+                  className={`relative flex w-fit max-w-[17rem] items-center gap-4 rounded-lg border border-white/10 bg-card/90 p-4 shadow-soft backdrop-blur ${
+                    index === 1 ? "ml-10" : "ml-0"
+                  }`}
+                >
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-primary/40 bg-primary/10 font-mono text-xs font-semibold text-premium-gold">
+                    {number}
+                  </span>
+                  <span>
+                    <span className="block text-[0.65rem] font-semibold tracking-[0.2em] text-premium-gold">
+                      {label}
+                    </span>
+                    <span className="mt-1 block text-xs text-muted-foreground">
+                      {description}
+                    </span>
+                  </span>
+                  <span
+                    className={`absolute -left-[2.08rem] size-2 rounded-full border-2 border-background ${
+                      index === 1 ? "bg-premium-gold" : "bg-primary"
+                    }`}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Section id="work" className="pt-10">
@@ -105,8 +155,9 @@ export function LandingPage() {
             <motion.div variants={fadeUp}>
               <SectionTitle
                 eyebrow="Selected work"
-                title="Research, product design, and web development."
-                description="A mix of team-led research and product concepts, plus a live web app I designed and built. Each case study makes the project scope and my contribution clear."
+                title="From research and concepts to a live product."
+                description="Explore team-based research and Figma concepts alongside a solo-built, live web app. Each case study explains the project format, team, and my contribution."
+                eyebrowClassName="text-premium-gold"
               />
             </motion.div>
 
@@ -156,10 +207,10 @@ export function LandingPage() {
             >
               <SurfaceCard className="p-6 sm:p-8">
                 <p className="text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
-                  I&apos;m an Information Science graduate from the University of Maryland with a minor in Data Science. My projects span team-based UX research and product concepts to StreamTrendr, a solo web app using TMDB and AniList data. I enjoy turning a clear problem into an experience people can understand, then carrying it through design and implementation.
+                  I&apos;m an Information Science graduate from the University of Maryland with a minor in Data Science. I enjoy turning a clear problem into an experience people can understand, then carrying it through design and implementation.
                 </p>
                 <p className="mt-4 text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
-                  Outside of project work, I enjoy anime, TV, movies, music, and time with friends—interests that inspire some of the products I make.
+                  My work ranges from team-based UX research and product concepts to StreamTrendr, a solo web app that brings together my interests in entertainment and building for the web. Outside of projects, I enjoy music and spending time with friends.
                 </p>
                 <dl className="mt-7 grid gap-4 border-t border-white/12 pt-6 sm:grid-cols-3">
                   {[
@@ -190,7 +241,7 @@ export function LandingPage() {
             viewport={{ once: true, margin: "-12% 0px" }}
           >
             <SurfaceCard className="p-8 sm:p-10 lg:p-12">
-              <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.8fr)] lg:items-center lg:gap-12">
                 <div className="space-y-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
                     Contact
@@ -199,26 +250,45 @@ export function LandingPage() {
                     Let&apos;s talk about product design and web development.
                   </h2>
                   <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-                    I&apos;m open to early-career opportunities where I can contribute to thoughtful digital products and keep growing as a designer and developer.
+                    I&apos;d be glad to hear from you. Email is the best way to reach me, or connect with me on LinkedIn.
                   </p>
                 </div>
-                <div className="flex flex-col gap-3 sm:items-start">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                   <Link
                     href="mailto:brancartagena@gmail.com"
-                    className="text-base text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                    className="group flex min-h-24 items-center gap-4 rounded-lg border border-white/12 bg-secondary/60 p-5 transition-colors hover:border-white/25 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    brancartagena@gmail.com
+                    <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-white/12 bg-background text-foreground">
+                      <Mail className="size-5" aria-hidden="true" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                        Email me
+                      </span>
+                      <span className="mt-1 block break-all text-sm font-semibold text-foreground group-hover:underline group-hover:underline-offset-4 sm:text-base">
+                        brancartagena@gmail.com
+                      </span>
+                    </span>
                   </Link>
-                  <Button asChild variant="ghost">
-                    <Link
-                      href="https://www.linkedin.com/in/brancartagena/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ArrowUpRight className="size-4" aria-hidden="true" />
-                      <span>LinkedIn</span>
-                    </Link>
-                  </Button>
+                  <Link
+                    href="https://www.linkedin.com/in/brancartagena/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex min-h-24 items-center gap-4 rounded-lg border border-white/12 bg-secondary/60 p-5 transition-colors hover:border-white/25 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-white/12 bg-background text-foreground">
+                      <Linkedin className="size-5" aria-hidden="true" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                        LinkedIn
+                      </span>
+                      <span className="mt-1 block text-sm font-semibold text-foreground group-hover:underline group-hover:underline-offset-4 sm:text-base">
+                        Connect with me
+                      </span>
+                    </span>
+                    <ArrowUpRight className="ml-auto size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                  </Link>
                 </div>
               </div>
             </SurfaceCard>

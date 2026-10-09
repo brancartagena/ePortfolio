@@ -21,20 +21,18 @@ export function ProjectDetailAnimations() {
       gsap.utils
         .toArray<HTMLElement>("[data-gsap='section']")
         .forEach((item) => {
-          gsap.fromTo(
-            item,
-            { autoAlpha: 0, y: 14 },
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.45,
-              scrollTrigger: {
-                trigger: item,
-                start: "top 82%",
-                once: true,
-              },
+          ScrollTrigger.create({
+            trigger: item,
+            start: "top 82%",
+            once: true,
+            onEnter: () => {
+              gsap.fromTo(
+                item,
+                { autoAlpha: 0, y: 14 },
+                { autoAlpha: 1, y: 0, duration: 0.45 },
+              );
             },
-          );
+          });
         });
 
       gsap.utils.toArray<HTMLElement>("[data-gsap='image']").forEach((item) => {

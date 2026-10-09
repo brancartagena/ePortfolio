@@ -164,8 +164,9 @@ function PosterProjectCard({
   return (
     <div
       className={cn(
-        "surface-panel group overflow-hidden rounded-xl transition duration-200 ease-out",
-        !shouldReduceMotion && "hover:-translate-y-0.5 hover:border-white/25 hover:shadow-[0_18px_60px_rgba(0,0,0,0.3)]",
+        "surface-panel group relative overflow-hidden rounded-xl transition duration-200 ease-out before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary/70 before:to-transparent",
+        !shouldReduceMotion &&
+          "hover:-translate-y-0.5 hover:border-white/25 hover:shadow-[0_18px_60px_rgba(0,0,0,0.3)]",
         className,
       )}
     >
@@ -176,7 +177,7 @@ function PosterProjectCard({
         aria-label={`Preview ${title}`}
         className="grid min-h-[18rem] w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring lg:grid-cols-[0.9fr_1.1fr]"
       >
-        <span className="relative min-h-56 overflow-hidden bg-secondary lg:min-h-full">
+        <span className="relative min-h-56 overflow-hidden bg-[radial-gradient(ellipse_at_50%_50%,hsl(var(--accent)/0.08),transparent_65%),hsl(var(--secondary))] lg:min-h-full">
           {image ? (
             <Image
               src={image}
@@ -204,8 +205,17 @@ function PosterProjectCard({
           >
             {title}
           </span>
-          <span className="text-sm font-medium text-foreground/70">
-            {year} <span aria-hidden="true">·</span> {format}
+          <span className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-xs font-semibold text-premium-gold">
+              {year}
+            </span>
+            <span
+              aria-hidden="true"
+              className="size-1 rounded-full bg-primary"
+            />
+            <span className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-premium-gold">
+              {format}
+            </span>
           </span>
           <span className="text-sm leading-6 text-muted-foreground">
             {description}

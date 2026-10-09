@@ -6,6 +6,7 @@ type SectionTitleProps = HTMLAttributes<HTMLDivElement> & {
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
+  eyebrowClassName?: string;
   titleClassName?: string;
   descriptionClassName?: string;
 };
@@ -15,6 +16,7 @@ export function SectionTitle({
   title,
   description,
   className,
+  eyebrowClassName,
   titleClassName,
   descriptionClassName,
   ...props
@@ -22,15 +24,30 @@ export function SectionTitle({
   return (
     <div className={cn("max-w-3xl space-y-4 sm:space-y-5", className)} {...props}>
       {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
+        <p
+          className={cn(
+            "text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver",
+            eyebrowClassName,
+          )}
+        >
           {eyebrow}
         </p>
       ) : null}
-      <h2 className={cn("text-balance text-4xl font-bold leading-[1.2] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl", titleClassName)}>
+      <h2
+        className={cn(
+          "text-balance text-4xl font-bold leading-[1.2] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl",
+          titleClassName,
+        )}
+      >
         {title}
       </h2>
       {description ? (
-        <p className={cn("max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg lg:text-xl", descriptionClassName)}>
+        <p
+          className={cn(
+            "max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg lg:text-xl",
+            descriptionClassName,
+          )}
+        >
           {description}
         </p>
       ) : null}
