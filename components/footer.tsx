@@ -31,14 +31,14 @@ export function Footer({
         <p className="font-medium text-foreground/80">{brand}</p>
         <div className="flex flex-wrap gap-x-6 gap-y-3">
           {links.map((link) => {
-            const isExternal = link.href.startsWith("http");
+            const isExternal = /^https?:\/\//i.test(link.href);
 
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noreferrer" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className="transition duration-300 ease-out hover:text-foreground"
               >
                 {link.label}

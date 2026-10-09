@@ -53,11 +53,6 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        glass: {
-          DEFAULT: "hsl(var(--glass))",
-          strong: "hsl(var(--glass-strong))",
-          border: "hsl(var(--glass-border))",
-        },
         premium: {
           ink: "hsl(24 22% 4%)",
           ember: "hsl(18 92% 56%)",
@@ -69,17 +64,15 @@ const config: Config = {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 6px)",
-        sm: "calc(var(--radius) - 14px)",
-        xl: "calc(var(--radius) + 4px)",
+        md: "0.5rem",
+        sm: "0.25rem",
+        xl: "1rem",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        glass: "var(--shadow-glass)",
         soft: "var(--shadow-soft)",
-        glow: "0 0 80px hsl(var(--surface-glow) / 0.24)",
       },
       letterSpacing: {
         widecaps: "0.26em",

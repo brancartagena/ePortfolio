@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 
 import { Analytics } from "@vercel/analytics/next";
 import { SkipLink } from "@/components/skip-link";
-import { AmbientEffects } from "@/components/providers/ambient-effects";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
 
-// TODO: update once the Vercel deployment URL (or a custom domain) is known.
 const siteUrl = "https://brandon-cartagena.vercel.app";
+const siteDescription =
+  "Portfolio of Brandon Cartagena, a University of Maryland Information Science graduate with a Data Science minor, interested in data analytics, UX/UI, and cybersecurity/IT.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Brandon Cartagena | Portfolio",
-  description: "Welcome to my portfolio!",
+  title: "Brandon Cartagena | Information Science Graduate",
+  description: siteDescription,
   openGraph: {
     title: "Brandon Cartagena | Portfolio",
-    description: "Welcome to my portfolio!",
+    description: siteDescription,
     url: siteUrl,
     siteName: "Brandon Cartagena | Portfolio",
     type: "website",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "Brandon Cartagena | Portfolio",
-    description: "Welcome to my portfolio!",
+    description: siteDescription,
   },
 };
 
@@ -37,7 +37,6 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <SkipLink />
         <LenisProvider>
-          <AmbientEffects />
           <div className="relative z-10">{children}</div>
         </LenisProvider>
         <Analytics />

@@ -22,7 +22,7 @@ export function SectionTitle({
   return (
     <div className={cn("max-w-3xl space-y-4 sm:space-y-5", className)} {...props}>
       {eyebrow ? (
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
           {eyebrow}
         </p>
       ) : null}

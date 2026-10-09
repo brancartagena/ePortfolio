@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { Minus, Plus, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/utils";
+import { useDialogAccessibility } from "@/hooks/use-dialog-accessibility";
 
 export type ProjectGalleryItem = {
   src: string;
@@ -30,38 +31,21 @@ const sizeClassName: Record<NonNullable<ProjectGalleryItem["size"]>, string> = {
   tall: "aspect-[4/5]",
   standard: "aspect-[5/4]",
 };
+const maxZoom = 3;
 
 export function ProjectGallery({ items, className }: ProjectGalleryProps) {
-  // Currently selected gallery item for the modal preview.
   const [activeItem, setActiveItem] = useState<ProjectGalleryItem | null>(null);
   const [zoom, setZoom] = useState(1);
-
-  // Accessible label for the active preview dialog.
-  const activeLabel = useMemo(() => activeItem?.label ?? "gallery preview", [activeItem]);
-
-  useEffect(() => {
-    if (!activeItem) {
-      return;
-    }
-
-    setZoom(1);
-
-    // Allow closing the modal with Escape key and freeze page scroll while open.
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setActiveItem(null);
-      }
-    };
-
-    const previousBodyOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousBodyOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [activeItem]);
+  const shouldReduceMotion = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const galleryTriggerRef = useRef<HTMLElement | null>(null);
+  const closeGalleryPreview = useCallback(() => setActiveItem(null), []);
+  useDialogAccessibility(
+    activeItem !== null,
+    closeGalleryPreview,
+    dialogRef,
+    galleryTriggerRef,
+  );
 
   return (
     <>
@@ -76,15 +60,19 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
             data-gsap="gallery"
             aria-haspopup="dialog"
             aria-label={`Open ${item.label} preview`}
-            onClick={() => setActiveItem(item)}
+            onClick={(event) => {
+              galleryTriggerRef.current = event.currentTarget;
+              setZoom(1);
+              setActiveItem(item);
+            }}
             style={item.width && item.height ? { aspectRatio: `${item.width} / ${item.height}` } : undefined}
             className={cn(
               "group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-md border border-white/12 bg-secondary text-left shadow-soft outline-none",
-              "focus-visible:ring-1 focus-visible:ring-ring",
+              "focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
               sizeClassName[item.size ?? "standard"],
             )}
-            whileHover={{ y: -3 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           >
             <Image
               src={item.src}
@@ -93,23 +81,17 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
               className="object-cover"
               sizes="(min-width: 1024px) 320px, 92vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/72 via-background/10 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-4">
-              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
+            <span className="absolute inset-0 bg-gradient-to-t from-background/72 via-background/10 to-transparent" />
+            <span className="absolute inset-x-0 bottom-0 p-4">
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
                 {item.label}
-              </p>
-            </div>
+              </span>
+            </span>
           </motion.button>
         ))}
       </div>
 
-      {/* Modal preview overlay. AnimatePresence handles exit animations when activeItem becomes null.
-          The whole AnimatePresence is portaled to <body> (rather than portaling its child) because
-          AnimatePresence clones its direct child via React.cloneElement, which requires a real
-          element — a ReactPortal fails that check and gets silently dropped. Portaling here is also
-          what's needed in the first place: the case study article's `.glass-surface` backdrop-filter
-          creates a new containing block for `position: fixed`, which would otherwise trap this
-          overlay inside the article instead of covering the full viewport. */}
+      {/* Portal the dialog to the document body so it layers above the case study page. */}
       {typeof document !== "undefined"
         ? createPortal(
             <AnimatePresence>
@@ -119,30 +101,33 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
                   className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
                   role="dialog"
                   aria-modal="true"
-                  aria-label={`${activeLabel} gallery preview`}
-                  initial={{ opacity: 0 }}
+                  aria-label={`${activeItem.label} gallery preview`}
+                  ref={dialogRef}
+                  tabIndex={-1}
+                  initial={shouldReduceMotion ? false : { opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 >
                   <button
                     type="button"
                     aria-label="Close gallery preview"
-                    className="absolute inset-0 bg-background/82 backdrop-blur-xl"
-                    onClick={() => setActiveItem(null)}
+                    tabIndex={-1}
+                    className="absolute inset-0 bg-background/90"
+                    onClick={closeGalleryPreview}
                   />
                   <motion.div
-                    className="glass-surface relative z-10 w-full max-w-6xl overflow-hidden rounded-lg p-3 sm:p-4"
-                    initial={{ scale: 0.96, y: 18 }}
+                    className="surface-panel relative z-10 w-full max-w-6xl overflow-hidden rounded-lg p-3 sm:p-4"
+                    initial={shouldReduceMotion ? false : { scale: 0.98, y: 8 }}
                     animate={{ scale: 1, y: 0 }}
-                    exit={{ scale: 0.98, y: 10 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    exit={shouldReduceMotion ? undefined : { scale: 0.98, y: 10 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                   >
                     <button
                       type="button"
                       aria-label="Close gallery preview"
-                      onClick={() => setActiveItem(null)}
-                      className="absolute right-5 top-5 z-20 inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                      onClick={closeGalleryPreview}
+                      className="absolute right-5 top-5 z-20 inline-flex size-11 items-center justify-center rounded-md border border-white/15 bg-background text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                     >
                       <X className="size-4" aria-hidden="true" />
                     </button>
@@ -150,20 +135,25 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
                       <button
                         type="button"
                         aria-label="Zoom out"
+                        disabled={zoom <= 1}
                         onClick={() => setZoom((value) => Math.max(1, Number((value - 0.25).toFixed(2))))}
-                        className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                        className="inline-flex size-11 items-center justify-center rounded-md border border-white/15 bg-background text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         <Minus className="size-4" aria-hidden="true" />
                       </button>
                       <button
                         type="button"
                         aria-label="Zoom in"
-                        onClick={() => setZoom((value) => Number((value + 0.25).toFixed(2)))}
-                        className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-background/40 text-foreground/80 backdrop-blur-xl transition hover:bg-white/[0.08] hover:text-foreground"
+                        disabled={zoom >= maxZoom}
+                        onClick={() => setZoom((value) => Math.min(maxZoom, Number((value + 0.25).toFixed(2))))}
+                        className="inline-flex size-11 items-center justify-center rounded-md border border-white/15 bg-background text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         <Plus className="size-4" aria-hidden="true" />
                       </button>
                     </div>
+                    <span className="sr-only" aria-live="polite">
+                      Image zoom: {Math.round(zoom * 100)} percent
+                    </span>
                     <div className="relative flex max-h-[78vh] max-w-[88vw] items-center justify-center overflow-auto rounded-md bg-secondary p-3 sm:p-4">
                       <Image
                         src={activeItem.src}

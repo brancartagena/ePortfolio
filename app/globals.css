@@ -10,29 +10,22 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
+    --primary: 18 92% 56%;
     --primary-foreground: 222 47% 11%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
-    --accent: 217 91% 60%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 18 92% 56%;
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
     --border: 214 32% 91% / 0.14;
     --input: 214 32% 91% / 0.16;
-    --ring: 217 91% 60%;
-    --radius: 1.75rem;
-    --glass: 217 33% 17% / 0.56;
-    --glass-strong: 217 33% 17% / 0.74;
-    --glass-border: 214 32% 91% / 0.16;
-    --surface-glow: 217 91% 60%;
-    --shadow-glass: 0 22px 70px rgb(2 8 23 / 0.36);
+    --ring: 18 92% 56%;
+    --radius: 0.75rem;
     --shadow-soft: 0 14px 40px rgb(2 8 23 / 0.26);
     --shadow-elevated: 0 24px 80px rgb(2 8 23 / 0.3);
-    --mouse-x: 50vw;
-    --mouse-y: 50vh;
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", sans-serif;
   }
@@ -67,157 +60,14 @@
 }
 
 @layer utilities {
-  .glass-surface {
-    background:
-      radial-gradient(
-        520px circle at var(--mouse-x) var(--mouse-y),
-        hsl(var(--surface-glow) / 0.08),
-        transparent 42%
-      ),
-      linear-gradient(
-        135deg,
-        hsl(var(--glass-border)) 0%,
-        transparent 32%,
-        hsl(var(--surface-glow) / 0.12) 100%
-      ),
-      hsl(var(--glass));
-    border: 1px solid hsl(var(--glass-border));
-    box-shadow: var(--shadow-glass);
-    backdrop-filter: blur(26px) saturate(150%);
-    -webkit-backdrop-filter: blur(26px) saturate(150%);
-  }
-
-  /* Poster cards sit directly in the scroll path. Blurring the full page
-     behind four image-heavy cards forces large repaints on every scroll frame;
-     their translucent surface still retains the intended look without that
-     cost. */
-  .project-card-surface {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
-  .glass-surface::after {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background:
-      linear-gradient(
-        110deg,
-        transparent 0%,
-        rgb(255 255 255 / 0.08) 28%,
-        transparent 46%
-      ),
-      radial-gradient(
-        420px circle at var(--mouse-x) var(--mouse-y),
-        rgb(255 255 255 / 0.06),
-        transparent 48%
-      );
-    opacity: 0.6;
-    mix-blend-mode: screen;
-  }
-
-  .ambient-gradient {
-    position: absolute;
-    inset: -18%;
-    background:
-      radial-gradient(
-        circle at 20% 18%,
-        hsl(var(--surface-glow) / 0.2),
-        transparent 28%
-      ),
-      radial-gradient(circle at 78% 8%, hsl(38 92% 62% / 0.12), transparent 25%),
-      radial-gradient(circle at 50% 80%, hsl(350 70% 45% / 0.08), transparent 30%);
-    filter: blur(12px);
-    opacity: 0.72;
-    animation: ambient-drift 22s ease-in-out infinite alternate;
-  }
-
-  .mouse-light {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      560px circle at var(--mouse-x) var(--mouse-y),
-      hsl(var(--surface-glow) / 0.14),
-      transparent 45%
-    );
-    opacity: 0.86;
-    transition: opacity 250ms ease;
-  }
-
-  .ambient-particles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    opacity: 0.42;
-  }
-
-  .ambient-particles span {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgb(255 244 226 / 0.48);
-    box-shadow: 0 0 22px rgb(255 136 64 / 0.28);
-    animation: particle-float linear infinite;
-    will-change: transform, opacity;
-  }
-
-  .animated-button {
-    position: relative;
-    overflow: hidden;
-    transform: translateZ(0);
-  }
-
-  .animated-button::after {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      110deg,
-      transparent 0%,
-      rgb(255 255 255 / 0.14) 42%,
-      transparent 62%
-    );
-    transform: translateX(-120%);
-    transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .animated-button:hover::after {
-    transform: translateX(120%);
+  .surface-panel {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-soft);
   }
 
   .text-balance {
     text-wrap: balance;
-  }
-}
-
-@keyframes ambient-drift {
-  0% {
-    transform: translate3d(-2%, -1%, 0) scale(1);
-  }
-
-  100% {
-    transform: translate3d(2%, 1.5%, 0) scale(1.05);
-  }
-}
-
-@keyframes particle-float {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 24px, 0) scale(0.8);
-  }
-
-  18%,
-  76% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(18px, -96px, 0) scale(1);
   }
 }
 

@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import type { RefObject } from "react";
 import { ArrowUpRight, X } from "lucide-react";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
 
 import { fadeUp, staggerContainer } from "@/animations/framer";
 import { BrowserPreview } from "@/components/browser-preview";
 import { Container } from "@/components/container";
 import { Footer } from "@/components/footer";
-import { GlassCard } from "@/components/glass-card";
+import { SurfaceCard } from "@/components/surface-card";
 import { Navbar } from "@/components/navbar";
 import { ProjectCard } from "@/components/project-card";
 import { Section } from "@/components/section";
@@ -18,6 +19,7 @@ import { SectionTitle } from "@/components/section-title";
 import { Eyebrow } from "@/components/eyebrow";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/projects";
+import { useDialogAccessibility } from "@/hooks/use-dialog-accessibility";
 
 const navItems = [
   { label: "Work", href: "#work" },
@@ -29,64 +31,51 @@ export function LandingPage() {
   const [selectedProject, setSelectedProject] = useState<
     (typeof projects)[number] | null
   >(null);
-  const projectPreview = useMemo(() => selectedProject, [selectedProject]);
+  const shouldReduceMotion = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const projectTriggerRef = useRef<HTMLElement | null>(null);
+  const closeProjectPreview = useCallback(() => setSelectedProject(null), []);
 
-  useEffect(() => {
-    if (!selectedProject) {
-      return;
-    }
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setSelectedProject(null);
-      }
-    };
-
-    const previousBodyOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousBodyOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [selectedProject]);
+  useDialogAccessibility(
+    selectedProject !== null,
+    closeProjectPreview,
+    dialogRef,
+    projectTriggerRef,
+  );
 
   return (
     <LayoutGroup>
       <div className="min-h-dvh overflow-hidden bg-background text-foreground">
         <Navbar items={navItems} activeHref="#work" />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <section className="relative min-h-dvh overflow-hidden pt-28 sm:pt-36 lg:pt-40 xl:pt-44">
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,hsl(24_22%_4%),hsl(24_18%_7%)_48%,hsl(20_35%_8%))]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,hsl(214_78%_58%/0.22),transparent_36%),radial-gradient(circle_at_50%_20%,hsl(38_92%_62%/0.18),transparent_42%)]" />
+          <div className="absolute inset-0 bg-background" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,hsl(var(--accent)/0.1),transparent_40%)]" />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
           <div className="absolute left-1/2 top-24 h-px w-[84vw] -translate-x-1/2 bg-white/12" />
 
           <Container className="relative z-10 flex min-h-[calc(100dvh-10rem)] items-center">
             <motion.div
               variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
+              initial={shouldReduceMotion ? false : "hidden"}
+              animate={shouldReduceMotion ? undefined : "visible"}
               className="max-w-5xl space-y-8"
             >
               <motion.div variants={fadeUp}>
-                <Eyebrow>PORTFOLIO / DATA ANALYTICS / DIGITAL EXPERIENCES</Eyebrow>
+                <Eyebrow>DATA ANALYTICS / UX/UI / CYBERSECURITY &amp; IT</Eyebrow>
               </motion.div>
               <motion.h1
                 variants={fadeUp}
                 className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
-                Welcome! Where I share what I build.
+                Building at the intersection of data, design, and technology.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
-                Hey, I&apos;m Brandon. I like building things — mostly at the intersection of data, design, and code.
-                Right now I&apos;m exploring data analytics, UI/UX, and cybersecurity, and most of what&apos;s here overlaps more than one of those
-
+                I&apos;m Brandon, a University of Maryland Information Science graduate with a Data Science minor. I&apos;m interested in data analytics, UX/UI, and cybersecurity/IT, and many of the projects here connect more than one of those areas.
               </motion.p>
             </motion.div>
           </Container>
@@ -95,8 +84,8 @@ export function LandingPage() {
         <Section id="work" className="pt-10">
           <motion.div
             variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
+            initial={shouldReduceMotion ? false : "hidden"}
+            whileInView={shouldReduceMotion ? undefined : "visible"}
             viewport={{ once: true, margin: "-12% 0px" }}
             className="space-y-10 sm:space-y-12"
           >
@@ -104,7 +93,7 @@ export function LandingPage() {
               <SectionTitle
                 eyebrow="My proud projects"
                 title="Showing off my work."
-                description="These are mostly school projects for now — but each one has its own problem to figure out, not just a class assignment. More real-world stuff is coming as I build it."
+                description="Most of these projects began as coursework, with each giving me a different problem to work through. The case studies explain the context, my contribution, and what I learned."
               />
             </motion.div>
 
@@ -117,7 +106,10 @@ export function LandingPage() {
                     title={project.title}
                     category={project.category}
                     image={project.image}
-                    onSelect={() => setSelectedProject(project)}
+                    onSelect={(event) => {
+                      projectTriggerRef.current = event.currentTarget;
+                      setSelectedProject(project);
+                    }}
                   />
                 </motion.div>
               ))}
@@ -129,8 +121,8 @@ export function LandingPage() {
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <motion.div
               variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
+              initial={shouldReduceMotion ? false : "hidden"}
+              whileInView={shouldReduceMotion ? undefined : "visible"}
               viewport={{ once: true, margin: "-12% 0px" }}
             >
               <SectionTitle
@@ -142,18 +134,18 @@ export function LandingPage() {
 
             <motion.div
               variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
+              initial={shouldReduceMotion ? false : "hidden"}
+              whileInView={shouldReduceMotion ? undefined : "visible"}
               viewport={{ once: true, margin: "-12% 0px" }}
             >
-              <GlassCard className="p-6 sm:p-8">
+              <SurfaceCard className="p-6 sm:p-8">
                 <p className="text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
                   I&apos;m an Information Science graduate from the University of Maryland with a minor in Data Science. I chose Information Science because of its flexibility—it gave me the opportunity to explore different areas of technology, from data and cybersecurity to UI/UX and people-centered work. I&apos;ve always enjoyed the creative side of technology, especially the process of planning an idea, thinking through how it should work, and turning it into something people can interact with.
                 </p>
                 <p className="mt-4 text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
                   Outside of technology, I enjoy anime, TV shows, movies, music, and spending time with friends. A lot of those interests have found their way into my projects, including the entertainment-focused products I&apos;ve designed and built. I&apos;m still exploring where I want to take my career, and this portfolio is a collection of that exploration as I continue learning, experimenting, and figuring out where my creativity fits best.
                 </p>
-              </GlassCard>
+              </SurfaceCard>
             </motion.div>
           </div>
         </Section>
@@ -161,29 +153,32 @@ export function LandingPage() {
         <Section id="contact" className="pb-24">
           <motion.div
             variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
+            initial={shouldReduceMotion ? false : "hidden"}
+            whileInView={shouldReduceMotion ? undefined : "visible"}
             viewport={{ once: true, margin: "-12% 0px" }}
           >
-            <GlassCard className="p-8 sm:p-10 lg:p-12">
+            <SurfaceCard className="p-8 sm:p-10 lg:p-12">
               <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div className="space-y-4">
-                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
                     Contact
                   </p>
                   <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl">
-                    Let&apos;s build something with presence.
+                    Open to entry-level roles and recent-grad programs.
                   </h2>
                 </div>
                 <div className="flex flex-col gap-3 sm:items-start">
-                  <p className="text-base text-muted-foreground">
-                    Email: brancartagena@gmail.com
-                  </p>
+                  <Link
+                    href="mailto:brancartagena@gmail.com"
+                    className="text-base text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                  >
+                    brancartagena@gmail.com
+                  </Link>
                   <Button asChild variant="ghost">
                     <Link
                       href="https://www.linkedin.com/in/brancartagena/"
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                     >
                       <ArrowUpRight className="size-4" aria-hidden="true" />
                       <span>LinkedIn</span>
@@ -191,15 +186,17 @@ export function LandingPage() {
                   </Button>
                 </div>
               </div>
-            </GlassCard>
+            </SurfaceCard>
           </motion.div>
         </Section>
       </main>
 
         <Footer />
         <ProjectReveal
-          project={projectPreview}
-          onClose={() => setSelectedProject(null)}
+          project={selectedProject}
+          onClose={closeProjectPreview}
+          dialogRef={dialogRef}
+          shouldReduceMotion={shouldReduceMotion}
         />
       </div>
     </LayoutGroup>
@@ -209,36 +206,46 @@ export function LandingPage() {
 type ProjectRevealProps = {
   project: (typeof projects)[number] | null;
   onClose: () => void;
+  dialogRef: RefObject<HTMLDivElement | null>;
+  shouldReduceMotion: boolean | null;
 };
 
-function ProjectReveal({ project, onClose }: ProjectRevealProps) {
+function ProjectReveal({
+  project,
+  onClose,
+  dialogRef,
+  shouldReduceMotion,
+}: ProjectRevealProps) {
   return (
     <AnimatePresence>
       {project ? (
         <motion.div
           className="fixed inset-0 z-[90]"
           role="dialog"
-          aria-modal
+          aria-modal="true"
           aria-label={`${project.title} project preview`}
+          ref={dialogRef}
+          tabIndex={-1}
         >
           <motion.button
             type="button"
             aria-label="Close project preview"
+            tabIndex={-1}
             className="absolute inset-0 cursor-default bg-background/80"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: "easeOut" }}
             onClick={onClose}
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.98, y: 10 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 8 }}
             data-lenis-prevent
-            className="fixed inset-3 touch-pan-y overflow-x-hidden overflow-y-auto overscroll-contain rounded-[1.35rem] border border-white/16 bg-background/90 shadow-[0_24px_70px_rgba(0,0,0,0.34)] sm:inset-5 lg:inset-8"
-            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="surface-panel fixed inset-3 touch-pan-y overflow-x-hidden overflow-y-auto overscroll-contain rounded-xl sm:inset-5 lg:inset-8"
+            transition={{ duration: shouldReduceMotion ? 0 : 0.22, ease: "easeOut" }}
           >
             <div className="relative grid min-h-full min-w-0 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
               <div className="relative min-h-[46dvh] min-w-0 overflow-hidden bg-secondary lg:min-h-full">
@@ -246,7 +253,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                   <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-8">
                     <BrowserPreview
                       src={project.image}
-                      alt={project.title}
+                      alt=""
                       imageWidth={2940}
                       imageHeight={1482}
                       url={project.liveUrl}
@@ -258,7 +265,7 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                 ) : (
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt=""
                     fill
                     priority
                     sizes="(min-width: 1024px) 52vw, 100vw"
@@ -273,17 +280,17 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
 
               <motion.aside
                 className="relative z-10 flex min-w-0 items-center p-4 sm:p-6 lg:p-10"
-                initial={{ x: 24, opacity: 0 }}
+                initial={shouldReduceMotion ? false : { x: 24, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 16, opacity: 0 }}
-                transition={{ duration: 0.24, ease: "easeOut" }}
+                exit={shouldReduceMotion ? undefined : { x: 16, opacity: 0 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.24, ease: "easeOut" }}
               >
-                <div className="glass-surface min-w-0 w-full rounded-[1.35rem] p-6 sm:p-8 lg:p-10">
+                <div className="surface-panel min-w-0 w-full rounded-lg p-6 sm:p-8 lg:p-10">
                   <button
                     type="button"
                     aria-label="Close project preview"
                     onClick={onClose}
-                    className="mb-10 inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-foreground/80 transition hover:bg-white/[0.08] hover:text-foreground"
+                    className="mb-10 inline-flex size-11 items-center justify-center rounded-md border border-white/15 bg-secondary text-foreground/80 transition-colors hover:bg-secondary/80 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                   >
                     <X className="size-4" aria-hidden="true" />
                   </button>
@@ -298,25 +305,20 @@ function ProjectReveal({ project, onClose }: ProjectRevealProps) {
                     <p className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
                       {project.description}
                     </p>
-                    <div className="grid gap-5 border-t border-white/12 pt-7 sm:grid-cols-3">
-                      {[`Year ${project.year}`, "Role Design", "Mode Preview"].map(
-                        (item) => {
-                          const [label, value] = item.split(" ");
-
-                          return (
-                            <div key={item} className="space-y-2">
-                              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-premium-silver">
-                                {label}
-                              </p>
-                              <p className="text-sm text-foreground/90">
-                                {value}
-                              </p>
-                            </div>
-                          );
-                        },
-                      )}
+                    <div className="grid gap-5 border-t border-white/12 pt-7 sm:grid-cols-2">
+                      {[
+                        { label: "Year", value: String(project.year) },
+                        { label: "Focus", value: project.category },
+                      ].map(({ label, value }) => (
+                        <div key={label} className="space-y-2">
+                          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
+                            {label}
+                          </p>
+                          <p className="text-sm text-foreground/90">{value}</p>
+                        </div>
+                      ))}
                     </div>
-                    <Button asChild variant="glass" className="w-full justify-between">
+                    <Button asChild variant="secondary" className="w-full justify-between">
                       <Link href={`/projects/${project.slug}`}>
                         <span>View Case Study</span>
                         <ArrowUpRight className="size-4" aria-hidden="true" />

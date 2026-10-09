@@ -35,29 +35,28 @@ All site content lives in `lib/projects.ts` as a hardcoded `projects: ProjectDet
 
 | marker | effect |
 | --- | --- |
-| `data-gsap="text"` / `"section"` / `"button"` / `"image"` | scroll-triggered fade + rise (buttons stagger by index) |
-| `data-gsap="gallery"` | image scale-in plus hover scale on the tile's `<img>` |
-| `data-parallax-image` | scrubbed y-parallax |
+| `data-gsap="section"` | brief scroll-triggered fade + rise |
+| `data-gsap="image"` | subtle image scale-in |
+| `data-parallax-image` | subtle scrubbed y-parallax |
 
 To animate something new on that page, add the attribute — do not add a client component. Two consequences:
 
 1. The whole effect bails out early when `prefers-reduced-motion: reduce` **or** `pointer: coarse` matches. So elements must be visible in their default CSS; never pre-hide them with `opacity-0` classes, or they stay invisible on mobile and for reduced-motion users.
 2. GSAP defaults (`power3.out`, 0.8s) and `nullTargetWarn: false` are set once in `animations/gsap.ts` — import `gsap` from there, not from `"gsap"`.
 
-## Scroll and ambient effects (root layout)
+## Scroll behavior (root layout)
 
-`app/layout.tsx` mounts `LenisProvider` (smooth wheel scrolling) and `AmbientEffects`. Both matter to code you write elsewhere:
+`app/layout.tsx` mounts `LenisProvider` for smooth wheel scrolling. Preserve native scrolling for users who request reduced motion.
 
-- `AmbientEffects` writes `--mouse-x` / `--mouse-y` onto `document.documentElement` on `pointermove`. The `.glass-surface` and `.mouse-light` utilities in `app/globals.css` read those vars for their cursor-following highlight, so glass surfaces lose that effect if the provider is removed.
 - Because Lenis owns scrolling, `components/navbar.tsx` does its own anchor handling: `preventDefault` → `window.scrollTo` with a `-96px` header offset → `history.pushState`, and suppresses its scroll-spy for 900ms via `isProgrammaticScrollRef` so the active dot doesn't flicker mid-scroll. `section[id] { scroll-margin-top: 6rem }` in `globals.css` complements this. Section-anchor nav items are `#work` / `#about` / `#contact` and must match the `Section id`s on the landing page.
 
 ## Styling
 
-Design tokens are HSL CSS variables in `app/globals.css` `:root`, surfaced through `tailwind.config.ts` (`background`, `foreground`, `glass.*`, `premium.*`, `shadow-glass|soft|glow`, `tracking-widecaps`, `--radius: 1.75rem`). The site is **dark-only**: there is no `.dark` block and no light palette, and `next-themes` is installed but unused. Don't add `dark:` variants — write single-theme classes.
+Design tokens are HSL CSS variables in `app/globals.css` `:root`, surfaced through `tailwind.config.ts` (`background`, `foreground`, `premium.*`, `shadow-soft`, and radius utilities). The site is **dark-only**: there is no `.dark` block and no light palette, and `next-themes` is installed but unused. Don't add `dark:` variants — write single-theme classes.
 
-Custom utilities defined in `globals.css` (not Tailwind plugins): `.glass-surface`, `.ambient-gradient`, `.mouse-light`, `.ambient-particles`, `.animated-button` (applied by every `Button` variant via `buttonVariants`), `.text-balance`. A `@media (prefers-reduced-motion: reduce)` block at the bottom disables the ambient/particle animations.
+Custom utilities defined in `globals.css` (not Tailwind plugins): `.surface-panel` and `.text-balance`. A `@media (prefers-reduced-motion: reduce)` block at the bottom reduces CSS animation and transition durations.
 
-Compose classes with `cn()` from `@/lib/utils`. Presentational primitives (`Container`, `Section`, `GlassCard`, `Eyebrow`, `SectionTitle`, `TechBadge`, `SkipLink`, `Footer`) are server components taking `className` + spread props; keep `"use client"` confined to components that need state, listeners, or motion. `components/index.ts` is a partial barrel — most files import directly from `@/components/<name>`, which is fine.
+Compose classes with `cn()` from `@/lib/utils`. Presentational primitives (`Container`, `Section`, `SurfaceCard`, `Eyebrow`, `SectionTitle`, `TechBadge`, `SkipLink`, `Footer`) are server components taking `className` + spread props; keep `"use client"` confined to components that need state, listeners, or motion. `components/index.ts` is a partial barrel — most files import directly from `@/components/<name>`, which is fine.
 
 ## Recurring patterns worth reusing
 

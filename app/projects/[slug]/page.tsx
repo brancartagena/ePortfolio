@@ -79,7 +79,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const isStreamTrendr = project.slug === "stream-trendr";
 
   return (
-    <main data-project-detail id="main-content" className="min-h-dvh bg-background text-foreground">
+    <main data-project-detail id="main-content" tabIndex={-1} className="min-h-dvh bg-background text-foreground">
       {/* Global page entrance and scroll animations for this project detail route. */}
       <ProjectDetailAnimations />
       <div className="grid min-h-dvh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
@@ -92,7 +92,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             >
               <BrowserPreview
                 src={project.image}
-                alt={project.title}
+                alt=""
                 imageWidth={2940}
                 imageHeight={1482}
                 url={project.liveUrl}
@@ -105,7 +105,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             <div data-gsap="image" data-parallax-image className="absolute inset-0">
               <Image
                 src={project.image}
-                alt={project.title}
+                alt=""
                 fill
                 priority
                 className="object-cover"
@@ -118,7 +118,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,hsl(var(--accent)/0.24),transparent_34%)]" />
           <div
             data-gsap="text"
-            className="absolute inset-x-4 bottom-4 rounded-lg border border-white/12 bg-background/20 p-4 backdrop-blur-xl sm:inset-x-6 sm:bottom-6 sm:p-5 lg:inset-x-8 lg:bottom-8 lg:p-6"
+            className="absolute inset-x-4 bottom-4 rounded-lg border border-white/12 bg-background/90 p-4 sm:inset-x-6 sm:bottom-6 sm:p-5 lg:inset-x-8 lg:bottom-8 lg:p-6"
           >
             <Eyebrow>{project.category}</Eyebrow>
             <h1 className="mt-3 text-balance text-5xl font-semibold leading-[0.92] tracking-[-0.03em] sm:text-6xl">
@@ -129,24 +129,24 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
         <section className="relative px-4 py-6 sm:px-6 sm:py-8 lg:-ml-10 lg:flex lg:min-h-dvh lg:items-start lg:px-8 lg:py-12">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,hsl(var(--accent)/0.12),transparent_30%)]" />
-          <article className="glass-surface relative z-10 mx-auto w-full max-w-3xl rounded-lg p-5 sm:p-7 lg:my-8 lg:p-10">
+          <article className="surface-panel relative z-10 mx-auto w-full max-w-3xl rounded-lg p-5 sm:p-7 lg:my-8 lg:p-10">
             <div className="mb-8 flex flex-wrap gap-3 sm:mb-10">
               {/* Primary actions for navigating away or viewing the project externally. */}
-              <Button asChild variant="glass" size="sm" data-gsap="button">
+              <Button asChild variant="secondary" size="sm" data-gsap="button">
                 <Link href="/">
                   <ArrowLeft className="size-4" aria-hidden="true" />
                   <span>Back</span>
                 </Link>
               </Button>
-              <Button asChild variant="glass" size="sm" data-gsap="button">
-                <Link href={project.liveUrl} target="_blank" rel="noreferrer">
+              <Button asChild variant="secondary" size="sm" data-gsap="button">
+                <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                   <span>View Project</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
               {project.githubUrl && (
                 <Button asChild variant="outline" size="sm" data-gsap="button">
-                  <Link href={project.githubUrl} target="_blank" rel="noreferrer">
+                  <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                     <Github className="size-4" aria-hidden="true" />
                     <span>GitHub</span>
                   </Link>
@@ -218,7 +218,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   {project.technologies.map((technology) => (
                     <span
                       key={technology}
-                      className="rounded-sm border border-white/15 bg-white/[0.04] px-3 py-2 text-xs font-medium text-foreground/90 backdrop-blur-md"
+                      className="rounded-sm border border-white/15 bg-secondary px-3 py-2 text-xs font-medium text-foreground/90"
                     >
                       {technology}
                     </span>
@@ -232,11 +232,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               {/* Repeated call-to-action links at the bottom of the case study. */}
               <Button
                 asChild
-                variant="glass"
+                variant="secondary"
                 className="flex-1 justify-between"
                 data-gsap="button"
               >
-                <Link href={project.liveUrl} target="_blank" rel="noreferrer">
+                <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                   <span>View Project</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
@@ -248,7 +248,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   className="flex-1 justify-between"
                   data-gsap="button"
                 >
-                  <Link href={project.githubUrl} target="_blank" rel="noreferrer">
+                  <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                     <span>GitHub</span>
                     <Github className="size-4" aria-hidden="true" />
                   </Link>

@@ -97,6 +97,11 @@ export function Navbar({
       return;
     }
 
+    const target = document.getElementById(href.slice(1));
+    if (!target) {
+      return;
+    }
+
     event.preventDefault();
     setActiveSection(href);
     isProgrammaticScrollRef.current = true;
@@ -105,36 +110,36 @@ export function Navbar({
       window.clearTimeout(programmaticScrollTimeoutRef.current);
     }
 
-    const target = document.getElementById(href.slice(1));
-    if (target) {
-      const offsetTop = target.getBoundingClientRect().top + window.scrollY - 96;
-      // Lenis owns scroll interpolation globally. Native smooth scrolling here
-      // would stack a second animation and make the jump to the project grid
-      // feel delayed.
-      window.scrollTo({ top: offsetTop, behavior: "auto" });
-      window.history.pushState(null, "", href);
+    const offsetTop = target.getBoundingClientRect().top + window.scrollY - 96;
+    // Lenis owns scroll interpolation globally. Native smooth scrolling here
+    // would stack a second animation and make the jump to the project grid
+    // feel delayed.
+    window.scrollTo({ top: offsetTop, behavior: "auto" });
+    window.history.pushState(null, "", href);
 
-      programmaticScrollTimeoutRef.current = window.setTimeout(() => {
-        isProgrammaticScrollRef.current = false;
-      }, 900);
-    }
+    programmaticScrollTimeoutRef.current = window.setTimeout(() => {
+      isProgrammaticScrollRef.current = false;
+    }, 900);
   };
 
   return (
     <header className={cn("fixed inset-x-0 top-0 z-50 py-3 sm:py-5", className)}>
       <Container>
-        <nav className="rounded-full border border-white/10 bg-background/25 px-4 py-3 shadow-soft backdrop-blur-2xl sm:px-6 sm:py-3.5">
+        <nav
+          aria-label="Primary"
+          className="rounded-lg border border-white/10 bg-background px-3 py-3 shadow-soft sm:px-6 sm:py-3.5"
+        >
           <div className="flex items-center justify-between gap-3">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-foreground sm:text-xs"
+              className="group inline-flex items-center gap-2 text-xs font-semibold text-foreground sm:text-sm"
               aria-label={`${brand} home`}
             >
               <span className="whitespace-nowrap">{brand}</span>
               <span className="size-1.5 rounded-full bg-premium-ember shadow-[0_0_18px_hsl(var(--accent))]" />
             </Link>
 
-            <div className="flex items-center gap-3 sm:gap-8">
+            <div className="flex items-center gap-2 sm:gap-8">
               {items.map((item) => {
                 const active = activeSection === item.href;
 
@@ -144,9 +149,10 @@ export function Navbar({
                     href={item.href}
                     onClick={(event) => handleNavClick(event, item.href)}
                     className={cn(
-                      "group relative text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-foreground/55 transition duration-300 ease-out hover:text-foreground sm:text-[0.7rem] sm:tracking-[0.24em]",
+                      "group relative text-[0.68rem] font-semibold text-foreground/75 transition-colors duration-200 ease-out hover:text-foreground sm:text-sm",
                       active && "text-foreground",
                     )}
+                    aria-current={active ? "location" : undefined}
                   >
                     {item.label}
                     {active ? (
