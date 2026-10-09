@@ -4,6 +4,9 @@ export type ProjectDetail = {
   title: string;
   category: string;
   year: number;
+  format: string;
+  team: string;
+  externalLabel: string;
   image: string;
   description: string;
   overview: string;
@@ -25,25 +28,26 @@ export const projects: ProjectDetail[] = [
     title: "TerrapinCreatives",
     category: "UX Research & Interface Design",
     year: 2025,
+    format: "Research site + app prototype",
+    team: "Six-person team",
+    externalLabel: "Visit research site",
     image: "/assets/images/projects/terrapin-creatives/cover.png",
     description:
-      "A website that goes into depth on the research whether UMD students are aware of the resources available to them to expand their creativity and how the university can better support them. A prototype was created to demonstrate how the proposed app could look and function.",
+      "Research and app concept exploring how UMD students can better discover campus creative resources.",
     overview:
-      "TerrapinCreatives is a research website exploring student awareness of university resources.",
+      "Our course team investigated student awareness of campus resources for creative work, then shared the findings in a public-facing research website.",
     problem:
-      "Many UMD students are not aware of the resources available to them to expand their creativity. The university needs to better support students in their creative endeavors.",
+      "Students may know that creative resources exist without knowing how to find or access them. We wanted to make those resources easier to discover and understand.",
     solution:
-      `In a team of 6, we designed a website that provides our research findings. We came up with the idea of designing a app that allow users to find the latest creative events and resources on campus.
-      We made sure that all our findings will be accessible to anyone on the website. We also made sure that the website is easy to navigate and understand.`,
+      "We organized the research findings into an accessible website and prototyped an app concept for discovering campus creative events and resources.",
     role: "Visual design, interface design, component planning, and frontend implementation.",
-    technologies: ["Google Sites, Figma, Miro"],
+    technologies: ["Google Sites", "Figma", "Miro"],
     challenges:
-      `The main challenge was finding users to participate in our research. We conducted surveys and interviews with students to gather data on their awareness of university resources. 
-      Another challenge was prototyping the app and making the website that ensures our research findings are clearly communicated.`,
+      "Recruiting students for surveys and interviews was an early challenge. We also had to make the findings easy to navigate while developing a separate app concept from the research.",
     lessons:
-      "The team learned the importance of clear communication in research dissemination. We also learned the importance of user-centered design in creating a website and app that is easy to navigate and understand.",
+      "The project reinforced the value of clear research communication and designing around the way students find and use campus resources.",
     results:
-      "Our findings were that many UMD students were aware of the resources available to them, but they did not know how to access them. Our app did get good feedback from students who tested the prototype on figma.",
+      "The research suggested that students were more familiar with the resources than with how to access them. Students who tested the app prototype gave positive feedback; the app remained a prototype.",
     liveUrl: "https://sites.google.com/terpmail.umd.edu/terrapincreatives/home",
   },
   {
@@ -52,23 +56,26 @@ export const projects: ProjectDetail[] = [
     title: "GameRate",
     category: "Product Design",
     year: 2024,
+    format: "Figma product prototype",
+    team: "Four-person team",
+    externalLabel: "View Figma prototype",
     image: "/assets/images/projects/game-rate/cover.png",
     description:
-      "A Letterboxd-style app for rating and tracking video games, designed with a four-person team to help players make more confident purchase decisions through honest, player-driven reviews.",
+      "A player-centered game-rating and discovery concept inspired by Letterboxd.",
     overview:
-      "GameRate is a game review and discovery platform inspired by Letterboxd, designed by a four-person team (Team Bitstorm) for a university course project. Instead of movies, users log the games they've played, rate them out of 10, and write short reviews they can share publicly or with friends.",
+      "For a university course, our four-person team (Team Bitstorm) designed a game-review concept where players can log, rate, and review games.",
     problem:
-      "There wasn't a Letterboxd-style home for video games, where regular players, not publishers or marketing teams, could rate and review the games they've actually played. That gap matters most for players who can't afford to buy games on a whim and need a trustworthy way to decide whether a game is worth the price.",
+      "We saw room for a player-centered place to rate and review games, giving people a way to hear from other players when deciding what to play or buy.",
     solution:
-      "We designed GameRate around a core loop of searching for a game, rating it out of 10, and writing a short review that can be shared publicly or kept for friends. Users can follow other players, like or comment on reviews, and build lists like \"Favorites\" or \"Games to Play.\" A \"Popular Games\" section surfaces trending titles, and to make reviews feel more trustworthy, users can attach a short clip of themselves actually playing the game. The app can be browsed without an account, with sign-in unlocking friends, lists, notifications, and the ability to interact with other reviewers.",
+      "The prototype centers on finding a game, rating it, and writing a review. It also explores player profiles, social features, curated lists, and a popular-games discovery area. Browsing is open; signing in unlocks social interactions and personal lists.",
     role: "Collaborated within a four-person team (Team Bitstorm) on the UI/UX design and prototyping for GameRate.",
     technologies: ["Figma"],
     challenges:
-      "A key design challenge was keeping the platform unbiased. Major publishers are intentionally excluded so they can't promote or inflate their own games' ratings, which meant designing the app around regular players. We also had to balance open access, since anyone can browse without an account, with giving registered users enough added value, like friends, lists, and notifications, to make signing up worthwhile.",
+      "We designed around reviews from regular players rather than publisher promotion, while balancing open browsing with useful account features.",
     lessons:
-      "Scoping who the platform is for, and who it is not for, early on made the rest of the feature set easier to prioritize. It helped us decide what belonged in the core review flow and which social features actually needed an account.",
+      "Defining who the product serves early helped us prioritize the review flow and decide which social features should require an account.",
     results:
-      "The result is a Figma prototype covering the core GameRate experience, including searching and rating games, building lists, following other users, and browsing popular titles. It demonstrates the full review and discovery flow from beginning to end.",
+      "The Figma prototype demonstrates the main review and discovery flow. It is a product concept, not a production app.",
     liveUrl: "https://www.figma.com/proto/VxXo68vS9TFPxcRROuc3Y0/GameRate?node-id=1-3&p=f&t=mUEdmQ8oW40I1Hx8-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A3",
   },
   {
@@ -77,23 +84,26 @@ export const projects: ProjectDetail[] = [
     title: "Tick Yaza",
     category: "Product Strategy & UX Design",
     year: 2023,
+    format: "Startup canvas + Figma prototype",
+    team: "Six-person founding team",
+    externalLabel: "View Figma prototype",
     image: "/assets/images/projects/tick-yaza/cover.png",
     description:
-      "A more transparent alternative to Ticketmaster and StubHub: a ticket marketplace concept addressing scalper markups and hidden merchant fees, developed as a startup canvas project with a Figma prototype.",
+      "A ticket marketplace concept centered on transparent, upfront pricing.",
     overview:
-      "TickYaza is a ticketing app concept aimed at event-goers frustrated by scalper markups and hidden merchant fees, developed by a six-person founding team for a university entrepreneurship course. It positions itself against established platforms like Ticketmaster, StubHub, SeatGeek, and TickPick by leading with transparent, upfront pricing.",
+      "Our six-person founding team developed TickYaza for a university entrepreneurship course, positioning the ticketing concept around clearer pricing before checkout.",
     problem:
-      "Buying tickets to concerts and live events often comes with merchant fees that can run as high as 78% of the ticket price, on top of scalpers reselling face-value tickets for two to three times their original cost. Frequent event-goers end up priced out or wary of getting scalped, while the platforms collecting those fees have little incentive to fix it.",
+      "Ticket buyers can encounter added fees at checkout and inflated resale prices, making it difficult to understand the real cost of an event ticket up front.",
     solution:
-      "TickYaza follows the same core ticket-buying flow as competitors like Ticketmaster and StubHub, but leads with upfront pricing instead of fees added at checkout. An optional $15/month membership tier adds discounted tickets, early access to high-demand events, and the ability to compare prices against competitors directly in the app.",
+      "The concept presents the full ticket price up front. An optional membership explores discounted tickets, early access to high-demand events, and in-app price comparisons.",
     role: "Co-founder on a six-person team; created the Figma wireframes and prototype for TickYaza.",
     technologies: ["Figma"],
     challenges:
-      "The ticketing market is dominated by a few well-funded platforms that already cover most of the baseline ticket-buying features. Our own competitive analysis showed that pricing transparency and the membership tier were really the only things that set TickYaza apart, which meant differentiation had to come from how pricing was presented rather than from reinventing the ticket-buying flow itself.",
+      "Established ticketing platforms already cover the standard purchase flow. Our competitive analysis pointed us toward transparent pricing and membership as the concept's main differentiators.",
     lessons:
-      "Mapping out customer pain points alongside the business model surfaced a real tension: some of the features that made the membership model viable, like gating ticket resale and transfers behind sign-up, were the same things that could frustrate a first-time user. It was a reminder that pricing and monetization decisions are also UX decisions.",
+      "The business model raised a UX trade-off: features intended to support membership could add friction for first-time buyers. Monetization choices are part of the experience.",
     results:
-      "The project came together as a full startup canvas with problem framing, target market research, competitive analysis, pricing strategy, and a go-to-market plan. We paired that work with a Figma prototype and wireframes showing the core ticket search and purchase flow.",
+      "The deliverables include a startup canvas, target-market and competitive research, pricing and go-to-market planning, and a Figma prototype of the ticket search and purchase flow. Tick Yaza is a concept, not a live marketplace.",
     liveUrl:
       "https://www.figma.com/proto/1CfgVoLAgoLb87mFmRCa3s/TickYaza?node-id=102-236&p=f&t=NJtHSv47DuIsz4lQ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1",
   },
@@ -103,23 +113,26 @@ export const projects: ProjectDetail[] = [
     title: "StreamTrendr",
     category: "Full-Stack Web Development",
     year: 2026,
+    format: "Live web application",
+    team: "Solo project",
+    externalLabel: "Visit live app",
     image: "/assets/images/projects/stream-trendr/cover.png",
     description:
-      "An entertainment discovery site that brings movies, TV, anime, and K-dramas into one place to browse and search. It is a solo passion project I built to learn API-driven, full-stack development and bring my own design direction to life.",
+      "A live entertainment discovery web app for browsing movies, TV, anime, and K-dramas in one place.",
     overview:
-      "StreamTrendr is an entertainment discovery platform inspired by Letterboxd, but instead of only movies, it brings movies, TV series, anime, and K-dramas together in one place to browse trending titles and search across them. Unlike TickYaza and GameRate, which were Figma prototypes, StreamTrendr was my chance to actually design and build a working website from the ground up.",
+      "StreamTrendr is a live, solo-built web app that brings entertainment discovery across several catalogs into one interface. Unlike the Figma concepts in this portfolio, this project is implemented and deployed.",
     problem:
-      "StreamTrendr wasn't built from user research. It started as a passion project because I wanted one place to explore movies, shows, anime, and K-dramas instead of switching between different sites for each. I also wanted a project that would push me to build a real product instead of another prototype while learning API integration and full-stack development.",
+      "This self-directed project did not begin with formal user research. I wanted one place to explore movies, shows, anime, and K-dramas instead of switching between separate discovery sites, and an opportunity to build beyond a prototype.",
     solution:
-      "StreamTrendr pulls live movie and TV data from the TMDB API and anime data from the AniList API into one browsing experience. It includes trending sections for movies, TV, anime, and K-dramas, along with search for finding specific titles. I created the initial layout and visual direction, then used Codex as an AI-assisted development tool to help implement the site in React and JavaScript. I made the design and functionality decisions myself while learning the technologies. Since the catalog comes from those APIs, what is available to browse and search depends on what TMDB and AniList provide rather than covering everything that exists.",
-    role: "Designed the visual direction and built StreamTrendr solo, using React and JavaScript with Codex as an AI-assisted development tool for implementation.",
-    technologies: ["React", "JavaScript", "HTML", "CSS", "TMDB API", "AniList API", "Codex"],
+      "I brought several entertainment catalogs into one browsing and search experience, with dedicated areas for movies, TV, anime, and K-dramas. Available titles depend on what the APIs provide. I set the visual direction and product decisions, and used Codex as an AI-assisted coding tool during implementation.",
+    role: "Solo designer and developer; owned the visual direction, product decisions, API integration, and implementation, with Codex assisting some coding.",
+    technologies: ["React", "JavaScript", "HTML", "CSS", "TMDB API", "AniList API"],
     challenges:
-      "React and JavaScript were still new to me because this was only my second time building with them. A lot of the work involved learning how they function instead of just following a tutorial. Design was its own challenge too. I kept refining the colors, layouts, and content presentation as the product came together, and the final design moved away from my original, more rushed mockups. Finding usable entertainment APIs was harder than expected because many were paywalled or too limited for a personal project, which is why TMDB and AniList became the two sources StreamTrendr relies on. Backend and API integration were also a learning curve. When Codex produced errors while helping implement parts of the backend, I had to track them down and fix them myself.",
+      "Many entertainment APIs were paywalled or too limited for a personal project, so I evaluated available sources before choosing TMDB and AniList. Integrating the two providers and debugging implementation issues were central parts of the build.",
     lessons:
-      "The biggest takeaway was getting a much better sense of what goes into a full-stack website. I learned how the frontend, APIs, data, and backend depend on each other, and how much UX and UI decisions affect the experience even when everything technically works. Working with external APIs and backend logic also made me pay more attention to keeping the site secure, which wasn't something I had thought about as much in earlier front-end or prototype work.",
+      "The project strengthened my understanding of how interface decisions, application code, and external data sources shape one another—and why testing integrations matters as much as getting the UI right.",
     results:
-      "The result is a live site that reflects a design I iterated on repeatedly instead of the rushed early mockups I started with. The layout, colors, and content structure all evolved as the product came together. It is currently focused on discovery and search, with account features like watchlists and reviews as possible next steps rather than features that are already built.",
+      "The deployed app supports entertainment discovery and search. Watchlists and reviews are possible future directions, not current features.",
     liveUrl: "https://streamtrendr.vercel.app/",
     githubUrl: "https://github.com/brancartagena/StreamTrendr",
   },

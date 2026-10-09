@@ -21,6 +21,8 @@ type ProjectCardProps = {
   index?: string;
   title: string;
   description?: string;
+  year: number;
+  format: string;
   category?: string;
   href?: string;
   image?: string;
@@ -37,6 +39,8 @@ export function ProjectCard({
   index,
   title,
   description = "",
+  year,
+  format,
   category,
   href,
   image,
@@ -53,6 +57,9 @@ export function ProjectCard({
         id={id ?? title}
         title={title}
         category={category ?? eyebrow ?? index ?? "Project"}
+        description={description}
+        year={year}
+        format={format}
         image={image}
         className={className}
         onSelect={onSelect}
@@ -133,6 +140,9 @@ type PosterProjectCardProps = {
   id: string;
   title: string;
   category: string;
+  description: string;
+  year: number;
+  format: string;
   image?: string;
   className?: string;
   onSelect?: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -142,6 +152,9 @@ function PosterProjectCard({
   id,
   title,
   category,
+  description,
+  year,
+  format,
   image,
   className,
   onSelect,
@@ -149,59 +162,65 @@ function PosterProjectCard({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.button
-      type="button"
-      layoutId={shouldReduceMotion ? undefined : `project-card-${id}`}
-      onClick={onSelect}
+    <div
       className={cn(
-        "project-card-surface surface-panel group relative block aspect-[5/4] w-full overflow-hidden rounded-xl p-3 text-left outline-none transition duration-200 ease-out focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring sm:aspect-[4/5] sm:p-4",
+        "surface-panel group overflow-hidden rounded-xl transition duration-200 ease-out",
         !shouldReduceMotion && "hover:-translate-y-0.5 hover:border-white/25 hover:shadow-[0_18px_60px_rgba(0,0,0,0.3)]",
         className,
       )}
     >
-      <span className="relative block size-full overflow-hidden rounded-md bg-secondary will-change-transform">
-        <motion.span
-          layoutId={shouldReduceMotion ? undefined : `project-image-${id}`}
-          className={cn(
-            "absolute -inset-3 transition duration-300 ease-out",
-            !shouldReduceMotion && "group-hover:scale-[1.04]",
-          )}
-        >
+      <motion.button
+        type="button"
+        layoutId={shouldReduceMotion ? undefined : `project-card-${id}`}
+        onClick={onSelect}
+        aria-label={`Preview ${title}`}
+        className="grid min-h-[18rem] w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring lg:grid-cols-[0.9fr_1.1fr]"
+      >
+        <span className="relative min-h-56 overflow-hidden bg-secondary lg:min-h-full">
           {image ? (
             <Image
               src={image}
               alt=""
               fill
-              className="object-cover"
-              sizes="(min-width: 1024px) 44vw, 100vw"
+              className={cn(
+                "object-contain p-3 transition-transform duration-300 ease-out",
+                !shouldReduceMotion && "group-hover:scale-[1.025]",
+              )}
+              sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, 100vw"
             />
           ) : (
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_45%_20%,hsl(var(--accent)/0.34),transparent_32%),linear-gradient(145deg,hsl(34_38%_18%),hsl(24_22%_5%))]" />
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_45%_20%,hsl(var(--accent)/0.34),transparent_32%),linear-gradient(145deg,hsl(34_38%_18%),hsl(24_22%_5%))]" />
           )}
-        </motion.span>
+        </span>
 
-        <span className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,hsl(var(--accent)/0.22),transparent_44%)] opacity-0 transition duration-500 ease-out group-hover:opacity-100" />
-        <span className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
-
-        <span className="absolute inset-x-0 bottom-0 block overflow-hidden p-5 sm:p-7">
-          <span className="block space-y-4 transition duration-300 ease-out group-hover:-translate-y-1">
-            <motion.span
-              layoutId={shouldReduceMotion ? undefined : `project-category-${id}`}
-              className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver"
-            >
-              {category}
-            </motion.span>
-            <motion.span
-              role="heading"
-              aria-level={3}
-              layoutId={shouldReduceMotion ? undefined : `project-title-${id}`}
-              className="block text-balance text-3xl font-semibold leading-[0.95] tracking-[-0.02em] text-foreground sm:text-4xl lg:text-5xl"
-            >
-              {title}
-            </motion.span>
+        <span className="flex flex-col justify-center gap-4 p-5 sm:p-7">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
+            {category}
+          </span>
+          <span
+            role="heading"
+            aria-level={3}
+            className="block text-balance text-3xl font-semibold leading-[0.98] tracking-[-0.02em] text-foreground sm:text-4xl"
+          >
+            {title}
+          </span>
+          <span className="text-sm font-medium text-foreground/70">
+            {year} <span aria-hidden="true">·</span> {format}
+          </span>
+          <span className="text-sm leading-6 text-muted-foreground">
+            {description}
           </span>
         </span>
-      </span>
-    </motion.button>
+      </motion.button>
+      <div className="flex justify-end border-t border-white/10 px-5 py-3 sm:px-7">
+        <Link
+          href={`/projects/${id}`}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-foreground transition-colors hover:text-premium-silver focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          Read case study
+          <ArrowUpRight className="size-4" aria-hidden="true" />
+        </Link>
+      </div>
+    </div>
   );
 }

@@ -7,22 +7,22 @@ import "./globals.css";
 
 const siteUrl = "https://brandon-cartagena.vercel.app";
 const siteDescription =
-  "Portfolio of Brandon Cartagena, a University of Maryland Information Science graduate with a Data Science minor, interested in data analytics, UX/UI, and cybersecurity/IT.";
+  "Portfolio of Brandon Cartagena, a University of Maryland Information Science graduate with a Data Science minor. Explore product design, UX research, and web development projects.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Brandon Cartagena | Information Science Graduate",
+  title: "Brandon Cartagena | Product Designer & Web Developer",
   description: siteDescription,
   openGraph: {
-    title: "Brandon Cartagena | Portfolio",
+    title: "Brandon Cartagena | Product Designer & Web Developer",
     description: siteDescription,
     url: siteUrl,
-    siteName: "Brandon Cartagena | Portfolio",
+    siteName: "Brandon Cartagena",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Brandon Cartagena | Portfolio",
+    title: "Brandon Cartagena | Product Designer & Web Developer",
     description: siteDescription,
   },
 };

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { BrowserPreview } from "@/components/browser-preview";
@@ -55,8 +55,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const leadDetailSections = [
     ["Problem", project.problem],
     ["Solution", project.solution],
-    ["My Role", project.role],
-    ["Results", project.results],
+    ["Outcome", project.results],
   ] as const;
 
   const supportingDetailSections = [
@@ -86,8 +85,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       {/* Global page entrance and scroll animations for this project detail route. */}
       <ProjectDetailAnimations />
       <div className="grid min-h-dvh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-        {/* Left-side hero panel with project image and title overlay. */}
-        <aside className="relative min-h-[62dvh] overflow-hidden sm:min-h-[68dvh] lg:sticky lg:top-0 lg:h-dvh">
+        {/* Project artwork stays visible while the case study is read. */}
+        <aside className="relative min-h-[62dvh] overflow-hidden bg-secondary sm:min-h-[68dvh] lg:sticky lg:top-0 lg:h-dvh">
           {isStreamTrendr ? (
             <div
               data-gsap="image"
@@ -111,23 +110,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 alt=""
                 fill
                 priority
-                className="object-cover"
+                className="object-contain p-5 sm:p-8 lg:p-10"
                 sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/5" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/70" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,hsl(var(--accent)/0.24),transparent_34%)]" />
-          <div
-            data-gsap="text"
-            className="absolute inset-x-4 bottom-4 rounded-lg border border-white/12 bg-background/90 p-4 sm:inset-x-6 sm:bottom-6 sm:p-5 lg:inset-x-8 lg:bottom-8 lg:p-6"
-          >
-            <Eyebrow>{project.category}</Eyebrow>
-            <h1 className="mt-3 break-words text-balance text-4xl font-semibold leading-[0.92] tracking-[-0.03em] sm:text-6xl">
-              {project.title}
-            </h1>
-          </div>
         </aside>
 
         <section className="relative px-4 py-6 sm:px-6 sm:py-8 lg:-ml-10 lg:flex lg:min-h-dvh lg:items-start lg:px-8 lg:py-12">
@@ -143,7 +130,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               </Button>
               <Button asChild variant="secondary" size="sm" data-gsap="button">
                 <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <span>View Project</span>
+                  <span>{project.externalLabel}</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
@@ -158,13 +145,37 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             </div>
 
             <header data-gsap="text" className="space-y-5 border-b border-white/12 pb-8 sm:space-y-6 sm:pb-10">
-              <Eyebrow>Case Study</Eyebrow>
-              <h2 className="break-words text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
+              <Eyebrow>{project.category}</Eyebrow>
+              <h1 className="break-words text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
                 {project.title}
-              </h2>
+              </h1>
               <p className="max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
                 {project.description}
               </p>
+              <dl className="grid gap-4 border-t border-white/12 pt-5 sm:grid-cols-3">
+                {[
+                  ["Year", String(project.year)],
+                  ["Format", project.format],
+                  ["Team", project.team],
+                ].map(([label, value]) => (
+                  <div key={label} className="space-y-2">
+                    <dt className="text-[0.68rem] font-semibold uppercase tracking-widecaps text-premium-silver">
+                      {label}
+                    </dt>
+                    <dd className="text-sm leading-6 text-foreground/90">
+                      {value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="space-y-2 border-t border-white/12 pt-5">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-widecaps text-premium-silver">
+                  My role
+                </p>
+                <p className="text-sm leading-7 text-foreground/90">
+                  {project.role}
+                </p>
+              </div>
             </header>
 
             <div className="space-y-8 py-8 sm:space-y-10 sm:py-10 lg:space-y-11 lg:py-11">
@@ -173,7 +184,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 className="grid gap-4 sm:grid-cols-[180px_1fr]"
               >
                 <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
-                  Overview
+                  Context
                 </h3>
                 <p data-gsap="text" className="text-base leading-8 text-foreground/82">
                   {project.overview}
@@ -195,17 +206,37 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 </section>
               ))}
 
-              <section data-gsap="section" className="space-y-5">
-                <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
-                  <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
-                    Gallery
-                  </h3>
-                  <p data-gsap="text" className="text-base leading-8 text-foreground/82">
-                    Screenshots and design artifacts from the project.
-                  </p>
-                </div>
-                <ProjectGallery items={galleryItems} />
-              </section>
+              {project.slug === "stream-trendr" && (
+                <section
+                  data-gsap="section"
+                  className="space-y-5 border-y border-white/12 py-8 sm:py-9"
+                >
+                  <div className="space-y-2">
+                    <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
+                      Data sources
+                    </h3>
+                    <p className="text-sm leading-7 text-muted-foreground">
+                      External catalogs supply the content available to browse and search.
+                    </p>
+                  </div>
+                  <div className="grid items-stretch gap-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1.2fr)_auto_minmax(0,1fr)]">
+                    <div className="rounded-md border border-white/12 bg-secondary p-4">
+                      <p className="font-semibold">TMDB API</p>
+                      <p className="mt-1 text-sm text-muted-foreground">Movies &amp; TV</p>
+                    </div>
+                    <ArrowRight className="hidden size-4 self-center text-premium-silver sm:block" aria-hidden="true" />
+                    <div className="rounded-md border border-primary/40 bg-primary/10 p-4">
+                      <p className="font-semibold">StreamTrendr</p>
+                      <p className="mt-1 text-sm text-muted-foreground">Browse &amp; search</p>
+                    </div>
+                    <ArrowRight className="hidden size-4 self-center rotate-180 text-premium-silver sm:block" aria-hidden="true" />
+                    <div className="rounded-md border border-white/12 bg-secondary p-4">
+                      <p className="font-semibold">AniList API</p>
+                      <p className="mt-1 text-sm text-muted-foreground">Anime</p>
+                    </div>
+                  </div>
+                </section>
+              )}
 
               {supportingDetailSections.map(([title, body]) => (
                 <section
@@ -224,10 +255,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
               <section
                 data-gsap="section"
-                className="grid gap-3 border-y border-white/12 py-8 sm:grid-cols-[140px_1fr] sm:py-9 lg:grid-cols-[180px_1fr]"
+                className="grid gap-3 border-b border-white/12 pb-8 sm:grid-cols-[140px_1fr] sm:pb-9 lg:grid-cols-[180px_1fr]"
               >
                 <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
-                  Technologies Used
+                  Technologies
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((technology) => (
@@ -241,6 +272,18 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 </div>
               </section>
 
+              <section data-gsap="section" className="space-y-5">
+                <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
+                  <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
+                    Gallery
+                  </h3>
+                  <p data-gsap="text" className="text-base leading-8 text-foreground/82">
+                    Screenshots and design artifacts from the project.
+                  </p>
+                </div>
+                <ProjectGallery items={galleryItems} />
+              </section>
+
             </div>
 
             <footer className="flex flex-col gap-3 border-t border-white/12 pt-8 sm:flex-row sm:pt-9">
@@ -252,7 +295,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 data-gsap="button"
               >
                 <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <span>View Project</span>
+                  <span>{project.externalLabel}</span>
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>

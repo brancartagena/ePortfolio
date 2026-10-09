@@ -27,6 +27,8 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const projectsByRecency = [...projects].sort((first, second) => second.year - first.year);
+
 export function LandingPage() {
   const [selectedProject, setSelectedProject] = useState<
     (typeof projects)[number] | null
@@ -63,20 +65,31 @@ export function LandingPage() {
               className="max-w-5xl space-y-8"
             >
               <motion.div variants={fadeUp}>
-                <Eyebrow>INFORMATION SCIENCE · DATA SCIENCE</Eyebrow>
+                <Eyebrow>PRODUCT DESIGN · UX · WEB DEVELOPMENT</Eyebrow>
               </motion.div>
               <motion.h1
                 variants={fadeUp}
                 className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
-                I design and build useful digital experiences.
+                I design digital products and build for the web.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
-                I&apos;m Brandon, a University of Maryland Information Science graduate with a Data Science minor. This portfolio shows my work in UX research, product design, and web development. I&apos;m also pursuing entry-level opportunities in data analytics and cybersecurity/IT.
+                I&apos;m Brandon, a University of Maryland Information Science graduate with a Data Science minor. My work brings together user research, product design, and hands-on web development—from team-based prototypes to a live, API-powered web app.
               </motion.p>
+              <motion.div variants={fadeUp} className="flex flex-wrap gap-3 pt-1">
+                <Button asChild variant="secondary">
+                  <Link href="#work">
+                    <span>Explore selected work</span>
+                    <ArrowUpRight className="size-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="#contact">Get in touch</Link>
+                </Button>
+              </motion.div>
             </motion.div>
           </Container>
         </section>
@@ -91,20 +104,23 @@ export function LandingPage() {
           >
             <motion.div variants={fadeUp}>
               <SectionTitle
-                eyebrow="My proud projects"
-                title="Showing off my work."
-                description="These projects show my current experience in UX research, product design, and web development. Each case study explains the problem, my contribution, and what the work achieved."
+                eyebrow="Selected work"
+                title="Research, product design, and web development."
+                description="A mix of team-led research and product concepts, plus a live web app I designed and built. Each case study makes the project scope and my contribution clear."
               />
             </motion.div>
 
             <div className="grid gap-5 md:grid-cols-2 lg:gap-7 xl:gap-8">
-              {projects.map((project) => (
+              {projectsByRecency.map((project) => (
                 <motion.div key={project.title} variants={fadeUp}>
                   <ProjectCard
                     id={project.id}
                     variant="poster"
                     title={project.title}
                     category={project.category}
+                    description={project.description}
+                    year={project.year}
+                    format={project.format}
                     image={project.image}
                     onSelect={(event) => {
                       projectTriggerRef.current = event.currentTarget;
@@ -118,7 +134,7 @@ export function LandingPage() {
         </Section>
 
         <Section id="about">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
             <motion.div
               variants={fadeUp}
               initial={shouldReduceMotion ? false : "hidden"}
@@ -127,7 +143,7 @@ export function LandingPage() {
             >
               <SectionTitle
                 eyebrow="About"
-                title="I like building things that work well and look like they were made on purpose."
+                title="Designer’s curiosity. Builder’s mindset."
                 titleClassName="font-bold leading-[1.2]"
               />
             </motion.div>
@@ -140,11 +156,27 @@ export function LandingPage() {
             >
               <SurfaceCard className="p-6 sm:p-8">
                 <p className="text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
-                  I&apos;m an Information Science graduate from the University of Maryland with a minor in Data Science. I chose Information Science because of its flexibility—it gave me the opportunity to explore different areas of technology, from data and cybersecurity to UI/UX and people-centered work. I&apos;ve always enjoyed the creative side of technology, especially the process of planning an idea, thinking through how it should work, and turning it into something people can interact with.
+                  I&apos;m an Information Science graduate from the University of Maryland with a minor in Data Science. My projects span team-based UX research and product concepts to StreamTrendr, a solo web app using TMDB and AniList data. I enjoy turning a clear problem into an experience people can understand, then carrying it through design and implementation.
                 </p>
                 <p className="mt-4 text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
-                  Outside of technology, I enjoy anime, TV shows, movies, music, and spending time with friends. A lot of those interests have found their way into my projects, including the entertainment-focused products I&apos;ve designed and built. I&apos;m still exploring where I want to take my career, and this portfolio is a collection of that exploration as I continue learning, experimenting, and figuring out where my creativity fits best.
+                  Outside of project work, I enjoy anime, TV, movies, music, and time with friends—interests that inspire some of the products I make.
                 </p>
+                <dl className="mt-7 grid gap-4 border-t border-white/12 pt-6 sm:grid-cols-3">
+                  {[
+                    ["Research", "Surveys and interviews"],
+                    ["Product design", "Wireframes and prototypes"],
+                    ["Web development", "React and API integration"],
+                  ].map(([label, value]) => (
+                    <div key={label} className="space-y-2">
+                      <dt className="text-xs font-semibold uppercase tracking-widecaps text-premium-silver">
+                        {label}
+                      </dt>
+                      <dd className="text-sm leading-6 text-foreground/85">
+                        {value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </SurfaceCard>
             </motion.div>
           </div>
@@ -164,8 +196,11 @@ export function LandingPage() {
                     Contact
                   </p>
                   <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl">
-                    Open to entry-level roles and recent-grad programs.
+                    Let&apos;s talk about product design and web development.
                   </h2>
+                  <p className="max-w-2xl text-base leading-7 text-muted-foreground">
+                    I&apos;m open to early-career opportunities where I can contribute to thoughtful digital products and keep growing as a designer and developer.
+                  </p>
                 </div>
                 <div className="flex flex-col gap-3 sm:items-start">
                   <Link
@@ -220,6 +255,7 @@ function ProjectReveal({
     <AnimatePresence>
       {project ? (
         <motion.div
+          layoutId={shouldReduceMotion ? undefined : `project-card-${project.id}`}
           className="fixed inset-0 z-[90]"
           role="dialog"
           aria-modal="true"
@@ -269,7 +305,7 @@ function ProjectReveal({
                     fill
                     priority
                     sizes="(min-width: 1024px) 52vw, 100vw"
-                    className="object-contain sm:object-cover"
+                    className="object-contain"
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/72" />
@@ -305,10 +341,11 @@ function ProjectReveal({
                     <p className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
                       {project.description}
                     </p>
-                    <div className="grid gap-5 border-t border-white/12 pt-7 sm:grid-cols-2">
+                    <div className="grid gap-5 border-t border-white/12 pt-7 sm:grid-cols-3">
                       {[
                         { label: "Year", value: String(project.year) },
-                        { label: "Focus", value: project.category },
+                        { label: "Format", value: project.format },
+                        { label: "Team", value: project.team },
                       ].map(({ label, value }) => (
                         <div key={label} className="space-y-2">
                           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">
