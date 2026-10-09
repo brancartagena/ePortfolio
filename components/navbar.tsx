@@ -129,17 +129,17 @@ export function Navbar({
           aria-label="Primary"
           className="rounded-lg border border-white/10 bg-background px-3 py-3 shadow-soft sm:px-6 sm:py-3.5"
         >
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between gap-3 max-[360px]:gap-2">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2 text-xs font-semibold text-foreground sm:text-sm"
+              className="group inline-flex items-center gap-2 text-xs font-semibold text-foreground sm:text-sm max-[360px]:text-[0.68rem]"
               aria-label={`${brand} home`}
             >
               <span className="whitespace-nowrap">{brand}</span>
               <span className="size-1.5 rounded-full bg-premium-ember shadow-[0_0_18px_hsl(var(--accent))]" />
             </Link>
 
-            <div className="flex items-center gap-2 sm:gap-8">
+            <div className="flex items-center gap-2 sm:gap-8 max-[360px]:gap-1.5">
               {items.map((item) => {
                 const active = activeSection === item.href;
 
@@ -149,7 +149,7 @@ export function Navbar({
                     href={item.href}
                     onClick={(event) => handleNavClick(event, item.href)}
                     className={cn(
-                      "group relative text-[0.68rem] font-semibold text-foreground/75 transition-colors duration-200 ease-out hover:text-foreground sm:text-sm",
+                      "group relative text-[0.68rem] font-semibold text-foreground/75 transition-colors duration-200 ease-out hover:text-foreground sm:text-sm max-[360px]:text-[0.62rem]",
                       active && "text-foreground",
                     )}
                     aria-current={active ? "location" : undefined}

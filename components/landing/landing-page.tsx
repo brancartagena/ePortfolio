@@ -51,18 +51,18 @@ export function LandingPage() {
         <Navbar items={navItems} activeHref="#work" />
 
       <main id="main-content" tabIndex={-1}>
-        <section className="relative min-h-dvh overflow-hidden pt-28 sm:pt-36 lg:pt-40 xl:pt-44">
+        <section className="relative min-h-dvh overflow-hidden pt-24 sm:pt-36 lg:pt-40 xl:pt-44">
           <div className="absolute inset-0 bg-background" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,hsl(var(--accent)/0.1),transparent_40%)]" />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
           <div className="absolute left-1/2 top-24 h-px w-[84vw] -translate-x-1/2 bg-white/12" />
 
-          <Container className="relative z-10 flex min-h-[calc(100dvh-10rem)] items-center">
+          <Container className="relative z-10 flex min-h-[calc(100dvh-7rem)] items-center sm:min-h-[calc(100dvh-10rem)]">
             <motion.div
               variants={staggerContainer}
               initial={shouldReduceMotion ? false : "hidden"}
               animate={shouldReduceMotion ? undefined : "visible"}
-              className="max-w-5xl space-y-8 xl:max-w-[54rem]"
+              className="max-w-5xl space-y-6 sm:space-y-8 xl:max-w-[54rem]"
             >
               <motion.div variants={fadeUp}>
                 <Eyebrow className="text-premium-gold">
@@ -71,7 +71,7 @@ export function LandingPage() {
               </motion.div>
               <motion.h1
                 variants={fadeUp}
-                className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
+                className="text-balance text-[2.625rem] font-semibold leading-[0.94] tracking-[-0.035em] text-foreground sm:text-6xl sm:leading-[0.9] md:text-7xl lg:text-8xl"
               >
                 I design{" "}
                 <span className="relative inline-block text-premium-gold">
@@ -85,7 +85,7 @@ export function LandingPage() {
               </motion.h1>
               <motion.p
                 variants={fadeUp}
-                className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
+                className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8 lg:text-lg lg:max-w-3xl"
               >
                 I&apos;m Brandon Cartagena, an Information Science graduate who enjoys shaping digital products from early research and concepts through to a working web experience.
               </motion.p>
@@ -205,7 +205,7 @@ export function LandingPage() {
               whileInView={shouldReduceMotion ? undefined : "visible"}
               viewport={{ once: true, margin: "-12% 0px" }}
             >
-              <SurfaceCard className="p-6 sm:p-8">
+              <SurfaceCard className="p-5 sm:p-8">
                 <p className="text-[15px] font-normal leading-8 text-foreground sm:text-[16px]">
                   I&apos;m an Information Science graduate from the University of Maryland with a minor in Data Science. I enjoy turning a clear problem into an experience people can understand, then carrying it through design and implementation.
                 </p>
@@ -240,7 +240,7 @@ export function LandingPage() {
             whileInView={shouldReduceMotion ? undefined : "visible"}
             viewport={{ once: true, margin: "-12% 0px" }}
           >
-            <SurfaceCard className="p-8 sm:p-10 lg:p-12">
+            <SurfaceCard className="p-5 sm:p-10 lg:p-12">
               <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.8fr)] lg:items-center lg:gap-12">
                 <div className="space-y-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.12em] text-premium-silver">

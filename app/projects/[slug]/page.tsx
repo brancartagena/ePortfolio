@@ -84,9 +84,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     <main data-project-detail id="main-content" tabIndex={-1} className="min-h-dvh bg-background text-foreground">
       {/* Global page entrance and scroll animations for this project detail route. */}
       <ProjectDetailAnimations />
-      <div className="grid min-h-dvh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+      <div className="grid min-h-dvh grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
         {/* Project artwork stays visible while the case study is read. */}
-        <aside className="relative min-h-[62dvh] overflow-hidden bg-secondary sm:min-h-[68dvh] lg:sticky lg:top-0 lg:h-dvh">
+        <aside className="relative min-h-[42svh] max-h-[26rem] min-w-0 overflow-hidden bg-secondary sm:min-h-[50svh] sm:max-h-[32rem] lg:sticky lg:top-0 lg:h-dvh lg:max-h-none">
           {isStreamTrendr ? (
             <div
               data-gsap="image"
@@ -117,9 +117,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           )}
         </aside>
 
-        <section className="relative px-4 py-6 sm:px-6 sm:py-8 lg:-ml-10 lg:flex lg:min-h-dvh lg:items-start lg:px-8 lg:py-12">
+        <section className="relative min-w-0 px-4 py-6 sm:px-6 sm:py-8 lg:-ml-10 lg:flex lg:min-h-dvh lg:items-start lg:px-8 lg:py-12">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,hsl(var(--accent)/0.12),transparent_30%)]" />
-          <article className="surface-panel relative z-10 mx-auto w-full max-w-3xl rounded-lg p-5 sm:p-7 lg:my-8 lg:p-10">
+          <article className="surface-panel relative z-10 mx-auto w-full max-w-3xl rounded-lg p-4 sm:p-7 lg:my-8 lg:p-10">
             <div className="mb-8 flex flex-wrap gap-3 sm:mb-10">
               {/* Primary actions for navigating away or viewing the project externally. */}
               <Button asChild variant="secondary" size="sm" data-gsap="button">
@@ -181,7 +181,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               </div>
             </header>
 
-            <div className="space-y-8 py-8 sm:space-y-10 sm:py-10 lg:space-y-11 lg:py-11">
+            <div className="space-y-7 py-7 sm:space-y-10 sm:py-10 lg:space-y-11 lg:py-11">
               <section
                 data-gsap="section"
                 className="grid gap-4 sm:grid-cols-[180px_1fr]"
