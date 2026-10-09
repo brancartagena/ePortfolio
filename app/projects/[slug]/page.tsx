@@ -52,13 +52,16 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   }
 
   // Build a list of detail sections for the case study layout.
-  const detailSections = [
+  const leadDetailSections = [
     ["Problem", project.problem],
     ["Solution", project.solution],
     ["My Role", project.role],
+    ["Results", project.results],
+  ] as const;
+
+  const supportingDetailSections = [
     ["Challenges", project.challenges],
     ["Lessons Learned", project.lessons],
-    ["Results", project.results],
   ] as const;
 
   // Screenshots are read from public/assets/images/projects/<slug>/ at build time,
@@ -121,7 +124,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             className="absolute inset-x-4 bottom-4 rounded-lg border border-white/12 bg-background/90 p-4 sm:inset-x-6 sm:bottom-6 sm:p-5 lg:inset-x-8 lg:bottom-8 lg:p-6"
           >
             <Eyebrow>{project.category}</Eyebrow>
-            <h1 className="mt-3 text-balance text-5xl font-semibold leading-[0.92] tracking-[-0.03em] sm:text-6xl">
+            <h1 className="mt-3 break-words text-balance text-4xl font-semibold leading-[0.92] tracking-[-0.03em] sm:text-6xl">
               {project.title}
             </h1>
           </div>
@@ -133,9 +136,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             <div className="mb-8 flex flex-wrap gap-3 sm:mb-10">
               {/* Primary actions for navigating away or viewing the project externally. */}
               <Button asChild variant="secondary" size="sm" data-gsap="button">
-                <Link href="/">
+                <Link href="/#work">
                   <ArrowLeft className="size-4" aria-hidden="true" />
-                  <span>Back</span>
+                  <span>Back to projects</span>
                 </Link>
               </Button>
               <Button asChild variant="secondary" size="sm" data-gsap="button">
@@ -156,7 +159,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
             <header data-gsap="text" className="space-y-5 border-b border-white/12 pb-8 sm:space-y-6 sm:pb-10">
               <Eyebrow>Case Study</Eyebrow>
-              <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
+              <h2 className="break-words text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
                 {project.title}
               </h2>
               <p className="max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
@@ -177,22 +180,34 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 </p>
               </section>
 
+              {leadDetailSections.map(([title, body]) => (
+                <section
+                  key={title}
+                  data-gsap="section"
+                  className="grid gap-3 sm:grid-cols-[140px_1fr] lg:grid-cols-[180px_1fr]"
+                >
+                  <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
+                    {title}
+                  </h3>
+                  <p data-gsap="text" className="text-base leading-8 text-foreground/82">
+                    {body}
+                  </p>
+                </section>
+              ))}
+
               <section data-gsap="section" className="space-y-5">
                 <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
                   <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-premium-silver">
                     Gallery
                   </h3>
                   <p data-gsap="text" className="text-base leading-8 text-foreground/82">
-                    Large screenshots, wireframes, UI designs, and process
-                    images from the project direction.
+                    Screenshots and design artifacts from the project.
                   </p>
                 </div>
-                {/* The gallery component shows clickable preview cards for this project. */}
                 <ProjectGallery items={galleryItems} />
               </section>
 
-              {/* Render each case study detail section from the project data array. */}
-              {detailSections.map(([title, body]) => (
+              {supportingDetailSections.map(([title, body]) => (
                 <section
                   key={title}
                   data-gsap="section"

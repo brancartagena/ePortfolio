@@ -29,6 +29,31 @@ const IMAGE_EXTENSIONS = new Set([
 // A file named cover.* is the project's hero image, not a gallery tile.
 const COVER_BASENAME = "cover";
 
+const GALLERY_LABELS: Record<string, string> = {
+  "home-terpcreative": "Home",
+  "creative-profile": "Creative Profile",
+  "event-profile": "Event Profile",
+  "market-page": "Marketplace",
+  "market-edit": "Marketplace Editor",
+  "sell-page": "Sell Listing",
+  "van-gogh-page": "Van Gogh Event",
+  "calender-page": "Calendar",
+  filmspage: "Films",
+  seriespage: "Series",
+  animepage: "Anime",
+  kdramapage: "K-drama",
+  searchpage: "Search",
+  detailpage: "Title Details",
+  figma: "Figma Prototype",
+  homepage: "Home",
+  intro: "Introduction",
+  favorites: "Favorites",
+  accountpage: "Account",
+  priceplan: "Pricing Plan",
+  gameoftheyearpage: "Game of the Year",
+  gamepage: "Game Details",
+};
+
 type GallerySize = NonNullable<ProjectGalleryItem["size"]>;
 
 const GALLERY_SIZES: GallerySize[] = ["large", "wide", "tall", "standard"];
@@ -55,6 +80,25 @@ function readProjectImageFiles(slug: string) {
 
 function fileBasename(file: string) {
   return path.basename(file, path.extname(file)).toLowerCase();
+}
+
+function resolveGalleryLabel(file: string, title: string) {
+  let basename = fileBasename(file).replace(/^\d+[-_]+/, "");
+  const projectPrefix = title.replace(/[^a-z0-9]/gi, "");
+
+  if (basename.startsWith(projectPrefix.toLowerCase())) {
+    basename = basename.slice(projectPrefix.length).replace(/^[-_]+/, "");
+  }
+
+  basename = basename.replace(/--(large|wide|tall|standard)$/, "");
+
+  return (
+    GALLERY_LABELS[basename] ??
+    basename
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .replace(/[-_]+/g, " ")
+      .replace(/\b\w/g, (character) => character.toUpperCase())
+  );
 }
 
 /**
@@ -162,11 +206,12 @@ export function getProjectGallery({
     const dimensions = preserveAspectRatio
       ? readPngDimensions(path.join(PROJECTS_IMAGE_DIRECTORY, slug, file))
       : null;
+    const label = resolveGalleryLabel(file, title);
 
     return {
       src: `${PROJECTS_PUBLIC_PATH}/${slug}/${file}`,
-      alt: `${title} gallery image ${index + 1}`,
-      label: `Gallery ${index + 1}`,
+      alt: `${title} ${label}`,
+      label,
       size: resolveGallerySize(file, index),
       width: dimensions?.width,
       height: dimensions?.height,

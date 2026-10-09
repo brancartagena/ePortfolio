@@ -78,7 +78,7 @@ export function ProjectGallery({ items, className }: ProjectGalleryProps) {
               src={item.src}
               alt={item.alt}
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="(min-width: 1024px) 320px, 92vw"
             />
             <span className="absolute inset-0 bg-gradient-to-t from-background/72 via-background/10 to-transparent" />

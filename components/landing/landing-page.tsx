@@ -63,19 +63,19 @@ export function LandingPage() {
               className="max-w-5xl space-y-8"
             >
               <motion.div variants={fadeUp}>
-                <Eyebrow>DATA ANALYTICS / UX/UI / CYBERSECURITY &amp; IT</Eyebrow>
+                <Eyebrow>INFORMATION SCIENCE · DATA SCIENCE</Eyebrow>
               </motion.div>
               <motion.h1
                 variants={fadeUp}
                 className="text-balance text-5xl font-semibold leading-[0.9] tracking-[-0.035em] text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
               >
-                Building at the intersection of data, design, and technology.
+                I design and build useful digital experiences.
               </motion.h1>
               <motion.p
                 variants={fadeUp}
                 className="max-w-2xl text-sm leading-8 text-muted-foreground sm:text-base lg:text-lg lg:max-w-3xl"
               >
-                I&apos;m Brandon, a University of Maryland Information Science graduate with a Data Science minor. I&apos;m interested in data analytics, UX/UI, and cybersecurity/IT, and many of the projects here connect more than one of those areas.
+                I&apos;m Brandon, a University of Maryland Information Science graduate with a Data Science minor. This portfolio shows my work in UX research, product design, and web development. I&apos;m also pursuing entry-level opportunities in data analytics and cybersecurity/IT.
               </motion.p>
             </motion.div>
           </Container>
@@ -93,7 +93,7 @@ export function LandingPage() {
               <SectionTitle
                 eyebrow="My proud projects"
                 title="Showing off my work."
-                description="Most of these projects began as coursework, with each giving me a different problem to work through. The case studies explain the context, my contribution, and what I learned."
+                description="These projects show my current experience in UX research, product design, and web development. Each case study explains the problem, my contribution, and what the work achieved."
               />
             </motion.div>
 

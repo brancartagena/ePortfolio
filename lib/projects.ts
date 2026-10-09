@@ -23,7 +23,7 @@ export const projects: ProjectDetail[] = [
     id: "terrapin-creatives",
     slug: "terrapin-creatives",
     title: "TerrapinCreatives",
-    category: "UI/UX Research & Design",
+    category: "UX Research & Interface Design",
     year: 2025,
     image: "/assets/images/projects/terrapin-creatives/cover.png",
     description:
@@ -50,7 +50,7 @@ export const projects: ProjectDetail[] = [
     id: "game-rate",
     slug: "game-rate",
     title: "GameRate",
-    category: "UI/UX Design",
+    category: "Product Design",
     year: 2024,
     image: "/assets/images/projects/game-rate/cover.png",
     description:
@@ -75,7 +75,7 @@ export const projects: ProjectDetail[] = [
     id: "tick-yaza",
     slug: "tick-yaza",
     title: "Tick Yaza",
-    category: "Product Strategy & Design",
+    category: "Product Strategy & UX Design",
     year: 2023,
     image: "/assets/images/projects/tick-yaza/cover.png",
     description:
@@ -101,7 +101,7 @@ export const projects: ProjectDetail[] = [
     id: "stream-trendr",
     slug: "stream-trendr",
     title: "StreamTrendr",
-    category: "Website & Visual Design",
+    category: "Full-Stack Web Development",
     year: 2026,
     image: "/assets/images/projects/stream-trendr/cover.png",
     description:
